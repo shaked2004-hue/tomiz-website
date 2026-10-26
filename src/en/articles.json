@@ -1,0 +1,51 @@
+[
+ {
+  "id": "third-time",
+  "tag": "Knowledge transfer",
+  "title": "The third-time rule",
+  "teaser": "How to decide which knowledge needs to leave someone's head and become a short training.",
+  "body": "<p>The first time someone asks you how to do something, answer.</p><p>The second time, answer again. People forget. That's fine.</p><p>The third time, stop answering and start capturing.</p><p>That's the rule I use to decide which knowledge has to leave someone's head and become a micro-training: a 1-minute video, a checklist, a one-page guide.</p><h2>Why the third time?</h2><p>One question is a moment. Three is a pattern. And a pattern means the next ten people will ask the same thing.</p><p>Most organizations try to document everything at once and end up with a wiki nobody reads. The third-time rule does the opposite: it captures only what people actually need, in the order they need it.</p><blockquote>What's the question you've answered three times this month?</blockquote>"
+ },
+ {
+  "id": "ai-interview",
+  "tag": "AI in training",
+  "title": "Don't ask AI to write the training. Ask it to interview the expert",
+  "teaser": "One prompt that draws out the steps your expert no longer sees.",
+  "body": "<p>The hardest part of building training isn't writing it. It's getting the knowledge out of the expert's head.</p><p>Experts skip steps they've done a thousand times. Not on purpose. They just don't see them anymore.</p><p>So flip it. Don't ask AI to write the training. Ask it to interview the expert.</p><h2>Try this prompt</h2><blockquote>You are an instructional designer. Interview me about how I do [task]. Ask one question at a time. Push for the steps I might skip, the mistakes beginners make, and the moments where I make a judgment call. After 10 questions, summarize the process as a step-by-step outline.</blockquote><p>Ten minutes later you have what a blank page never gives you: the hidden steps.</p><p>The expert brings the knowledge. AI brings the questions. You bring the structure.</p>"
+ },
+ {
+  "id": "onboarding",
+  "tag": "Onboarding",
+  "title": "Your onboarding isn't too short. It's too heavy",
+  "teaser": "Why 80 pages of procedures don't stick, and what works better.",
+  "body": "<p>Day one: a stack of procedures to read. Day two: shadowing. Day three: \"Any questions?\"</p><p>Nobody remembers 80 pages of procedures. Not after two days, and not after three months.</p><p>The fix isn't shorter content. It's a different order.</p><h2>What works better is almost boring</h2><ol><li>One small, real task.</li><li>Only the knowledge needed to do that task.</li><li>Do it in the field, then get feedback.</li><li>Then the next task.</li></ol><p>People learn from doing, not from reading binders. Micro-learning isn't about cutting a 60-minute module into six 10-minute ones. It's about sequencing knowledge in the order the work actually happens.</p><h2>How to start</h2><p>List the first five tasks a new hire really does. For each one, ask what they need to know before they can do it, and nothing more. That list is your onboarding plan.</p>"
+ },
+ {
+  "id": "procedure",
+  "tag": "AI tip",
+  "title": "A procedure without the headache",
+  "teaser": "Three steps from a phone recording to an organized work guide.",
+  "body": "<p>Need to write a procedure or a guide and can't face starting from a blank page?</p><ol><li>Start a recording on your phone and explain the process, step by step.</li><li>Upload the recording to your AI tool and ask for a transcript.</li><li>Ask: \"Turn this into an organized work guide, in clear bullet points.\"</li></ol><p>Within a minute or two you have an outline, and you build from there.</p>"
+ },
+ {
+  "id": "productivity",
+  "tag": "Future of work",
+  "title": "The productivity illusion",
+  "teaser": "We were promised AI would save us time. So why are we all working more?",
+  "body": "<p>We were promised AI would save us time. So why are we all working more?</p><p>If a presentation used to take two days, today people expect three in a day. The technology really does save time, but the market's standard just jumped up.</p><p>The most critical skill now isn't doing things faster. It's knowing how to set boundaries and choose what not to spend your time on.</p>"
+ },
+ {
+  "id": "one-employee",
+  "tag": "Organizational knowledge",
+  "title": "When everything depends on one employee",
+  "teaser": "It looks like an asset. In practice, it's a risk.",
+  "body": "<p>Do you have one employee everyone turns to?</p><p>It looks like an asset. In practice, it's a risk. When all the knowledge and experience is buried with one person, everyone queues up at their desk and the business depends on them.</p><p>The goal isn't to clone the person. The goal is to turn their knowledge into a system: simple decision aids in the field that let more people reach the same level of performance.</p>"
+ },
+ {
+  "id": "slides",
+  "tag": "Presentations",
+  "title": "Slides that put people to sleep? Here's the fix",
+  "teaser": "Three simple rules for every slide.",
+  "body": "<p>40 slides, a million lines, a tiny font. We've all sat through a training like that.</p><h2>The simplest trick to upgrade any presentation</h2><ol><li>One key message per slide.</li><li>An image or icon that supports it.</li><li>Three standout words, no more.</li></ol><p>And most important: your slides aren't your teleprompter. They're the set and the support for what you have to say.</p>"
+ }
+]

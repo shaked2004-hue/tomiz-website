@@ -164,7 +164,7 @@ article.post .wrap{padding-block:48px 72px}
 article.post p{margin-top:18px;font-size:18px}
 article.post h2{font-size:24px;font-weight:800;margin-top:36px}
 article.post ol,article.post ul{font-size:18px;padding-inline-start:24px;margin:16px 0 0;display:grid;gap:8px}
-article.post blockquote{margin:24px 0 0;padding:18px 22px;border-inline-start:4px solid var(--pink);background:var(--tint);border-radius:0 12px 12px 0;font-size:17px}
+article.post blockquote{margin:24px 0 0;padding:18px 22px;border-inline-start:4px solid var(--pink);background:var(--tint);border-radius:0;border-start-end-radius:12px;border-end-end-radius:12px;font-size:17px}
 article.post .src{margin-top:36px;font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
 .back{display:inline-block;margin-top:28px;font-weight:700;color:var(--link);text-decoration:none}
 
@@ -283,3 +283,13 @@ button[disabled]{opacity:.6;cursor:progress}
 .talks-grid{grid-template-columns:repeat(3,1fr)}
 @media (max-width:1000px){.talks-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:640px){.talks-grid{grid-template-columns:1fr}}
+
+/* English (LTR) pages */
+[dir="ltr"] body{direction:ltr}
+[dir="ltr"] .path-list a:hover i{transform:translateX(5px)}
+@media (min-width:861px){
+  [dir="ltr"] .rail{left:auto;right:max(14px,env(safe-area-inset-right,0px))}
+  [dir="ltr"] .rail span{left:auto;right:52px;transform:translateX(6px)}
+  [dir="ltr"] .rail a:hover span,[dir="ltr"] .rail a:focus-visible span{transform:none}
+}
+@media (max-width:1240px) and (min-width:861px){[dir="ltr"] .rail{left:auto;right:6px}}
