@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body id="top">
+<a class="skip" href="#main">דילוג לתוכן</a>
 <header>
   <div class="wrap">
     <a href="/" aria-label="TomiZ דף הבית"><img src="/assets/logo_light.png" width="136" height="40" alt="TomiZ Unboxing Knowledge"></a>
@@ -40,10 +41,11 @@
   <a href="/blog/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5zM8 10h8M8 14h8M8 18h5"/></svg><span>טיפים</span></a>
   <a href="/ai-dictionary/" class="rail-hide-m"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2zM4 21V5M9 8h6"/></svg><span>מילון AI</span></a>
   <a href="#contact" class="rail-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg><span>צרו קשר</span></a>
+  <button type="button" class="a11y-btn" aria-expanded="false" aria-controls="a11y-panel"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.5" r="1.8"/><path d="M5 8.5l7 1.5 7-1.5M12 10v5M12 15l-3.5 6M12 15l3.5 6"/></svg><span>נגישות</span></button>
   <a href="#top" class="rail-hide-m"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg><span>למעלה</span></a>
 </nav>
 
-<main>
+<main id="main" tabindex="-1">
 <div class="view"><article class="post"><section class="page-head"><div class="wrap narrow"><div class="crumbs"><a href="/">ראשי</a> / <a href="/blog/">בינה בתבונה</a></div><div class="eyebrow" style="color:var(--pink-soft)">מצגות</div><h1>מצגות שמרדימות? כך מתקנים</h1></div><svg class="wave" viewBox="0 0 1440 56" preserveAspectRatio="none" aria-hidden="true" style="color:var(--bg)"><path fill="currentColor" d="M0 56V28C240 0 480 0 720 22s480 34 720 6v28z"/></svg></section><div class="wrap narrow"><p>40 שקפים, מיליון שורות, פונט קטנטן. כולנו ישבנו בהדרכה כזאת.</p><h2>הטריק הכי פשוט לשדרג כל מצגת</h2><ol><li>מסר מרכזי אחד בכל שקף.</li><li>תמונה או אייקון שתומכים בו.</li><li>שלוש מילים בולטות, לא יותר.</li></ol><p>והכי חשוב: המצגת היא לא הפרומפטר שלכם. היא התפאורה וכלי העזר למה שיש לכם להגיד.</p><a class="back" href="/blog/">→ לכל הטיפים</a></div></article></div>
 </main>
 <section class="contact" id="contact">
@@ -52,7 +54,7 @@
       <div class="eyebrow" style="color:var(--pink-soft)">בואו נדבר</div>
       <h2>השאירו פרטים ואחזור אליכם</h2>
       <p class="sub">שאלה, רעיון לשיתוף פעולה, סדנה, הרצאה או ליווי: ספרו לי בקצרה, ואחזור אליכם בהקדם.</p>
-      <div class="lines"><span>office@tomizs.com</span><span dir="ltr" style="text-align:right">052-5012413</span></div>
+      <div class="lines"><a href="mailto:office@tomizs.com">office@tomizs.com</a><a href="tel:+972525012413" dir="ltr" style="text-align:right">052-5012413</a></div>
     </div>
     <form id="lead" data-source="טופס צור קשר" novalidate class="reveal d1">
       <label for="f-name">שם<input id="f-name" name="name" autocomplete="name" required></label>

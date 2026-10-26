@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body id="top">
+<a class="skip" href="#main">Skip to content</a>
 <header>
   <div class="wrap">
     <a href="/en/" aria-label="TomiZ home"><img src="/assets/logo_light.png" width="136" height="40" alt="TomiZ Unboxing Knowledge"></a>
@@ -40,10 +41,11 @@
   <a href="/en/talks/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 013 3v5a3 3 0 01-6 0V6a3 3 0 013-3zM5 11a7 7 0 0014 0M12 18v3"/></svg><span>Talks</span></a>
   <a href="/en/blog/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5zM8 10h8M8 14h8M8 18h5"/></svg><span>Tips</span></a>
   <a href="#contact" class="rail-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg><span>Contact</span></a>
+  <button type="button" class="a11y-btn" aria-expanded="false" aria-controls="a11y-panel"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.5" r="1.8"/><path d="M5 8.5l7 1.5 7-1.5M12 10v5M12 15l-3.5 6M12 15l3.5 6"/></svg><span>Accessibility</span></button>
   <a href="#top" class="rail-hide-m"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg><span>Top</span></a>
 </nav>
 
-<main>
+<main id="main" tabindex="-1">
 <div class="view"><article class="post"><section class="page-head"><div class="wrap narrow"><div class="crumbs"><a href="/en/">Home</a> / <a href="/en/blog/">Smart AI</a></div><div class="eyebrow" style="color:var(--pink-soft)">AI in training</div><h1>Don't ask AI to write the training. Ask it to interview the expert</h1></div><svg class="wave" viewBox="0 0 1440 56" preserveAspectRatio="none" aria-hidden="true" style="color:var(--bg)"><path fill="currentColor" d="M0 56V28C240 0 480 0 720 22s480 34 720 6v28z"/></svg></section><div class="wrap narrow"><p>The hardest part of building training isn't writing it. It's getting the knowledge out of the expert's head.</p><p>Experts skip steps they've done a thousand times. Not on purpose. They just don't see them anymore.</p><p>So flip it. Don't ask AI to write the training. Ask it to interview the expert.</p><h2>Try this prompt</h2><blockquote>You are an instructional designer. Interview me about how I do [task]. Ask one question at a time. Push for the steps I might skip, the mistakes beginners make, and the moments where I make a judgment call. After 10 questions, summarize the process as a step-by-step outline.</blockquote><p>Ten minutes later you have what a blank page never gives you: the hidden steps.</p><p>The expert brings the knowledge. AI brings the questions. You bring the structure.</p><a class="back" href="/en/blog/">← All tips</a></div></article></div>
 </main>
 <section class="contact" id="contact">
@@ -52,7 +54,7 @@
       <div class="eyebrow" style="color:var(--pink-soft)">Let's talk</div>
       <h2>Leave your details and I'll get back to you</h2>
       <p class="sub">A question, a collaboration idea, a workshop, a talk or support for your experts: tell me briefly and I'll get back to you soon.</p>
-      <div class="lines"><span>office@tomizs.com</span><span dir="ltr">+972-52-5012413</span></div>
+      <div class="lines"><a href="mailto:office@tomizs.com">office@tomizs.com</a><a href="tel:+972525012413" dir="ltr">+972-52-5012413</a></div>
     </div>
     <form id="lead" data-source="Contact form (EN)" novalidate class="reveal d1">
       <label for="f-name">Name<input id="f-name" name="name" autocomplete="name" required></label>

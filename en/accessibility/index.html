@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body id="top">
+<a class="skip" href="#main">Skip to content</a>
 <header>
   <div class="wrap">
     <a href="/en/" aria-label="TomiZ home"><img src="/assets/logo_light.png" width="136" height="40" alt="TomiZ Unboxing Knowledge"></a>
@@ -40,10 +41,11 @@
   <a href="/en/talks/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 013 3v5a3 3 0 01-6 0V6a3 3 0 013-3zM5 11a7 7 0 0014 0M12 18v3"/></svg><span>Talks</span></a>
   <a href="/en/blog/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5zM8 10h8M8 14h8M8 18h5"/></svg><span>Tips</span></a>
   <a href="#contact" class="rail-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg><span>Contact</span></a>
+  <button type="button" class="a11y-btn" aria-expanded="false" aria-controls="a11y-panel"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.5" r="1.8"/><path d="M5 8.5l7 1.5 7-1.5M12 10v5M12 15l-3.5 6M12 15l3.5 6"/></svg><span>Accessibility</span></button>
   <a href="#top" class="rail-hide-m"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg><span>Top</span></a>
 </nav>
 
-<main>
+<main id="main" tabindex="-1">
 <div class="view" data-view="accessibility">
   <section class="page-head"><div class="wrap narrow">
     <div class="crumbs"><a href="/en/">Home</a> / Accessibility</div>
@@ -51,7 +53,7 @@
   </div><svg class="wave" viewBox="0 0 1440 56" preserveAspectRatio="none" aria-hidden="true" style="color:var(--bg)"><path fill="currentColor" d="M0 56V28C240 0 480 0 720 22s480 34 720 6v28z"/></svg></section>
   <article class="post"><div class="wrap narrow">
     <p>It matters to me that everyone who visits this site can use it comfortably. The site was built to follow the WCAG 2.1 AA accessibility guidelines as closely as possible:</p>
-    <ul><li>A clear heading structure and full keyboard navigation, with a visible focus indicator.</li><li>Sufficient color contrast and resizable text.</li><li>Alternative text for images and labels for every form field.</li><li>Respect for the operating system's "reduce motion" setting: animations are turned off.</li></ul>
+    <ul><li>A clear heading structure and full keyboard navigation, with a visible focus indicator.</li><li>Sufficient color contrast and resizable text.</li><li>Alternative text for images and labels for every form field.</li><li>Respect for the operating system's "reduce motion" setting: animations are turned off.</li><li>An accessibility menu in the side bar: larger text, high contrast, link highlighting, a readable font and stopping animations.</li><li>A "Skip to content" link at the start of every page.</li></ul>
     <h2>Found a problem?</h2>
     <p>If something on the site isn't accessible to you, I'd be glad to hear about it and fix it: office@tomizs.com · +972-52-5012413.</p>
   </div></article>
@@ -64,7 +66,7 @@
       <div class="eyebrow" style="color:var(--pink-soft)">Let's talk</div>
       <h2>Leave your details and I'll get back to you</h2>
       <p class="sub">A question, a collaboration idea, a workshop, a talk or support for your experts: tell me briefly and I'll get back to you soon.</p>
-      <div class="lines"><span>office@tomizs.com</span><span dir="ltr">+972-52-5012413</span></div>
+      <div class="lines"><a href="mailto:office@tomizs.com">office@tomizs.com</a><a href="tel:+972525012413" dir="ltr">+972-52-5012413</a></div>
     </div>
     <form id="lead" data-source="Contact form (EN)" novalidate class="reveal d1">
       <label for="f-name">Name<input id="f-name" name="name" autocomplete="name" required></label>

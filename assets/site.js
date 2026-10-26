@@ -68,3 +68,134 @@ lm?.addEventListener('submit', async e => {
   }, note);
   if (ok) { lm.hidden = true; document.getElementById('lm-done').hidden = false; }
 });
+
+// ---- accessibility menu: text size, contrast, link highlight, readable font, stop motion ----
+(function a11y() {
+  const btn = document.querySelector('.a11y-btn');
+  if (!btn) return;
+  const L = EN ? { title: 'Accessibility', size: 'Text size', contrast: 'High contrast', links: 'Highlight links', readable: 'Readable font', still: 'Stop animations', reset: 'Reset', close: 'Close', stmt: 'Accessibility statement', bigger: 'Larger text', smaller: 'Smaller text' }
+               : { title: 'נגישות', size: 'גודל טקסט', contrast: 'ניגודיות גבוהה', links: 'הדגשת קישורים', readable: 'גופן קריא', still: 'עצירת אנימציות', reset: 'איפוס', close: 'סגירה', stmt: 'הצהרת נגישות', bigger: 'הגדלת טקסט', smaller: 'הקטנת טקסט' };
+  const store = { get() { try { return JSON.parse(localStorage.getItem('tomiz-a11y')) || {}; } catch (e) { return {}; } },
+                  set(v) { try { localStorage.setItem('tomiz-a11y', JSON.stringify(v)); } catch (e) {} } };
+  const MODES = ['contrast', 'links', 'readable', 'still'];
+  let st = store.get();
+  const apply = () => {
+    const c = document.documentElement.classList;
+    MODES.forEach(m => c.toggle('a11y-' + m, !!st[m]));
+    [1, 2, 3].forEach(n => c.toggle('a11y-fs' + n, st.fs === n));
+  };
+  apply();
+  const panel = document.createElement('div');
+  panel.className = 'a11y-panel'; panel.id = 'a11y-panel'; panel.hidden = true;
+  panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', L.title);
+  panel.innerHTML = `<h2>${L.title}<button type="button" class="x" aria-label="${L.close}">×</button></h2>
+    <div class="sz"><span>${L.size}</span><button type="button" data-fs="-1" aria-label="${L.smaller}">A−</button><button type="button" data-fs="1" aria-label="${L.bigger}">A+</button></div>
+    <div class="grid">${MODES.map(m => `<button type="button" class="opt" data-m="${m}" aria-pressed="${!!st[m]}">${L[m]}</button>`).join('')}
+    <button type="button" class="opt reset">${L.reset}</button></div>
+    <a class="stmt" href="${EN ? '/en/accessibility/' : '/accessibility/'}">${L.stmt}</a>`;
+  document.body.appendChild(panel);
+  const open = v => { panel.hidden = !v; btn.setAttribute('aria-expanded', v); if (v) panel.querySelector('button').focus(); };
+  btn.addEventListener('click', () => open(panel.hidden));
+  panel.querySelector('.x').addEventListener('click', () => { open(false); btn.focus(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) { open(false); btn.focus(); } });
+  document.addEventListener('click', e => { if (!panel.hidden && !panel.contains(e.target) && !btn.contains(e.target)) open(false); });
+  panel.addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    if (b.dataset.fs) st.fs = Math.max(0, Math.min(3, (st.fs || 0) + +b.dataset.fs));
+    else if (b.dataset.m) { st[b.dataset.m] = !st[b.dataset.m]; b.setAttribute('aria-pressed', st[b.dataset.m]); }
+    else if (b.classList.contains('reset')) { st = {}; panel.querySelectorAll('[data-m]').forEach(x => x.setAttribute('aria-pressed', 'false')); }
+    else return;
+    store.set(st); apply();
+  });
+})();
+
+// ---- mark the current page in the rail ----
+document.querySelectorAll('.rail a[href^="/"]').forEach(a => {
+  const h = a.getAttribute('href');
+  if (h.length > 4 && location.pathname.startsWith(h)) a.setAttribute('aria-current', 'page');
+});
+
+// ---- "ask about this": prefill the contact form from a talk or service card ----
+(function ask() {
+  const form = document.getElementById('lead');
+  const cards = document.querySelectorAll('.talk-card, .service');
+  if (!form || !cards.length) return;
+  cards.forEach(card => {
+    const title = card.querySelector('h3, h2')?.textContent.trim();
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'ask';
+    b.textContent = EN ? 'Ask about this →' : 'לפרטים ותיאום ←';
+    b.addEventListener('click', () => {
+      const talk = /הרצאה|Talk/.test(card.querySelector('.tag, .k')?.textContent || '');
+      form.type.selectedIndex = card.classList.contains('service') ? 1 : talk ? 2 : 1;
+      form.msg.value = (EN ? "I'd like to hear more about: " : 'אשמח לשמוע עוד על: ') + title;
+      document.getElementById('contact').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      form.classList.remove('flash'); void form.offsetWidth; form.classList.add('flash');
+      setTimeout(() => form.name.focus({ preventScroll: true }), 600);
+    });
+    (card.querySelector('.body') || card).appendChild(b);
+  });
+})();
+
+// ---- talks page: filter talks vs. workshops ----
+(function filters() {
+  const grid = document.querySelector('.talks-grid');
+  if (!grid) return;
+  const cards = [...grid.querySelectorAll('.talk-card')];
+  const kinds = [...new Set(cards.map(c => c.querySelector('.tag').textContent.trim()))];
+  const bar = document.createElement('div');
+  bar.className = 'chips'; bar.setAttribute('role', 'group'); bar.setAttribute('aria-label', EN ? 'Filter' : 'סינון');
+  const all = EN ? 'All' : 'הכל';
+  const labels = { 'הרצאה': 'הרצאות', 'סדנה': 'סדנאות', 'Talk': 'Talks', 'Workshop': 'Workshops' };
+  [all, ...kinds].forEach((k, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = labels[k] || k; b.setAttribute('aria-pressed', i === 0);
+    b.addEventListener('click', () => {
+      bar.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+      cards.forEach(c => c.classList.toggle('is-hidden', k !== all && c.querySelector('.tag').textContent.trim() !== k));
+    });
+    bar.appendChild(b);
+  });
+  grid.before(bar);
+})();
+
+// ---- articles: reading progress bar + copy button for prompts ----
+(function article() {
+  const post = document.querySelector('article.post .back') && document.querySelector('article.post');
+  if (!post) return;
+  const bar = document.createElement('div');
+  bar.className = 'progress'; bar.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(bar);
+  const upd = () => {
+    const r = post.getBoundingClientRect();
+    bar.style.transform = `scaleX(${Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - innerHeight)))})`;
+  };
+  addEventListener('scroll', upd, { passive: true }); upd();
+  post.querySelectorAll('blockquote').forEach(q => {
+    if (q.textContent.length < 120 || !navigator.clipboard) return;
+    const text = q.textContent;
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'copy'; b.textContent = EN ? 'Copy prompt' : 'העתקת הפרומפט';
+    b.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(text); b.textContent = EN ? 'Copied ✓' : 'הועתק ✓'; } catch (e) {}
+      setTimeout(() => b.textContent = EN ? 'Copy prompt' : 'העתקת הפרומפט', 2000);
+    });
+    q.appendChild(b);
+  });
+})();
+
+// ---- hero: the unboxing graphic leans gently toward the pointer ----
+(function hero() {
+  const svg = document.querySelector('.hero .unbox svg');
+  if (!svg || matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(pointer:fine)').matches) return;
+  const hero = svg.closest('.hero');
+  svg.style.transition = 'transform .4s ease-out';
+  hero.addEventListener('pointermove', e => {
+    if (document.documentElement.classList.contains('a11y-still')) return;
+    const r = hero.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    svg.style.transform = `perspective(600px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) translate(${x * 10}px,${y * 10}px)`;
+  });
+  hero.addEventListener('pointerleave', () => svg.style.transform = '');
+})();

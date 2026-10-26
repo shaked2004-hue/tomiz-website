@@ -109,8 +109,9 @@ def page(body, title, desc, path, nav, lang='he', image='/assets/og.png'):
 <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body id="top">
+<a class="skip" href="#main">{"Skip to content" if en else "דילוג לתוכן"}</a>
 {banner}{header}
-<main>
+<main id="main" tabindex="-1">
 {body}
 </main>
 {read(d + 'contact.html')}
