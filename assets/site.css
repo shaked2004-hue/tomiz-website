@@ -366,3 +366,6 @@ footer .social svg{width:16px;height:16px}
 .btn-ico svg{width:18px;height:18px}
 .social-light a{background:var(--surface);color:var(--green);border:1.5px solid var(--green)}
 .social-light a:hover{border-color:var(--pink)}
+.custom{margin-top:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:var(--surface);border:2px dashed var(--green);border-radius:22px;padding:22px 28px}
+.custom b{display:block;font-size:20px;font-weight:800;color:var(--link)}
+.custom span{display:block;color:var(--muted);margin-top:4px;max-width:620px}
