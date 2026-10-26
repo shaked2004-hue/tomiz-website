@@ -352,3 +352,17 @@ html.a11y-contrast .card,html.a11y-contrast .talk-card,html.a11y-contrast .path{
 .copy{display:inline-block;margin-top:10px;font:inherit;font-size:14px;font-weight:700;border:1.5px solid var(--pink);color:var(--pink);background:var(--surface);border-radius:999px;padding:4px 14px;cursor:pointer}
 article.post blockquote .copy{display:block}
 .talk-card .ask{margin-top:0}
+
+/* social links */
+.social{display:flex;gap:10px;margin-top:18px}
+.social a{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:rgba(249,247,242,.1);color:var(--band-fg);transition:background .2s,transform .2s}
+.social a:hover{background:var(--pink);color:#fff;transform:translateY(-2px)}
+.social svg{width:20px;height:20px}
+footer .social{margin:0;gap:6px}
+footer .social a{width:32px;height:32px}
+footer .social svg{width:16px;height:16px}
+.foot-l{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.btn-ico{display:inline-flex;align-items:center;gap:8px}
+.btn-ico svg{width:18px;height:18px}
+.social-light a{background:var(--surface);color:var(--green);border:1.5px solid var(--green)}
+.social-light a:hover{border-color:var(--pink)}
