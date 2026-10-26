@@ -32,10 +32,10 @@ const lead = document.getElementById('lead');
 lead?.addEventListener('submit', async e => {
   e.preventDefault();
   const note = document.getElementById('form-note');
-  if (!lead.checkValidity()) { note.textContent = 'נא למלא שם, אימייל תקין ולסמן את האישור.'; return; }
+  if (!lead.checkValidity()) { note.textContent = 'נא למלא שם, טלפון, אימייל תקין ולסמן את האישור.'; return; }
   note.textContent = '';
   const ok = await sendLead(lead, {
-    name: lead.name.value.trim(), email: lead.email.value.trim(), org: lead.org.value.trim(),
+    name: lead.name.value.trim(), phone: lead.phone.value.trim(), email: lead.email.value.trim(), org: lead.org.value.trim(),
     type: lead.type.value, message: lead.msg.value.trim(), contactConsent: true, marketingConsent: false
   }, note);
   if (ok) { lead.reset(); note.textContent = 'תודה! הפנייה התקבלה, ואחזור אליכם בהקדם.'; }

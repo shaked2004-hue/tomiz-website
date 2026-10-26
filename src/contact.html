@@ -2,16 +2,17 @@
   <div class="wrap">
     <div class="reveal">
       <div class="eyebrow" style="color:var(--pink-soft)">בואו נדבר</div>
-      <h2>בואו נתאים סדנה לקהל שלכם</h2>
-      <p class="sub">ספרו לי בקצרה מה אתם מחפשים, ואחזור אליכם.</p>
+      <h2>השאירו פרטים ואחזור אליכם</h2>
+      <p class="sub">שאלה, רעיון לשיתוף פעולה, סדנה, הרצאה או ליווי: ספרו לי בקצרה, ואחזור אליכם בהקדם.</p>
       <div class="lines"><span>office@tomizs.com</span><span dir="ltr" style="text-align:right">052-5012413</span></div>
     </div>
     <form id="lead" data-source="טופס צור קשר" novalidate class="reveal d1">
       <label for="f-name">שם<input id="f-name" name="name" autocomplete="name" required></label>
+      <label for="f-phone">טלפון<input id="f-phone" name="phone" type="tel" autocomplete="tel" dir="ltr" required pattern="[0-9+\-\s()]{9,}"></label>
       <label for="f-mail">אימייל<input id="f-mail" name="email" type="email" autocomplete="email" dir="ltr" required></label>
       <label for="f-org">ארגון (לא חובה)<input id="f-org" name="org" autocomplete="organization"></label>
-      <label for="f-type">מה מתאים לך?<select id="f-type" name="type"><option>סדנה או תהליך לארגון</option><option>הרצאה לכנס או יום עיון</option><option>אני מומחה/ית ורוצה ללמד</option><option>משהו אחר</option></select></label>
-      <label for="f-msg">כמה מילים<textarea id="f-msg" name="msg" rows="3"></textarea></label>
+      <label for="f-type">נושא הפנייה<select id="f-type" name="type"><option>שאלה כללית</option><option>סדנה או תהליך לארגון</option><option>הרצאה לכנס או יום עיון</option><option>ליווי למומחים ובעלי מקצוע</option><option>שיתוף פעולה</option><option>משהו אחר</option></select></label>
+      <label for="f-msg">במה אפשר לעזור?<textarea id="f-msg" name="msg" rows="3"></textarea></label>
       <div class="hp" aria-hidden="true"><label for="f-web">אתר<input id="f-web" name="website" tabindex="-1" autocomplete="off"></label></div>
       <label class="consent" for="f-ok"><input id="f-ok" type="checkbox" required> אני מסכים/ה שישמרו את הפרטים כדי לחזור אליי, לפי <a href="/privacy/">מדיניות הפרטיות</a>.</label>
       <button class="btn primary" type="submit">שליחה</button>

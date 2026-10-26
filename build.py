@@ -21,7 +21,7 @@ PAGES = {
     'experts': ('/experts/', 'למומחים · TomiZ', 'הידע שלך יכול להפוך לסדנה: תהליך מובנה ממומחיות לתוכן שאפשר ללמד.', 'experts'),
     'talks': ('/talks/', 'הרצאות · TomiZ', 'למידה שמחזיקה מים: הרצאה לכנסים, ימי עיון, צוותי הדרכה ומשאבי אנוש.', 'talks'),
     'about': ('/about/', 'אודות · TomiZ', 'שקד וולוז\'ינסקי לנס, מעצבת חוויות למידה, מנחת סדנאות ומרצה, מייסדת TomiZ.', 'about'),
-    'blog': ('/blog/', 'מאמרים · TomiZ', 'מאמרים וטיפים על העברת ידע, הדרכה ו-AI בעבודה.', 'blog'),
+    'blog': ('/blog/', 'משתמשים בבינה בתבונה · TomiZ', 'טיפים קצרים על AI, העברת ידע והדרכה, שאפשר ליישם כבר מחר בבוקר.', 'blog'),
     'en': ('/en/', 'TomiZ · Learning design & knowledge transfer', 'Turning expert knowledge into training that works, for L&D and Customer Education teams.', 'en'),
     'ai-dictionary': ('/ai-dictionary/', 'מילון AI למומחים · TomiZ', '8 מונחים שכל מומחה ואיש מקצוע צריך להכיר, ואיך משתמשים בכל אחד כבר מחר בבוקר. מדריך חינמי.', ''),
     'privacy': ('/privacy/', 'מדיניות פרטיות · TomiZ', 'מדיניות הפרטיות של האתר tomizs.com.', ''),
@@ -33,7 +33,7 @@ def links(html):
     html = html.replace('href="#home"', 'href="/"')
     for name, (path, *_) in PAGES.items():
         html = html.replace(f'href="#{name}"', f'href="{path}"')
-    return html.replace('href="#contact"', 'href="#contact"')
+    return html
 
 def strip_draft(html):
     if not LIVE:
@@ -82,7 +82,7 @@ def page(body, title, desc, path, nav, lang='he', image='/assets/og.png'):
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
 </head>
-<body>
+<body id="top">
 {banner}{header}
 <main>
 {body}
@@ -111,9 +111,9 @@ for name, (path, title, desc, nav) in PAGES.items():
 
 for a in ARTICLES:
     body = (f'<div class="view"><article class="post"><section class="page-head"><div class="wrap narrow">'
-            f'<div class="crumbs"><a href="/">ראשי</a> / <a href="/blog/">מאמרים</a></div>'
+            f'<div class="crumbs"><a href="/">ראשי</a> / <a href="/blog/">בינה בתבונה</a></div>'
             f'<div class="eyebrow" style="color:var(--pink-soft)">{a["tag"]}</div><h1>{a["title"]}</h1></div>{WAVE}</section>'
-            f'<div class="wrap narrow">{a["body"]}<a class="back" href="/blog/">→ לכל המאמרים</a></div></article></div>')
+            f'<div class="wrap narrow">{a["body"]}<a class="back" href="/blog/">→ לכל הטיפים</a></div></article></div>')
     write(f'/blog/{a["id"]}/', page(body, f'{a["title"]} · TomiZ', a['teaser'], f'/blog/{a["id"]}/', 'blog'))
 
 urls = [p for p, *_ in PAGES.values()] + [f'/blog/{a["id"]}/' for a in ARTICLES]

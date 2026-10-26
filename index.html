@@ -17,21 +17,31 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
 </head>
-<body>
+<body id="top">
 <header>
   <div class="wrap">
     <a href="/" aria-label="TomiZ דף הבית"><img src="/assets/logo_light.png" width="136" height="40" alt="TomiZ Unboxing Knowledge"></a>
     <nav aria-label="ניווט ראשי">
       <a href="/orgs/" data-nav="orgs">לארגונים</a>
       <a href="/experts/" data-nav="experts">למומחים</a>
-      <a href="/talks/" data-nav="talks">הרצאות</a>
-      <a href="/blog/" data-nav="blog">מאמרים</a>
+      <a href="/talks/" data-nav="talks">הרצאות וסדנאות</a>
+      <a href="/blog/" data-nav="blog">בינה בתבונה</a>
       <a href="/about/" data-nav="about">אודות</a>
       <a class="en" href="/en/" data-nav="en" lang="en">English</a>
       <a class="cta" href="#contact">צרו קשר</a>
     </nav>
   </div>
 </header>
+<nav class="rail" aria-label="ניווט מהיר">
+  <a href="/orgs/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V5l8-3 8 3v16M9 21v-5h6v5M8 8h2M14 8h2M8 12h2M14 12h2"/></svg><span>לארגונים</span></a>
+  <a href="/experts/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5zM6 10v5c3 3 9 3 12 0v-5"/></svg><span>למומחים</span></a>
+  <a href="/talks/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 013 3v5a3 3 0 01-6 0V6a3 3 0 013-3zM5 11a7 7 0 0014 0M12 18v3"/></svg><span>הרצאות</span></a>
+  <a href="/blog/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5zM8 10h8M8 14h8M8 18h5"/></svg><span>טיפים</span></a>
+  <a href="/ai-dictionary/" class="rail-hide-m"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2zM4 21V5M9 8h6"/></svg><span>מילון AI</span></a>
+  <a href="#contact" class="rail-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg><span>צרו קשר</span></a>
+  <a href="#top" class="rail-hide-m"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg><span>למעלה</span></a>
+</nav>
+
 <main>
 <div class="view" data-view="home">
   <section class="hero">
@@ -41,8 +51,8 @@
         <h1>הופכים מורכבות ל<em>מתודולוגיה פשוטה</em></h1>
         <p class="lead">סדנאות, תהליכי הדרכה והרצאות מעשיות על AI, למידה והעברת ידע, לארגונים, לקהילות ולבעלי מקצוע.</p>
         <div class="ctas">
-          <a class="btn primary" href="/orgs/">אני מארגון</a>
-          <a class="btn light" href="/experts/">יש לי ידע שאני רוצה ללמד</a>
+          <a class="btn primary" href="/orgs/">לארגונים</a>
+          <a class="btn light" href="/experts/">למומחים ולבעלי מקצוע</a>
         </div>
       </div>
       <div>
@@ -93,7 +103,7 @@
         <article class="path reveal d1">
           <div class="path-top"><div class="who">לבעלי מקצוע, מומחים ועצמאים</div><h3>הידע שלך יכול להפוך לסדנה</h3></div>
           <ul class="path-list">
-            <li><a href="/experts/"><b>ממומחיות לתוכן שאפשר ללמד</b><span>מיפוי הידע והקהל ובניית שלד בעזרת AI</span><i>←</i></a></li>
+            <li><a href="/experts/"><b>ממומחיות לתוכן שאפשר ללמד</b><span>מיפוי הידע והקהל ובניית שלד</span><i>←</i></a></li>
             <li><a href="/experts/"><b>סדנה, הרצאה או קורס</b><span>בוחרים את הפורמט שמתאים לך</span><i>←</i></a></li>
             <li><a href="/experts/"><b>יוצאים עם טיוטה ראשונה</b><span>מבנה מוכן להתחיל ממנו</span><i>←</i></a></li>
           </ul>
@@ -109,17 +119,29 @@
         <div class="eyebrow">הרצאה לכנסים וימי עיון</div>
         <h2>למידה שמחזיקה מים</h2>
         <p>למה מצגות ארוכות ולומדות "סימון וי" לא משנות התנהגות, ואיך בונים למידה מכוונת ביצוע בעידן ה-AI.</p>
-        <div class="ctas"><a class="btn light" href="/talks/">על ההרצאה</a></div>
+        <div class="ctas"><a class="btn light" href="/talks/">לכל ההרצאות והסדנאות</a></div>
       </div>
-      
+      <video class="vid reveal d1" src="/media/talk-stage.mp4" poster="/media/talk-stage.jpg" controls preload="none" playsinline></video>
     </div>
   </section>
 
+
   <section class="block">
     <div class="wrap">
-      <div class="sec-head reveal"><div class="eyebrow">מאמרים וטיפים</div><h2>כלים שאפשר להתחיל איתם מחר</h2></div>
+      <div class="sec-head reveal"><div class="eyebrow">סרטונים</div><h2>טיפים קצרים מהרשתות</h2><p>כמה מהסרטונים שעלו לאינסטגרם, לצפייה כאן.</p></div>
+      <div class="reels">
+        <video class="vid reveal" src="/media/reel-10-tips.mp4" poster="/media/reel-10-tips.jpg" controls preload="none" playsinline></video>
+        <video class="vid reveal d1" src="/media/reel-productivity.mp4" poster="/media/reel-productivity.jpg" controls preload="none" playsinline></video>
+        <video class="vid reveal d2" src="/media/reel-procedure.mp4" poster="/media/reel-procedure.jpg" controls preload="none" playsinline></video>
+      </div>
+      <div class="ctas reveal"><a class="btn dark" href="https://www.instagram.com/shaked_voloz/" target="_blank" rel="noopener">לעוד סרטונים באינסטגרם</a></div>
+    </div>
+  </section>
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head reveal"><div class="eyebrow">בינה בתבונה</div><h2>כלים שאפשר להתחיל איתם מחר</h2></div>
       <div class="articles"><a class="card reveal" href="/blog/third-time/"><span class="tag">העברת ידע</span><h3>חוק הפעם השלישית</h3><p>איך מחליטים איזה ידע צריך לצאת מהראש של מישהו ולהפוך להדרכה קצרה.</p><span class="go">לקריאה ←</span></a><a class="card reveal" href="/blog/ai-interview/"><span class="tag">AI בהדרכה</span><h3>אל תבקשו מה-AI לכתוב את ההדרכה. תבקשו ממנו לראיין את המומחה</h3><p>פרומפט אחד שמוציא מהמומחה את השלבים שהוא כבר לא רואה.</p><span class="go">לקריאה ←</span></a><a class="card reveal" href="/blog/onboarding/"><span class="tag">קליטת עובדים</span><h3>הקליטה שלכם לא קצרה מדי. היא כבדה מדי</h3><p>למה 80 עמודי נהלים לא נשארים בראש, ומה עובד טוב יותר.</p><span class="go">לקריאה ←</span></a></div>
-      <div class="ctas reveal"><a class="btn dark" href="/blog/">לכל המאמרים</a></div>
+      <div class="ctas reveal"><a class="btn dark" href="/blog/">לכל הטיפים</a></div>
     </div>
   </section>
 
@@ -147,16 +169,17 @@
   <div class="wrap">
     <div class="reveal">
       <div class="eyebrow" style="color:var(--pink-soft)">בואו נדבר</div>
-      <h2>בואו נתאים סדנה לקהל שלכם</h2>
-      <p class="sub">ספרו לי בקצרה מה אתם מחפשים, ואחזור אליכם.</p>
+      <h2>השאירו פרטים ואחזור אליכם</h2>
+      <p class="sub">שאלה, רעיון לשיתוף פעולה, סדנה, הרצאה או ליווי: ספרו לי בקצרה, ואחזור אליכם בהקדם.</p>
       <div class="lines"><span>office@tomizs.com</span><span dir="ltr" style="text-align:right">052-5012413</span></div>
     </div>
     <form id="lead" data-source="טופס צור קשר" novalidate class="reveal d1">
       <label for="f-name">שם<input id="f-name" name="name" autocomplete="name" required></label>
+      <label for="f-phone">טלפון<input id="f-phone" name="phone" type="tel" autocomplete="tel" dir="ltr" required pattern="[0-9+\-\s()]{9,}"></label>
       <label for="f-mail">אימייל<input id="f-mail" name="email" type="email" autocomplete="email" dir="ltr" required></label>
       <label for="f-org">ארגון (לא חובה)<input id="f-org" name="org" autocomplete="organization"></label>
-      <label for="f-type">מה מתאים לך?<select id="f-type" name="type"><option>סדנה או תהליך לארגון</option><option>הרצאה לכנס או יום עיון</option><option>אני מומחה/ית ורוצה ללמד</option><option>משהו אחר</option></select></label>
-      <label for="f-msg">כמה מילים<textarea id="f-msg" name="msg" rows="3"></textarea></label>
+      <label for="f-type">נושא הפנייה<select id="f-type" name="type"><option>שאלה כללית</option><option>סדנה או תהליך לארגון</option><option>הרצאה לכנס או יום עיון</option><option>ליווי למומחים ובעלי מקצוע</option><option>שיתוף פעולה</option><option>משהו אחר</option></select></label>
+      <label for="f-msg">במה אפשר לעזור?<textarea id="f-msg" name="msg" rows="3"></textarea></label>
       <div class="hp" aria-hidden="true"><label for="f-web">אתר<input id="f-web" name="website" tabindex="-1" autocomplete="off"></label></div>
       <label class="consent" for="f-ok"><input id="f-ok" type="checkbox" required> אני מסכים/ה שישמרו את הפרטים כדי לחזור אליי, לפי <a href="/privacy/">מדיניות הפרטיות</a>.</label>
       <button class="btn primary" type="submit">שליחה</button>
