@@ -1,0 +1,8 @@
+[build]
+  publish = "."
+  command = ""
+
+[[headers]]
+  for = "/files/*"
+  [headers.values]
+    Content-Disposition = "attachment"
