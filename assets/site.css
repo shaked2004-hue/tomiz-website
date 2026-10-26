@@ -369,3 +369,42 @@ footer .social svg{width:16px;height:16px}
 .custom{margin-top:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:var(--surface);border:2px dashed var(--green);border-radius:22px;padding:22px 28px}
 .custom b{display:block;font-size:20px;font-weight:800;color:var(--link)}
 .custom span{display:block;color:var(--muted);margin-top:4px;max-width:620px}
+
+/* icons */
+.ico{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:var(--tint);color:var(--green);margin-bottom:12px;transition:transform .35s cubic-bezier(.3,1.6,.5,1),background .3s,color .3s}
+.ico svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.path-top .ico{background:rgba(249,247,242,.12);color:var(--pink-soft)}
+.talk-card .ico{margin-bottom:2px}
+.service .ico{margin-bottom:14px}
+.pillar:hover .ico,.path:hover .ico,.talk-card:hover .ico,.service:hover .ico,.beliefs>div:hover .ico{transform:rotate(-8deg) scale(1.1);background:var(--pink);color:#fff}
+[data-theme="dark"] .ico{color:var(--link)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ico{color:var(--link)}}
+
+/* interactive cards: tilt + spotlight (set by site.js) */
+.tilt{transform-style:preserve-3d;will-change:transform}
+.tilt::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(233,78,119,.13),transparent 65%)}
+.tilt:hover::after{opacity:1}
+.card,.talk-card,.path,.step{position:relative}
+
+/* path chooser */
+.chooser{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 auto 26px}
+.chooser button{font:inherit;font-size:16px;font-weight:500;display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--green);background:var(--surface);color:var(--link);border-radius:999px;padding:9px 20px;cursor:pointer;transition:background .25s,color .25s,transform .2s}
+.chooser button:hover{transform:translateY(-2px)}
+.chooser button[aria-pressed="true"]{background:var(--green);color:#fff}
+.paths .path,.custom{transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .45s,box-shadow .45s}
+.picked .path:not(.on),.picked .custom:not(.on){opacity:.45;transform:scale(.97)}
+.path.on,.custom.on{box-shadow:0 0 0 3px var(--pink),0 20px 40px rgba(30,62,56,.18);transform:translateY(-4px)}
+.picked-wrap{transition:none}
+
+/* small motion details */
+.step::before{transition:transform .5s cubic-bezier(.3,1.6,.5,1) .25s}
+.step.reveal.pre::before{transform:scale(0)}
+.step:hover::before{background:var(--pink)}
+.facts span{transition:background .2s,color .2s,transform .2s}
+.facts span:hover{background:var(--green);color:#fff;transform:translateY(-2px)}
+.timeline li::before{content:"";position:absolute;inset-inline-start:-18px;top:30px;width:10px;height:10px;border-radius:50%;background:var(--pink);box-shadow:0 0 0 0 rgba(233,78,119,.5);animation:pulse 2.4s infinite}
+.timeline li:not(:first-child)::before{animation-delay:.8s;background:var(--green)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(233,78,119,.45)}70%{box-shadow:0 0 0 12px rgba(233,78,119,0)}100%{box-shadow:0 0 0 0 rgba(233,78,119,0)}}
+@media (max-width:860px){.timeline li::before{display:none}}
+.btn{transition:transform .2s,box-shadow .2s,background .2s}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(233,78,119,.35)}

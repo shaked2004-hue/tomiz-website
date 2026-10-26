@@ -199,3 +199,49 @@ document.querySelectorAll('.rail a[href^="/"]').forEach(a => {
   });
   hero.addEventListener('pointerleave', () => svg.style.transform = '');
 })();
+
+// ---- "where to start?" chooser: highlights the matching path ----
+(function chooser() {
+  const paths = document.querySelector('.paths');
+  if (!paths) return;
+  const items = [...paths.querySelectorAll('.path')];
+  const custom = document.querySelector('.custom');
+  const opts = EN ? ["I'm from an organization", 'I have knowledge to turn into a product', "I'm not sure yet"]
+                  : ['אני מארגון', 'יש לי ידע להפוך למוצר', 'עוד לא בטוח/ה'];
+  const targets = [items[0], items[1], custom];
+  const bar = document.createElement('div');
+  bar.className = 'chooser reveal'; bar.setAttribute('role', 'group'); bar.setAttribute('aria-label', EN ? 'Where to start?' : 'איפה מתחילים?');
+  const scope = paths.parentElement;
+  opts.forEach((label, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = label; b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', () => {
+      const on = b.getAttribute('aria-pressed') !== 'true';
+      bar.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', on && x === b));
+      scope.classList.toggle('picked', on);
+      targets.forEach((t, j) => t?.classList.toggle('on', on && j === i));
+      if (on && targets[i]) {
+        const r = targets[i].getBoundingClientRect();
+        if (r.top < 0 || r.bottom > innerHeight) targets[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+    bar.appendChild(b);
+  });
+  paths.before(bar);
+})();
+
+// ---- cards lean toward the pointer, with a soft spotlight ----
+(function tilt() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(pointer:fine)').matches) return;
+  document.querySelectorAll('.card, .talk-card, .path, .step').forEach(el => {
+    el.classList.add('tilt');
+    el.addEventListener('pointermove', e => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      el.style.setProperty('--mx', x * 100 + '%'); el.style.setProperty('--my', y * 100 + '%');
+      if (document.documentElement.classList.contains('a11y-still')) return;
+      el.style.transform = `perspective(900px) rotateX(${(.5 - y) * 5}deg) rotateY(${(x - .5) * 5}deg) translateY(-4px)`;
+    });
+    el.addEventListener('pointerleave', () => el.style.transform = '');
+  });
+})();
