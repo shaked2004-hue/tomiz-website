@@ -245,3 +245,22 @@ document.querySelectorAll('.rail a[href^="/"]').forEach(a => {
     el.addEventListener('pointerleave', () => el.style.transform = '');
   });
 })();
+
+// ---- touch screens: highlight the card in the middle of the screen, glow where tapped ----
+(function touchFx() {
+  if (matchMedia('(hover:hover)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const els = document.querySelectorAll('.card, .talk-card, .step, .pillar, .service, .beliefs > div, .intro-facts li');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('infocus', e.isIntersecting)),
+      { rootMargin: '-40% 0px -40% 0px' });
+    els.forEach(el => io.observe(el));
+  }
+  document.querySelectorAll('.card, .talk-card, .path').forEach(el => {
+    el.classList.add('tilt');
+    el.addEventListener('pointerdown', e => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', (e.clientX - r.left) + 'px'); el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      el.classList.add('lit'); setTimeout(() => el.classList.remove('lit'), 500);
+    });
+  });
+})();

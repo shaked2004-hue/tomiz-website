@@ -430,3 +430,19 @@ footer .social svg{width:16px;height:16px}
 @media (max-width:860px){.intro-row{grid-template-columns:1fr;gap:36px}.intro-pic,.intro-pic .portrait-img{max-width:260px}}
 /* about page portrait: smaller */
 .about-row .portrait-img{max-width:360px;margin-inline:auto}
+
+/* touch screens: effects that don't depend on hover */
+.ico{will-change:transform}
+.reveal:not(.pre) .ico{animation:icoPop .7s cubic-bezier(.3,1.6,.5,1) .15s both}
+@keyframes icoPop{0%{transform:scale(.4) rotate(-20deg);opacity:0}100%{transform:none;opacity:1}}
+.card:active,.talk-card:active,.path-list a:active,.step:active,.btn:active,.chooser button:active,.chips button:active{transform:scale(.97)}
+.lit::after{opacity:1!important}
+@media (hover:none){
+  .infocus .ico,.infocus.pillar .ico{background:var(--pink);color:#fff;transform:rotate(-8deg) scale(1.08)}
+  .infocus.card,.infocus.talk-card,.infocus.step{border-color:var(--green);box-shadow:0 12px 26px rgba(30,62,56,.14);transform:translateY(-3px)}
+  .card,.talk-card,.step,.pillar .ico{transition:transform .4s,box-shadow .4s,border-color .4s,background .4s,color .4s}
+  .hero .unbox svg{animation:floaty 6s ease-in-out infinite}
+  .facts span.infocus{background:var(--green);color:#fff}
+}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(-3deg)}}
+@media (prefers-reduced-motion:reduce){.reveal:not(.pre) .ico,.hero .unbox svg{animation:none}}
