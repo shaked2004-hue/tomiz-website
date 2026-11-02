@@ -9,6 +9,25 @@ LIVE = '--live' in sys.argv
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, 'src')
 SITE = 'https://tomizs.com'
+META_PIXEL_ID = '1639309097614341'
+META_PIXEL = f'''<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{{if(f.fbq)return;n=f.fbq=function(){{n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)}};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '{META_PIXEL_ID}');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id={META_PIXEL_ID}&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+'''
 WEBHOOK = os.environ.get('TOMIZ_WEBHOOK', open(os.path.join(SRC, 'webhook.txt')).read().strip() if os.path.exists(os.path.join(SRC, 'webhook.txt')) else '')
 
 read = lambda p: open(os.path.join(SRC, p), encoding='utf-8').read()
@@ -88,6 +107,7 @@ def page(body, title, desc, path, nav, lang='he', image='/assets/og.png'):
     banner = '' if LIVE else f'<div class="draft">{"Draft for review · not live" if en else "טיוטה לעיון · לא באוויר"}</div>\n'
     robots = '' if LIVE else '<meta name="robots" content="noindex,nofollow">\n'
     hook = f'<script>window.TOMIZ_WEBHOOK={json.dumps(WEBHOOK)}</script>\n' if WEBHOOK else ''
+    pixel = META_PIXEL if LIVE else ''
     html = f'''<!doctype html>
 <html lang="{lang}" dir="{'ltr' if en else 'rtl'}">
 <head>
@@ -107,7 +127,7 @@ def page(body, title, desc, path, nav, lang='he', image='/assets/og.png'):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
-</head>
+{pixel}</head>
 <body id="top">
 <a class="skip" href="#main">{"Skip to content" if en else "דילוג לתוכן"}</a>
 {banner}{header}
