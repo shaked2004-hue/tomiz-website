@@ -6,3 +6,8 @@
   for = "/files/*"
   [headers.values]
     Content-Disposition = "attachment"
+
+[[headers]]
+  for = "/files/*.ics"
+  [headers.values]
+    Content-Type = "text/calendar; charset=utf-8"
