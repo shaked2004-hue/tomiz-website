@@ -174,8 +174,8 @@ for lang, arts in (('he', ARTICLES), ('en', ARTICLES_EN)):
         write(p, page(body, f'{a["title"]} · TomiZ', a['teaser'], p, 'blog', lang))
 
 # ---- webinar campaign: standalone landing + thanks pages (no site nav/contact/footer, always noindex, not in the sitemap) ----
-# The Make webhook for webinar sign-ups: set TOMIZ_WEBINAR_WEBHOOK, or put the URL in src/webinar/webhook.txt
-WEBINAR_WEBHOOK = os.environ.get('TOMIZ_WEBINAR_WEBHOOK', '') or (read('webinar/webhook.txt').strip() if os.path.exists(os.path.join(SRC, 'webinar/webhook.txt')) else '')
+# Webinar sign-ups go to the site's lead webhook (source = the webinar name) unless TOMIZ_WEBINAR_WEBHOOK or src/webinar/webhook.txt sets another
+WEBINAR_WEBHOOK = os.environ.get('TOMIZ_WEBINAR_WEBHOOK', '') or (read('webinar/webhook.txt').strip() if os.path.exists(os.path.join(SRC, 'webinar/webhook.txt')) else '') or WEBHOOK
 WEBINAR = {
     'title': 'תפסיקו לעבוד בשביל ה-AI',
     'start': '20261201T080000Z', 'end': '20261201T090000Z',  # Tue 1.12.2026, 10:00-11:00 Israel time (UTC+2)
