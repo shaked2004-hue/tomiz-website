@@ -1,0 +1,24 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//TomiZ//Webinar//HE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:webinar-2026-12-01@tomizs.com
+DTSTAMP:20261103T000000Z
+DTSTART:20261201T080000Z
+DTEND:20261201T090000Z
+SUMMARY:תפסיקו לעבוד בשביל ה-AI · וובינר TomiZ
+DESCRIPTION:וובינר חינם בזום עם שקד וולוז'ינסק
+ י (TomiZ): ייעול תהליכים בעסק עם AI. הקישור לז
+ ום יישלח במייל ב-24.11.2026. בואו עם משימה אחת 
+ בעסק שאתם רוצים להשתחרר ממנה.
+LOCATION:Zoom (הקישור יישלח במייל)
+URL:https://tomizs.com/webinar/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:הוובינר של TomiZ מתחיל בעוד 30 דקות
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

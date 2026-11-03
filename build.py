@@ -3,7 +3,7 @@
 python3 build.py          -> draft build (draft banner, notes, noindex)
 python3 build.py --live   -> production build
 """
-import json, os, re, shutil, sys
+import json, os, re, shutil, sys, urllib.parse
 
 LIVE = '--live' in sys.argv
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -172,6 +172,83 @@ for lang, arts in (('he', ARTICLES), ('en', ARTICLES_EN)):
                 f'<div class="wrap narrow">{a["body"]}<a class="back" href="{pre}/blog/">{back}</a></div></article></div>')
         p = f'{pre}/blog/{a["id"]}/'
         write(p, page(body, f'{a["title"]} · TomiZ', a['teaser'], p, 'blog', lang))
+
+# ---- webinar campaign: standalone landing + thanks pages (no site nav/contact/footer, always noindex, not in the sitemap) ----
+# The Make webhook for webinar sign-ups: set TOMIZ_WEBINAR_WEBHOOK, or put the URL in src/webinar/webhook.txt
+WEBINAR_WEBHOOK = os.environ.get('TOMIZ_WEBINAR_WEBHOOK', '') or (read('webinar/webhook.txt').strip() if os.path.exists(os.path.join(SRC, 'webinar/webhook.txt')) else '')
+WEBINAR = {
+    'title': 'תפסיקו לעבוד בשביל ה-AI',
+    'start': '20261201T080000Z', 'end': '20261201T090000Z',  # Tue 1.12.2026, 10:00-11:00 Israel time (UTC+2)
+    'details': 'וובינר חינם בזום עם שקד וולוז\'ינסקי (TomiZ): ייעול תהליכים בעסק עם AI. הקישור לזום יישלח במייל ב-24.11.2026. בואו עם משימה אחת בעסק שאתם רוצים להשתחרר ממנה.',
+    'location': 'Zoom (הקישור יישלח במייל)',
+    'ics': '/files/tomiz-webinar-2026-12-01.ics',
+}
+WEBINAR_PAGES = {
+    'landing': ('/webinar/', 'תפסיקו לעבוד בשביל ה-AI · וובינר חינם · TomiZ', 'וובינר חינם בזום, 1.12 ב-10:00: איך גורמים ל-AI לעבוד בשבילכם, לא להפך. מראים הכול על המסך, בזמן אמת ובלי מילים גבוהות.'),
+    'thanks': ('/webinar/thanks/', 'נרשמתם! · תפסיקו לעבוד בשביל ה-AI · TomiZ', 'ההרשמה לוובינר התקבלה.'),
+}
+GCAL = 'https://calendar.google.com/calendar/render?' + urllib.parse.urlencode({
+    'action': 'TEMPLATE', 'text': f'{WEBINAR["title"]} · וובינר TomiZ', 'dates': f'{WEBINAR["start"]}/{WEBINAR["end"]}',
+    'details': WEBINAR['details'], 'location': WEBINAR['location'], 'ctz': 'Asia/Jerusalem'})
+
+def ics():
+    def fold(line):  # RFC 5545: lines of at most 75 octets, continued with CRLF + space
+        out, cur = [], b''
+        for ch in line:
+            c = ch.encode('utf-8')
+            if len(cur) + len(c) > (75 if not out else 74):
+                out.append(cur); cur = b''
+            cur += c
+        return b'\r\n '.join(out + [cur]).decode('utf-8')
+    esc = lambda t: t.replace('\\', '\\\\').replace(';', '\\;').replace(',', '\\,')
+    lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//TomiZ//Webinar//HE', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+             'BEGIN:VEVENT', 'UID:webinar-2026-12-01@tomizs.com', 'DTSTAMP:20261103T000000Z',
+             f'DTSTART:{WEBINAR["start"]}', f'DTEND:{WEBINAR["end"]}',
+             f'SUMMARY:{esc(WEBINAR["title"] + " · וובינר TomiZ")}', f'DESCRIPTION:{esc(WEBINAR["details"])}',
+             f'LOCATION:{esc(WEBINAR["location"])}', f'URL:{SITE}/webinar/',
+             'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:הוובינר של TomiZ מתחיל בעוד 30 דקות', 'TRIGGER:-PT30M', 'END:VALARM',
+             'END:VEVENT', 'END:VCALENDAR']
+    return '\r\n'.join(fold(l) for l in lines) + '\r\n'
+
+def landing(body, title, desc, path):
+    banner = '' if LIVE else '<div class="draft">טיוטה לעיון · לא באוויר</div>\n'
+    hook = f'<script>window.TOMIZ_WEBINAR_WEBHOOK={json.dumps(WEBINAR_WEBHOOK)}</script>\n'
+    pixel = META_PIXEL if LIVE else ''
+    html = f'''<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1E3E38">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{SITE}{path}">
+<meta property="og:image" content="{SITE}/assets/og.png">
+<meta property="og:locale" content="he_IL">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/webinar.css">
+{pixel}</head>
+<body class="wb">
+<a class="skip" href="#main">דילוג לתוכן</a>
+{banner}<main id="main" tabindex="-1">
+{body}
+</main>
+{hook}<script src="/assets/webinar.js" defer></script>
+</body>
+</html>
+'''
+    return strip_draft(html.replace('{{GCAL}}', GCAL.replace('&', '&amp;')).replace('{{ICS}}', WEBINAR['ics']))
+
+for name, (path, title, desc) in WEBINAR_PAGES.items():
+    write(path, landing(read(f'webinar/{name}.html'), title, desc, path))
+open(os.path.join(ROOT, WEBINAR['ics'].strip('/')), 'w', encoding='utf-8', newline='').write(ics())
 
 urls = ([p for p, *_ in PAGES.values()] + [p for p, *_ in EN_PAGES.values()]
         + [f'/blog/{a["id"]}/' for a in ARTICLES] + [f'/en/blog/{a["id"]}/' for a in ARTICLES_EN])
