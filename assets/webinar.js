@@ -7,6 +7,7 @@ const T = {
   name: 'נא למלא שם מלא.',
   phone: 'נא למלא מספר טלפון תקין, למשל ⁦050-1234567⁩.', // ⁦..⁩ keep the example left-to-right
   email: 'נא למלא כתובת אימייל תקינה, למשל ⁦name@gmail.com⁩.',
+  consent: 'כדי להירשם צריך לאשר קבלת טיפים ועדכונים.',
   off: 'ההרשמה עדיין לא מחוברת. אפשר להירשם בינתיים במייל: ⁦office@tomizs.com⁩',
   fail: 'אופס, ההרשמה לא נשלחה. בדקו את החיבור לאינטרנט ונסו שוב. אם זה ממשיך, כתבו לנו: ⁦office@tomizs.com⁩',
   sending: 'שומרים לכם מקום...'
@@ -37,6 +38,13 @@ const lead = () => window.fbq && fbq('track', 'Lead', { content_name: 'webinar-2
     document.getElementById(el.getAttribute('aria-describedby')).textContent = ok ? '' : T[name];
     return ok;
   };
+  const checkConsent = () => {
+    const ok = form.marketing.checked;
+    form.marketing.setAttribute('aria-invalid', !ok);
+    document.getElementById('r-ok-err').textContent = ok ? '' : T.consent;
+    return ok;
+  };
+  form.marketing.addEventListener('change', () => { if (tried) checkConsent(); });
   Object.keys(checks).forEach(name => {
     const el = form.elements[name];
     el.addEventListener('blur', () => { if (tried || el.value) check(name); });
@@ -49,7 +57,9 @@ const lead = () => window.fbq && fbq('track', 'Lead', { content_name: 'webinar-2
     tried = true;
     note.textContent = '';
     const bad = Object.keys(checks).filter(name => !check(name));
-    if (bad.length) { form.elements[bad[0]].focus(); return; }
+    if (bad.length) { form.elements[bad[0]].focus(); }
+    if (!checkConsent()) { if (!bad.length) form.marketing.focus(); return; }
+    if (bad.length) return;
     if (form.website.value) { location.href = THANKS; return; } // bot filled the honeypot: pretend it worked
     if (!WEBINAR_WEBHOOK) { note.textContent = T.off; note.focus(); return; }
 
