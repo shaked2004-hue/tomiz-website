@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>סדנת AI מעשית · 23.11 · TomiZ</title>
+<meta name="description" content="סדנת AI מעשית, יום שני 23.11 בשעה 18:30 בספרייה. שעתיים של תרגול והתנסות, מותאם לכם, כולל מדריך 30 פרומפטים שימושיים.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1E3E38">
+<meta property="og:title" content="סדנת AI מעשית · 23.11 · TomiZ">
+<meta property="og:description" content="שעתיים של תרגול והתנסות עם AI, בספרייה, יום שני 23.11 בשעה 18:30. כולל מדריך 30 פרומפטים שימושיים.">
+<meta property="og:url" content="https://tomizs.com/ai-workshop/">
+<meta property="og:image" content="https://tomizs.com/assets/og.png">
+<meta property="og:locale" content="he_IL">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/webinar.css">
+<style>
+/* additions for the workshop page, on top of webinar.css */
+.ws-price{font-size:15px;font-weight:700;color:var(--band-muted)}
+.ws-hours{display:flex;align-items:baseline;gap:10px;font-weight:900;color:var(--pink);font-size:clamp(46px,12vw,72px);line-height:1}
+.ws-hours small{font-size:18px;font-weight:700;color:var(--green-deep)}
+.ws-split{display:grid;gap:14px}
+@media (min-width:760px){.ws-split{grid-template-columns:1fr 1fr}}
+.ws-bar{display:grid;gap:6px}
+.ws-bar span{font-weight:700}
+.ws-bar i{display:block;height:18px;border:2px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden;position:relative}
+.ws-bar i::after{content:"";position:absolute;inset-block:0;inset-inline-start:0;width:var(--w);background:var(--pink)}
+.ws-bar.calm i::after{background:var(--green-deep)}
+.wb-form .ws-opt{font-weight:500;color:#56706A}
+.ws-done{display:grid;gap:10px;text-align:center;padding:10px 0}
+.ws-done b{font-size:28px;font-weight:900}
+.ws-gift{display:flex;gap:14px;align-items:center;background:#FFF6B8;color:#3A3A1A;border:2px solid var(--ink);box-shadow:var(--hard);border-radius:6px;padding:16px 18px;transform:rotate(-1deg);max-width:460px;font-weight:700}
+@media (min-width:760px){.wb-get .wb-checks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.wb .wb-sec .wrap{padding-block:48px}
+.wb-get .wb-checks{margin:22px 0}
+
+.wb-host p:not(.wb-eyebrow){font-size:17px}
+.wb-host .ws-collage{max-width:260px;padding-bottom:50px;padding-inline-end:46px}
+.ws-gift big{font-size:40px;font-weight:900;line-height:1}
+
+/* before/after prompt demo */
+.ws-demo{background:var(--bg)}
+.ws-chats{display:grid;gap:22px;margin-top:26px}
+@media (min-width:860px){.ws-chats{grid-template-columns:1fr 1fr}}
+.ws-chat{background:var(--surface);border:2px solid var(--ink);border-radius:18px;box-shadow:var(--hard);overflow:hidden;display:flex;flex-direction:column}
+.ws-chat.good{box-shadow:8px 8px 0 var(--pink)}
+.ws-chat header{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:2px solid var(--ink);font-weight:800;font-size:15px}
+.ws-chat header span{font-size:13px;font-weight:800;padding:2px 10px;border-radius:999px;border:2px solid var(--ink)}
+.ws-chat.bad header span{background:var(--tint);color:#1E3E38}
+.ws-chat.good header span{background:var(--pink);color:#fff}
+.ws-dots{display:flex;gap:5px;margin-inline-start:auto}
+.ws-dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.ws-msgs{display:grid;gap:12px;padding:18px 16px 20px}
+.ws-me,.ws-ai{border-radius:16px;padding:10px 14px;font-size:16px;line-height:1.5;max-width:92%}
+.ws-me{justify-self:start;background:var(--green-deep);color:var(--cream);border-end-start-radius:4px}
+.ws-ai{justify-self:end;background:var(--tint);color:var(--fg);border:1.5px solid var(--line);border-end-end-radius:4px}
+.ws-me b{color:#FFB3C7;font-weight:700}
+.ws-verdict{margin-top:auto;padding:10px 16px;font-weight:800;font-size:15px;border-top:2px dashed var(--line)}
+.ws-chat.bad .ws-verdict{color:var(--muted)}
+.ws-chat.good .ws-verdict{color:var(--pink)}
+/* guide booklet mock */
+.ws-guide{display:flex;flex-wrap:wrap;gap:24px;align-items:center;margin:6px 0 30px}
+.ws-book{width:170px;aspect-ratio:3/4;max-width:100%;background:var(--cream);color:var(--green-deep);border:2px solid var(--ink);border-radius:6px 14px 14px 6px;box-shadow:8px 8px 0 var(--pink);transform:rotate(-3deg);position:relative;padding:18px 16px;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.ws-book::before{content:"";position:absolute;inset-block:0;inset-inline-end:0;width:12px;background:var(--green-deep)}
+.ws-book small{font-size:11px;font-weight:800;letter-spacing:.06em;color:var(--pink)}
+.ws-book big{font-size:58px;font-weight:900;line-height:.9}
+.ws-book strong{font-size:17px;font-weight:800;line-height:1.15}
+.ws-book em{font-style:normal;margin-top:auto;font-size:11px;font-weight:700;opacity:.7}
+.ws-book .ln{height:5px;border-radius:3px;background:var(--line);width:80%}
+.ws-book .ln.s{width:55%}
+.ws-guide p{max-width:34ch;font-size:19px;font-weight:700}
+.ws-guide p span{display:block;font-size:16px;font-weight:500;color:var(--band-muted);margin-top:6px}
+/* host collage */
+.ws-collage{position:relative;width:100%;max-width:340px;box-sizing:border-box;justify-self:center;padding-bottom:70px;padding-inline-end:60px}
+.ws-collage .main{display:block;width:100%;height:auto;border-radius:24px;border:2px solid var(--ink);box-shadow:10px 10px 0 var(--pink);transform:rotate(-2deg)}
+.ws-collage figure{position:absolute;inset-inline-end:0;bottom:0;width:48%;margin:0;background:#fff;border:2px solid var(--ink);border-radius:8px;padding:6px 6px 8px;box-shadow:var(--hard);transform:rotate(4deg)}
+.ws-collage figure img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:35% 45%;border-radius:4px}
+.ws-collage figcaption{font-size:12px;font-weight:700;text-align:center;margin-top:5px;color:#1E3E38}
+/* compact host row */
+.wb .wb-sec.wb-host .wrap{padding-block:26px;max-width:760px}
+.wb-host .wrap{grid-template-columns:110px minmax(0,1fr);gap:18px;align-items:center}
+.wb-host .ws-collage{max-width:110px;padding-bottom:26px;padding-inline-end:26px;justify-self:start}
+.wb-host .ws-collage .main{border-radius:14px;box-shadow:5px 5px 0 var(--pink)}
+.wb-host .ws-collage figure{padding:3px;border-radius:5px;box-shadow:3px 3px 0 var(--ink)}
+.wb-host .ws-collage figcaption{display:none}
+.wb-host h2{font-size:22px}
+.wb-host p:not(.wb-eyebrow){font-size:15px;margin-top:6px}
+.wb-host .wb-eyebrow{margin:0}
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1639309097614341');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1639309097614341&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body class="wb">
+<a class="skip" href="#main">דילוג לתוכן</a>
+<main id="main" tabindex="-1">
+<section class="wb-hero">
+  <div class="wrap">
+    <div class="wb-hero-text">
+      <img class="wb-logo" src="/assets/logo_light.png" width="122" height="36" alt="TomiZ">
+      <span class="wb-badge">שעתיים · רוב הזמן תרגול</span>
+      <h1>סדנת AI <mark>מעשית</mark></h1>
+      <p class="wb-sub">שעתיים של תרגול מעשי ומותאם לכם. בלי ידע קודם. עדיף להגיע עם לפטופ (אפשר גם טלפון).</p>
+      <ul class="wb-when" aria-label="פרטי הסדנה">
+        <li><b>יום שני, 23.11.2026</b></li>
+        <li><b>18:30–20:30</b></li>
+        <li><b>בספרייה</b></li>
+        <li class="free"><b>200 ₪</b></li>
+      </ul>
+      <a class="wb-btn" id="hero-cta" href="#register">אני רוצה להירשם</a>
+    </div>
+    <div class="wb-todo" aria-hidden="true">
+      <div class="wb-todo-head">מה עושים בשעתיים</div>
+      <ol>
+        <li class="ai"><span>מנסחים בקשה מדויקת</span><i>תרגול</i></li>
+        <li class="ai"><span>חושבים יחד עם ה-AI</span><i>תרגול</i></li>
+        <li class="ai"><span>יוצרים תמונות ותוצרים ויזואליים</span><i>תרגול</i></li>
+        <li class="me"><span>בודקים ומפעילים שיקול דעת</span><i>אצלכם</i></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<div class="wb-ticker" aria-hidden="true"><div><span>שעתיים של תרגול</span><span>פרקטי</span><span>כלים שאפשר להשתמש בהם מחר בבוקר</span><span>מותאם לכם</span><span>יוצרים תמונות ותוצרים</span><span>מדריך 30 פרומפטים</span><span>שעתיים של תרגול</span><span>פרקטי</span><span>כלים שאפשר להשתמש בהם מחר בבוקר</span><span>מותאם לכם</span><span>יוצרים תמונות ותוצרים</span><span>מדריך 30 פרומפטים</span></div></div>
+
+<section class="wb-sec wb-get">
+  <div class="wrap">
+    <ul class="wb-checks">
+      <li><b>לנסח בקשות מדויקות</b>שמקבלות תשובה טובה כבר בפעם הראשונה.</li>
+      <li><b>לחשוב יחד עם AI</b>לפתח רעיונות ולבחון אפשרויות.</li>
+      <li><b>ליצור תמונות ותוצרים ויזואליים</b>הזמנות, פוסטים, מצגות ואיורים, ולשפר אותם עד שהם מוכנים.</li>
+      <li><b>לדעת מתי לעצור ולבדוק</b>ומתי להפעיל שיקול דעת.</li>
+    </ul>
+    <div class="ws-guide">
+      <div class="ws-book" aria-hidden="true"><small>TomiZ · מדריך</small><big>30</big><strong>פרומפטים שימושיים</strong><span class="ln"></span><span class="ln s"></span><span class="ln"></span><em>לעבודה, לעסק ולבית</em></div>
+      <p>מקבלים הביתה מדריך עם 30 פרומפטים שימושיים<span>מוכנים להעתקה ולהתאמה, וחומרי עזר להמשך העבודה אחרי הסדנה.</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="wb-sec wb-host">
+  <div class="wrap">
+    <div class="ws-collage">
+      <img class="main" src="/assets/shaked.jpg" width="900" height="900" alt="שקד וולוז'ינסקי" loading="lazy" decoding="async">
+      <figure><img src="/media/talk-stage.jpg" width="540" height="960" alt="שקד מנחה מול קהל" loading="lazy" decoding="async"><figcaption>מהשטח</figcaption></figure>
+    </div>
+    <div>
+      <p class="wb-eyebrow">מי אני?</p>
+      <h2>שקד וולוז'ינסקי</h2>
+      <p>מפתחת למידה והדרכה ומייסדת TomiZ. אני עוזרת לאנשים ולארגונים לעבור מהתלהבות ראשונית מ-AI לעבודה מעשית ומותאמת לצרכים שלהם.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wb-sec wb-reg" id="register">
+  <div class="wrap">
+    <div class="wb-reg-text">
+      <h2>שמרו לי <mark>מקום</mark></h2>
+            <p class="ws-price">תשלום: ביט, העברה בנקאית או מזומן. פרטים יישלחו אחרי ההרשמה.</p>
+          </div>
+    <form id="reg" class="wb-form" novalidate data-source="סדנת AI מעשית 23.11 · ספרייה">
+      <div class="wb-field">
+        <label for="r-name">שם מלא</label>
+        <input id="r-name" name="name" autocomplete="name" required aria-describedby="r-name-err">
+        <p class="wb-err" id="r-name-err"></p>
+      </div>
+      <div class="wb-field">
+        <label for="r-phone">טלפון</label>
+        <input id="r-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required aria-describedby="r-phone-err">
+        <p class="wb-err" id="r-phone-err"></p>
+      </div>
+      <div class="wb-field">
+        <label for="r-mail">אימייל <span class="ws-opt">(לשליחת המדריך)</span></label>
+        <input id="r-mail" name="email" type="email" autocomplete="email" dir="ltr" required aria-describedby="r-mail-err">
+        <p class="wb-err" id="r-mail-err"></p>
+      </div>
+      <div class="wb-field">
+        <label for="r-want">מה הכי מסקרן אתכם ללמוד או לנסות? <span class="ws-opt">(לא חובה)</span></label>
+        <input id="r-want" name="interest" autocomplete="off" placeholder="למשל: לכתוב מיילים, לתכנן טיול, לסכם מסמכים">
+      </div>
+      <div class="hp" aria-hidden="true"><label for="r-web">אתר<input id="r-web" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <label class="consent" for="r-ok"><input id="r-ok" name="marketing" type="checkbox"> אשמח לקבל מ-TomiZ טיפים פרקטיים ל-AI ועדכונים על סדנאות (לא חובה, אפשר להסיר בכל רגע)</label>
+      <button class="wb-btn" type="submit">שמרו לי מקום</button>
+      <p class="wb-legal">נשתמש בפרטים כדי לחזור אליכם עם פרטי התשלום, לשלוח תזכורת לפני הסדנה ואת המדריך אחריה. פרטים נוספים ב<a href="/privacy/" target="_blank" rel="noopener">מדיניות הפרטיות</a>.</p>
+      <div class="wb-note" id="reg-note" role="alert" tabindex="-1"></div>
+    </form>
+    <div class="wb-form ws-done" id="reg-done" hidden tabindex="-1">
+      <b>המקום שלכם <mark>שמור!</mark></b>
+      <p>תודה שנרשמתם. אחזור אליכם בקרוב עם פרטי התשלום (ביט, העברה בנקאית או מזומן), ואזכיר לכם לפני הסדנה.</p>
+      <p>נתראה ביום שני, 23.11, בשעה 18:30 בספרייה.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="wb-foot">
+  <div class="wrap"><img src="/assets/logo_light.png" width="102" height="30" alt="TomiZ" loading="lazy"><span>© TomiZ · <a href="/privacy/" target="_blank" rel="noopener">מדיניות פרטיות</a></span></div>
+</footer>
+
+<a class="wb-stick" href="#register" aria-hidden="true" tabindex="-1">שמרו לי מקום · 23.11 · 200 ₪</a>
+
+</main>
+<script>window.TOMIZ_WORKSHOP_WEBHOOK="https://hook.eu1.make.com/44cdo9onnfncceyevc7yseovxt4h375t"</script>
+<script>
+// Workshop sign-up: posts to the site's Make webhook (source names the workshop), then shows the thank-you card in place.
+(function () {
+  const HOOK = window.TOMIZ_WORKSHOP_WEBHOOK || '';
+  const T = {
+    name: 'נא למלא שם מלא.',
+    phone: 'נא למלא מספר טלפון תקין, למשל ⁦050-1234567⁩.',
+    email: 'נא למלא כתובת אימייל תקינה, למשל ⁦name@gmail.com⁩.',
+    off: 'ההרשמה עדיין לא מחוברת. אפשר להירשם בינתיים במייל: ⁦office@tomizs.com⁩',
+    fail: 'אופס, ההרשמה לא נשלחה. בדקו את החיבור לאינטרנט ונסו שוב. אם זה ממשיך, כתבו לי: ⁦office@tomizs.com⁩',
+    sending: 'שומרים לכם מקום...'
+  };
+  const form = document.getElementById('reg');
+  if (!form) return;
+  const note = document.getElementById('reg-note');
+  const done = document.getElementById('reg-done');
+  const btn = form.querySelector('button[type=submit]');
+  const label = btn.textContent;
+  const checks = {
+    name: v => v.trim().length >= 2,
+    phone: v => /^(?:\+?972|0)(?:5\d|7\d|[23489])\d{7}$/.test(v.replace(/[\s\-().]/g, '')),
+    email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim())
+  };
+  let tried = false, sending = false;
+  const check = name => {
+    const el = form.elements[name], ok = checks[name](el.value);
+    el.setAttribute('aria-invalid', !ok);
+    document.getElementById(el.getAttribute('aria-describedby')).textContent = ok ? '' : T[name];
+    return ok;
+  };
+  Object.keys(checks).forEach(name => {
+    const el = form.elements[name];
+    el.addEventListener('blur', () => { if (tried || el.value) check(name); });
+    el.addEventListener('input', () => { if (el.getAttribute('aria-invalid') === 'true') check(name); });
+  });
+  const finish = () => {
+    form.hidden = true; done.hidden = false; done.focus();
+    if (window.fbq) fbq('track', 'Lead', { content_name: 'ai-workshop-2026-11-23' });
+  };
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (sending) return;
+    tried = true; note.textContent = '';
+    const bad = Object.keys(checks).filter(name => !check(name));
+    if (bad.length) { form.elements[bad[0]].focus(); return; }
+    if (form.website.value) { finish(); return; }
+    if (!HOOK) { note.textContent = T.off; note.focus(); return; }
+    sending = true; btn.disabled = true; btn.textContent = T.sending; form.setAttribute('aria-busy', 'true');
+    const utm = {};
+    new URLSearchParams(location.search).forEach((v, k) => { if (k.startsWith('utm_')) utm[k] = v; });
+    const body = new URLSearchParams({
+      name: form.name.value.trim(), phone: form.phone.value.trim(), email: form.email.value.trim(),
+      message: form.interest.value.trim(), marketingConsent: form.marketing.checked,
+      source: form.dataset.source, workshop: '2026-11-23T18:30+02:00', price: '200',
+      page: location.pathname, sentAt: new Date().toISOString(), ...utm
+    });
+    const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), 15000);
+    try {
+      await fetch(HOOK, { method: 'POST', mode: 'no-cors', body, signal: ctrl.signal });
+    } catch (err) {
+      clearTimeout(timer);
+      sending = false; btn.disabled = false; btn.textContent = label; form.removeAttribute('aria-busy');
+      note.textContent = T.fail; note.focus();
+      return;
+    }
+    clearTimeout(timer);
+    finish();
+  });
+  document.querySelectorAll('a[href="#register"]').forEach(a => a.addEventListener('click', () =>
+    setTimeout(() => form.elements.name.focus({ preventScroll: true }), 450)));
+})();
+// sticky CTA on phones
+(function () {
+  const bar = document.querySelector('.wb-stick'), hero = document.getElementById('hero-cta'), reg = document.getElementById('register');
+  if (!bar || !hero || !reg || !('IntersectionObserver' in window)) return;
+  document.body.classList.add('has-stick');
+  const seen = new Map();
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => seen.set(e.target, e.isIntersecting));
+    const heroAbove = !seen.get(hero) && hero.getBoundingClientRect().bottom < 0;
+    bar.classList.toggle('on', heroAbove && !seen.get(reg));
+  });
+  io.observe(hero); io.observe(reg);
+})();
+</script>
+</body>
+</html>
