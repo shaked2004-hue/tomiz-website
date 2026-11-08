@@ -3,6 +3,7 @@
 const WEBINAR_WEBHOOK = window.TOMIZ_WEBINAR_WEBHOOK || '';
 const THANKS = '/webinar/thanks/';
 const FLAG = 'tomiz-webinar-lead';
+const DONE = 'tomiz-webinar-registered'; // emails already signed up from this browser
 const T = {
   name: 'נא למלא שם מלא.',
   phone: 'נא למלא מספר טלפון תקין, למשל ⁦050-1234567⁩.', // ⁦..⁩ keep the example left-to-right
@@ -16,6 +17,12 @@ const flag = {
   set() { try { sessionStorage.setItem(FLAG, '1'); return true; } catch (e) { return false; } },
   take() { try { const v = sessionStorage.getItem(FLAG); sessionStorage.removeItem(FLAG); return !!v; } catch (e) { return false; } }
 };
+const done = {
+  has(email) { try { return (JSON.parse(localStorage.getItem(DONE)) || []).includes(email); } catch (e) { return false; } },
+  add(email) { try { const l = JSON.parse(localStorage.getItem(DONE)) || []; if (!l.includes(email)) localStorage.setItem(DONE, JSON.stringify([...l, email])); } catch (e) {} }
+};
+// one id per sign-up, so the Make scenario can drop copies of the same request
+const newId = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2));
 const lead = () => window.fbq && fbq('track', 'Lead', { content_name: 'webinar-2026-12-01' });
 
 // ---- registration form ----
@@ -62,12 +69,14 @@ const lead = () => window.fbq && fbq('track', 'Lead', { content_name: 'webinar-2
     if (bad.length) return;
     if (form.website.value) { location.href = THANKS; return; } // bot filled the honeypot: pretend it worked
     if (!WEBINAR_WEBHOOK) { note.textContent = T.off; note.focus(); return; }
+    const email = form.email.value.trim().toLowerCase();
+    if (done.has(email)) { location.href = THANKS; return; } // already registered from this browser: don't send again
 
     sending = true; btn.disabled = true; btn.textContent = T.sending; form.setAttribute('aria-busy', 'true');
     const utm = {};
     new URLSearchParams(location.search).forEach((v, k) => { if (k.startsWith('utm_')) utm[k] = v; });
     const body = new URLSearchParams({
-      name: form.name.value.trim(), phone: form.phone.value.trim(), email: form.email.value.trim(),
+      name: form.name.value.trim(), phone: form.phone.value.trim(), email: form.email.value.trim(), submissionId: newId(),
       marketingConsent: form.marketing.checked, source: form.dataset.source, webinar: '2026-12-01T10:00+02:00',
       page: location.pathname, sentAt: new Date().toISOString(), ...utm
     });
@@ -82,6 +91,7 @@ const lead = () => window.fbq && fbq('track', 'Lead', { content_name: 'webinar-2
       return;
     }
     clearTimeout(timer);
+    done.add(email);
     if (!flag.set()) lead(); // no sessionStorage: fire here instead of on the thanks page
     location.href = THANKS;
   });
