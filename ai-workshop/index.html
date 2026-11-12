@@ -203,7 +203,7 @@ src="https://www.facebook.com/tr?id=1639309097614341&ev=PageView&noscript=1"
       <p class="wb-legal">נשתמש בפרטים כדי לחזור אליכם עם פרטי התשלום, לשלוח תזכורת לפני הסדנה ואת המדריך אחריה. פרטים נוספים ב<a href="/privacy/" target="_blank" rel="noopener">מדיניות הפרטיות</a>.</p>
       <div class="wb-note" id="reg-note" role="alert" tabindex="-1"></div>
     </form>
-    <div class="wb-form ws-done" id="reg-done" hidden tabindex="-1">
+    <div class="wb-form ws-done" id="reg-done" hidden style="display:none" tabindex="-1">
       <b>המקום שלכם <mark>שמור!</mark></b>
       <p>תודה שנרשמתם. אחזור אליכם בקרוב עם פרטי התשלום (ביט, העברה בנקאית או מזומן), ואזכיר לכם לפני הסדנה.</p>
       <p>נתראה ביום שני, 23.11, בשעה 18:30 בספרייה.</p>
@@ -255,7 +255,7 @@ src="https://www.facebook.com/tr?id=1639309097614341&ev=PageView&noscript=1"
     el.addEventListener('input', () => { if (el.getAttribute('aria-invalid') === 'true') check(name); });
   });
   const finish = () => {
-    form.hidden = true; done.hidden = false; done.focus();
+    form.hidden = true; form.style.display = 'none'; done.hidden = false; done.style.display = 'grid'; done.focus();
     if (window.fbq) fbq('track', 'Lead', { content_name: 'ai-workshop-2026-11-23' });
   };
   form.addEventListener('submit', async e => {
