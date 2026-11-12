@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>שאלון אפיון · ליווי בעבודה עם Claude · TomiZ</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1E3E38">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/webinar.css">
+<style>
+/* client intake questionnaire, on top of webinar.css */
+[hidden]{display:none!important}
+.iq-hero .wrap{padding-block:max(24px,env(safe-area-inset-top,0px)) 46px}
+.iq-hero h1{font-size:clamp(38px,10vw,68px)}
+.iq-intro{display:grid;gap:10px;max-width:60ch;color:var(--band-muted);font-size:18px}
+.iq-intro strong{color:var(--cream)}
+.iq-safe{background:var(--cream);color:var(--green-deep);border:2px solid var(--cream);border-radius:12px;padding:10px 14px;font-weight:700;font-size:16px;max-width:60ch}
+.iq-safe b{color:var(--pink)}
+.iq-body{background:var(--bg)}
+.iq-body .wrap{padding-block:40px 70px;display:grid;gap:34px}
+.iq-sec{background:var(--surface);border:2px solid var(--ink);border-radius:22px;box-shadow:var(--hard);padding:26px 20px;display:grid;gap:22px}
+@media (min-width:700px){.iq-sec{padding:32px 34px}}
+.iq-sec h2{display:flex;align-items:center;gap:12px;font-size:clamp(24px,6vw,32px);font-weight:900;color:var(--fg)}
+.iq-sec h2 span{flex:none;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:var(--pink);color:#fff;font-size:17px;border:2px solid var(--ink)}
+.iq-lead{background:var(--tint);border-inline-start:4px solid var(--pink);border-radius:10px;padding:12px 16px;font-size:16px}
+.iq-q{display:grid;gap:10px}
+.iq-q>label,.iq-q>.iq-label{font-weight:700;font-size:17px;line-height:1.45;display:flex;gap:10px}
+.iq-q>label b,.iq-q>.iq-label b{color:var(--pink);font-weight:900;min-width:26px}
+.iq-hint{display:block;font-weight:400;font-size:14px;color:var(--muted)}
+.iq-q textarea,.iq-q input[type=text],.iq-q input[type=tel],.iq-q input[type=email]{width:100%;font:400 17px/1.55 var(--font);color:var(--green-deep);background:var(--cream);border:2px solid #C9D6D1;border-radius:14px;padding:12px 14px}
+.iq-q textarea{min-height:132px;resize:vertical}
+.iq-q textarea.short{min-height:62px}
+.iq-q textarea:focus,.iq-q input:focus{outline:3px solid var(--pink);outline-offset:1px;border-color:var(--green)}
+.iq-q [aria-invalid="true"]{border-color:#C2264F;background:#FFF4F7}
+.iq-opts{display:flex;flex-wrap:wrap;gap:10px}
+.iq-opt{position:relative}
+.iq-opt input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.iq-opt span{display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border:2px solid #C9D6D1;border-radius:999px;background:var(--cream);color:var(--green-deep);font-weight:500;cursor:pointer;transition:background .15s,border-color .15s}
+.iq-opt input:checked+span{background:var(--green-deep);border-color:var(--green-deep);color:var(--cream);font-weight:700}
+.iq-opt input:focus-visible+span{outline:3px solid var(--pink);outline-offset:2px}
+.iq-other{margin-top:2px}
+.iq-table{display:grid;gap:8px}
+.iq-row{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;align-items:center;background:var(--cream);border:2px solid #E0E6E3;border-radius:14px;padding:10px 14px;color:var(--green-deep)}
+.iq-row input[type=checkbox]{width:22px;height:22px;accent-color:var(--pink)}
+.iq-row label{font-weight:500}
+.iq-row input[type=text]{grid-column:2;min-height:40px;padding:6px 12px;font-size:15px;background:#fff}
+.iq-rate{display:grid;gap:10px}
+.iq-rate fieldset{border:2px solid #E0E6E3;border-radius:14px;padding:10px 14px;margin:0;background:var(--cream);color:var(--green-deep);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.iq-rate legend{float:right;font-weight:500;padding:0}
+.iq-rate .nums{display:flex;gap:6px}
+.iq-rate .iq-opt span{min-height:40px;width:40px;padding:0;justify-content:center;border-radius:50%}
+.iq-scale{font-size:14px;color:var(--muted)}
+.iq-send{background:var(--cream);color:var(--green-deep);border:2px solid var(--ink);border-radius:22px;box-shadow:10px 10px 0 var(--pink);padding:26px 22px;display:grid;gap:14px}
+.iq-send h2{font-size:clamp(24px,6vw,32px);font-weight:900}
+.iq-send .wb-btn{width:100%}
+.iq-saved{font-size:14px;color:var(--muted)}
+.iq-done{text-align:center;display:grid;gap:12px;padding:20px 0}
+.iq-done b{font-size:32px;font-weight:900}
+.iq-progress{position:sticky;top:0;z-index:5;background:var(--green-deep);color:var(--cream);font-size:14px;font-weight:700}
+.iq-progress .wrap{display:flex;align-items:center;gap:12px;padding-block:8px}
+.iq-progress i{flex:1;height:8px;border-radius:999px;background:rgba(249,247,242,.2);overflow:hidden}
+.iq-progress i::after{content:"";display:block;height:100%;width:var(--p,0%);background:var(--pink);transition:width .3s}
+</style>
+</head>
+<body class="wb">
+<a class="skip" href="#main">דילוג לתוכן</a>
+<main id="main" tabindex="-1">
+<section class="wb-hero iq-hero">
+  <div class="wrap">
+    <div class="wb-hero-text">
+      <img class="wb-logo" src="/assets/logo_light.png" width="122" height="36" alt="TomiZ">
+      <span class="wb-badge">ליווי אישי בעבודה עם Claude</span>
+      <h1>שאלון <mark>אפיון</mark></h1>
+      <div class="iq-intro">
+        <p><strong>היי יעל, שמחה שאנחנו מתחילות 🙂</strong></p>
+        <p>השאלון יעזור לי להכיר אותך, את הקליניקה ואת סדר היום שלך, כדי לבנות ליווי שמתאים בדיוק לך. אין תשובות נכונות או לא נכונות, ואין צורך בידע טכני. המילוי לוקח כ-15 דקות, ואפשר לדלג על שאלה שלא רלוונטית.</p>
+        <p>התשובות נשמרות אוטומטית במכשיר הזה, אז אפשר לעצור ולחזור להמשיך מאוחר יותר.</p>
+      </div>
+      <p class="iq-safe"><b>חשוב:</b> אין צורך לכתוב בשאלון שום פרט מזהה על מטופלים.</p>
+    </div>
+  </div>
+</section>
+<div class="iq-progress" aria-hidden="true"><div class="wrap"><span id="prog-t">0 מתוך 28</span><i id="prog"></i></div></div>
+<section class="iq-body">
+  <div class="wrap narrow">
+    <noscript><p class="wb-note">כדי למלא את השאלון צריך לאפשר JavaScript בדפדפן. אפשר גם לכתוב לי: office@tomizs.com</p></noscript>
+    <form id="iq" novalidate data-source="שאלון אפיון · יעל" hidden>
+      <div id="sections" style="display:grid;gap:34px"></div>
+      <div class="hp" aria-hidden="true"><label for="iq-web">אתר<input id="iq-web" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <div class="iq-send" style="margin-top:34px">
+        <h2>זהו, סיימת!</h2>
+        <p>לחיצה על הכפתור שולחת אליי את התשובות. אחרי שאעבור עליהן, אכין הצעה לתוכנית ליווי: מה נלמד, באיזה סדר, ואיזה סוכן נבנה ראשון. נעבור עליה יחד בפגישה הראשונה.</p>
+        <button class="wb-btn" type="submit">שליחת השאלון</button>
+        <p class="iq-saved" id="saved"></p>
+        <div class="wb-note" id="note" role="alert" tabindex="-1"></div>
+        <p class="wb-legal">התשובות מגיעות רק אליי ומשמשות להכנת הליווי שלך. פרטים נוספים ב<a href="/privacy/" target="_blank" rel="noopener">מדיניות הפרטיות</a>.</p>
+      </div>
+    </form>
+    <div class="iq-send iq-done" id="done" hidden tabindex="-1">
+      <b>תודה <mark>יעל!</mark></b>
+      <p>השאלון נשלח אליי. אעבור עליו ואחזור אלייך עם הצעה לתוכנית הליווי.</p>
+      <p>שאלות בדרך? אפשר לכתוב לי בכל זמן: <a href="mailto:office@tomizs.com">office@tomizs.com</a></p>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="wb-foot">
+  <div class="wrap"><img src="/assets/logo_light.png" width="102" height="30" alt="TomiZ" loading="lazy"><span>© TomiZ · <a href="/privacy/" target="_blank" rel="noopener">מדיניות פרטיות</a></span></div>
+</footer>
+<script>window.TOMIZ_INTAKE_WEBHOOK="https://hook.eu1.make.com/44cdo9onnfncceyevc7yseovxt4h375t"</script>
+<script>
+(function () {
+  // Question kinds: text (lines = height), one (single choice), many (multi choice), tasks (checklist + time), rate (1-5 per goal), contact
+  const S = [
+    { t: 'היכרות', q: [
+      { k: 'contact', l: 'פרטי התקשרות' },
+      { k: 'text', l: 'ספרי לי בכמה משפטים על הקליניקה: סוג הטיפול, כמה שנים, ואיפה את עובדת', o: ['פרונטלי', 'אונליין', 'שניהם'], one: true },
+      { k: 'text', l: 'בערך כמה פגישות טיפול יש לך בשבוע?', short: true },
+      { k: 'text', l: 'את עובדת לבד, או שמישהו עוזר לך? (מזכירה, שותפה, בן/בת זוג)', short: true },
+      { k: 'text', l: 'יש לך עוד פעילויות מלבד טיפול?', h: 'סדנאות, הרצאות, הדרכה, כתיבה, רשתות חברתיות' } ] },
+    { t: 'את והטכנולוגיה', q: [
+      { k: 'one', l: 'איך היית מתארת את הנוחות שלך עם טכנולוגיה?', o: ['מסתדרת עם הבסיס', 'נוחה למדי', 'אוהבת להתנסות'] },
+      { k: 'text', l: 'השתמשת פעם ב-Claude, ChatGPT או כלי AI אחר? למה, ומה היה הרושם?' },
+      { k: 'text', l: 'יש לך מנוי בתשלום לכלי AI? אם כן, איזה?', short: true },
+      { k: 'one', l: 'על איזה מכשיר את עובדת בעיקר?', o: ['Windows', 'Mac', 'בעיקר בטלפון'] },
+      { k: 'text', l: 'מה הכי מסקרן אותך ב-AI, ומה מעורר בך חשש או הסתייגות?' } ] },
+    { t: 'שגרת העבודה והמשימות המנהליות', q: [
+      { k: 'tasks', l: 'סמני את המשימות שלוקחות לך זמן היום, ואם אפשר, כמה זמן בשבוע', o: ['קביעת פגישות, תזכורות ושינויי מועדים', 'מענה לפניות של מתעניינים חדשים', 'מיילים ומסמכים למטופלים (טפסים, הסכמות, חומרי עבודה)', 'חשבוניות, קבלות ומעקב תשלומים', 'סיכומי פגישות ותיעוד', 'הכנת חומרים, תרגילים ודפי עבודה לזוגות', 'תוכן לרשתות, ניוזלטר או אתר', 'סדר בקבצים, במסמכים ובמיילים'] },
+      { k: 'text', l: 'איזו משימה את הכי לא אוהבת לעשות, או הכי דוחה?' },
+      { k: 'text', l: 'איזו משימה חוזרת על עצמה כמעט באותה צורה כל פעם?' },
+      { k: 'text', l: 'תארי יום עבודה טיפוסי: מתי את מטפלת, ומתי ואיפה את עושה את העבודה המנהלית?' },
+      { k: 'text', l: 'אם הייתה לך מזכירה אישית לשעתיים בשבוע, מה היית מבקשת ממנה?' } ] },
+    { t: 'הכלים שלך היום', q: [
+      { k: 'many', l: 'באיזה מייל ויומן את משתמשת?', o: ['Gmail ויומן Google', 'Outlook', 'אחר'] },
+      { k: 'many', l: 'איך מטופלים קובעים איתך פגישות?', o: ['וואטסאפ', 'טלפון', 'מערכת זימון אונליין', 'אחר'] },
+      { k: 'text', l: 'באיזו מערכת את מפיקה חשבוניות וקבלות?', h: 'למשל חשבונית ירוקה, iCount, רואה חשבון', short: true },
+      { k: 'many', l: 'איפה שמורים המסמכים שלך?', o: ['Google Drive', 'OneDrive', 'תיקיות במחשב', 'נייר'] },
+      { k: 'text', l: 'עוד מערכות שאת עובדת איתן בקביעות?', h: 'ניהול קליניקה, Zoom, Canva, אתר', short: true } ] },
+    { t: 'פרטיות וחיסיון', lead: 'כמטפלת, את עובדת עם מידע רגיש מאוד. התשובות כאן יעזרו לנו להגדיר יחד מה הסוכן יעשה ומה לא, ואיך שומרים על המטופלים שלך.', q: [
+      { k: 'text', l: 'יש לך היום נהלים לשמירת מידע של מטופלים?', h: 'איפה נשמרים סיכומים, מי ניגש אליהם' },
+      { k: 'one', l: 'איזה מידע נוח לך להכניס לכלי AI?', o: ['רק מידע כללי, בלי פרטי מטופלים', 'מידע מנהלי עם שמות, בלי תוכן טיפולי', 'עוד לא יודעת'] },
+      { k: 'text', l: 'את כפופה לגוף מקצועי או לקוד אתי עם הנחיות לגבי טכנולוגיה או AI? איזה?', short: true },
+      { k: 'text', l: 'יש משהו שאת רוצה שהסוכן לעולם לא יעשה?' } ] },
+    { t: 'מטרות וציפיות', q: [
+      { k: 'rate', l: 'דרגי כל מטרה מ-1 (פחות חשוב) עד 5 (הכי חשוב)', o: ['ללמוד לעבוד עם Claude בעצמי ולהרגיש בטחון', 'לבנות סוכן שחוסך לי זמן בעבודה המנהלית', 'ליצור תוכן וחומרים מקצועיים בעזרת AI', 'לעשות סדר בכלים ובתהליכים של הקליניקה'] },
+      { k: 'text', l: 'בסוף הליווי, מה יגרום לך להגיד "זה היה שווה את זה"?' },
+      { k: 'text', l: 'כמה זמן בשבוע את רוצה לחסוך, בערך?', short: true },
+      { k: 'text', l: 'יש תאריך או תקופה שבה חשוב לך שהדברים יעבדו?', h: 'למשל לפני עונה עמוסה', short: true } ] }
+  ];
+  const KEY = 'tomiz-intake-yael';
+  const WEBHOOK = window.TOMIZ_INTAKE_WEBHOOK || '';
+  const form = document.getElementById('iq'), wrap = document.getElementById('sections');
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const store = {
+    get() { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; } },
+    set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); return true; } catch (e) { return false; } },
+    clear() { try { localStorage.removeItem(KEY); } catch (e) {} }
+  };
+
+  // ---- render ----
+  let n = 0;
+  const opts = (name, list, type) => '<div class="iq-opts">' + list.map((o, i) =>
+    `<label class="iq-opt"><input type="${type}" name="${name}" value="${esc(o)}"><span>${esc(o)}</span></label>`).join('') + '</div>';
+  const label = (q, id) => `<${id ? 'label for="' + id + '"' : 'div class="iq-label"'}><b>${n}</b><span>${esc(q.l)}${q.h ? '<span class="iq-hint">' + esc(q.h) + '</span>' : ''}</span></${id ? 'label' : 'div'}>`;
+  S.forEach((s, si) => {
+    let html = `<section class="iq-sec" aria-labelledby="s${si}"><h2 id="s${si}"><span>${String(si + 1).padStart(2, '0')}</span>${esc(s.t)}</h2>`;
+    if (s.lead) html += `<p class="iq-lead">${esc(s.lead)}</p>`;
+    s.q.forEach(q => {
+      n++; q.n = n; q.id = 'q' + n;
+      if (q.k === 'contact') {
+        html += `<div class="iq-q"><div class="iq-label"><b>${n}</b><span>${esc(q.l)}</span></div>
+          <input type="text" id="c-name" name="name" autocomplete="name" placeholder="שם מלא" aria-label="שם מלא" required aria-describedby="c-name-err">
+          <p class="wb-err" id="c-name-err"></p>
+          <input type="tel" name="phone" autocomplete="tel" dir="ltr" placeholder="טלפון" aria-label="טלפון">
+          <input type="email" name="email" autocomplete="email" dir="ltr" placeholder="מייל" aria-label="מייל"></div>`;
+      } else if (q.k === 'text') {
+        html += `<div class="iq-q">${label(q, q.id)}${q.o ? opts(q.id + 'o', q.o, 'radio') : ''}<textarea id="${q.id}" name="${q.id}" class="${q.short ? 'short' : ''}"></textarea></div>`;
+      } else if (q.k === 'one' || q.k === 'many') {
+        html += `<div class="iq-q" role="group" aria-labelledby="${q.id}l"><div class="iq-label" id="${q.id}l"><b>${n}</b><span>${esc(q.l)}${q.k === 'many' ? '<span class="iq-hint">אפשר לבחור כמה</span>' : ''}</span></div>${opts(q.id, q.o, q.k === 'one' ? 'radio' : 'checkbox')}`;
+        if (q.o.includes('אחר')) html += `<input type="text" class="iq-other" name="${q.id}x" placeholder="אחר:" aria-label="אחר">`;
+        html += '</div>';
+      } else if (q.k === 'tasks') {
+        html += `<div class="iq-q" role="group" aria-labelledby="${q.id}l"><div class="iq-label" id="${q.id}l"><b>${n}</b><span>${esc(q.l)}</span></div><div class="iq-table">` +
+          q.o.map((o, i) => `<div class="iq-row"><input type="checkbox" id="${q.id}_${i}" name="${q.id}_${i}"><label for="${q.id}_${i}">${esc(o)}</label><input type="text" name="${q.id}_${i}t" placeholder="זמן בשבוע (בערך)" aria-label="זמן בשבוע: ${esc(o)}"></div>`).join('') +
+          `<div class="iq-row"><input type="checkbox" id="${q.id}_x" name="${q.id}_x"><label for="${q.id}_x">משהו אחר</label><input type="text" name="${q.id}_xt" placeholder="מה, וכמה זמן בשבוע" aria-label="משימה אחרת"></div></div></div>`;
+      } else if (q.k === 'rate') {
+        html += `<div class="iq-q"><div class="iq-label"><b>${n}</b><span>${esc(q.l)}</span></div><div class="iq-rate">` +
+          q.o.map((o, i) => `<fieldset><legend>${esc(o)}</legend><div class="nums">` + [1, 2, 3, 4, 5].map(v =>
+            `<label class="iq-opt"><input type="radio" name="${q.id}_${i}" value="${v}" aria-label="${v}"><span>${v}</span></label>`).join('') + '</div></fieldset>').join('') +
+          '<p class="iq-scale">1 = פחות חשוב · 5 = הכי חשוב</p></div></div>';
+      }
+    });
+    wrap.insertAdjacentHTML('beforeend', html + '</section>');
+  });
+  form.hidden = false;
+  const TOTAL = n;
+
+  // ---- answers: read, summarise, progress ----
+  const val = name => { const el = form.elements[name]; return el ? (el.value || '').trim() : ''; };
+  const checked = name => [...form.querySelectorAll(`input[name="${name}"]:checked`)].map(i => i.value);
+  const answer = q => {
+    if (q.k === 'contact') return [val('name'), val('phone'), val('email')].filter(Boolean).join(' · ');
+    if (q.k === 'text') return [checked(q.id + 'o').join(', '), val(q.id)].filter(Boolean).join(' — ');
+    if (q.k === 'one' || q.k === 'many') return [...checked(q.id).filter(v => v !== 'אחר'), checked(q.id).includes('אחר') || val(q.id + 'x') ? 'אחר' + (val(q.id + 'x') ? ': ' + val(q.id + 'x') : '') : ''].filter(Boolean).join(', ');
+    if (q.k === 'tasks') {
+      const rows = q.o.map((o, i) => form.elements[q.id + '_' + i].checked || val(q.id + '_' + i + 't') ? o + (val(q.id + '_' + i + 't') ? ' (' + val(q.id + '_' + i + 't') + ')' : '') : '').filter(Boolean);
+      if (form.elements[q.id + '_x'].checked || val(q.id + '_xt')) rows.push('אחר: ' + (val(q.id + '_xt') || '—'));
+      return rows;
+    }
+    if (q.k === 'rate') return q.o.map((o, i) => checked(q.id + '_' + i)[0] ? o + ': ' + checked(q.id + '_' + i)[0] : '').filter(Boolean);
+  };
+  const filled = a => Array.isArray(a) ? a.length > 0 : !!a;
+  const prog = document.getElementById('prog'), progT = document.getElementById('prog-t');
+  const progress = () => {
+    const c = S.flatMap(s => s.q).filter(q => filled(answer(q))).length;
+    prog.style.setProperty('--p', Math.round(c / TOTAL * 100) + '%');
+    progT.textContent = c + ' מתוך ' + TOTAL;
+  };
+  const toHtml = () => S.map((s, si) =>
+    `<h3 style="color:#2D5A52;border-bottom:2px solid #E94E77;padding-bottom:4px;margin:22px 0 10px">${si + 1}. ${esc(s.t)}</h3>` +
+    s.q.map(q => {
+      const a = answer(q);
+      const body = !filled(a) ? '<span style="color:#8a9a96">— לא נענתה —</span>'
+        : Array.isArray(a) ? '<ul style="margin:4px 0;padding-inline-start:20px">' + a.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>'
+        : esc(a).replace(/\n/g, '<br>');
+      return `<p style="margin:0 0 4px"><b style="color:#E94E77">${q.n}.</b> <b>${esc(q.l)}</b></p><div style="background:#F9F7F2;border-radius:8px;padding:8px 12px;margin:0 0 12px">${body}</div>`;
+    }).join('')).join('');
+
+  // ---- autosave draft (this device only) ----
+  const saved = document.getElementById('saved');
+  const snapshot = () => {
+    const d = {};
+    [...form.elements].forEach(el => {
+      if (!el.name || el.name === 'website') return;
+      if (el.type === 'checkbox' || el.type === 'radio') { if (el.checked) (d[el.name] = d[el.name] || []).push(el.value); }
+      else if (el.value) d[el.name] = el.value;
+    });
+    return d;
+  };
+  const restore = d => [...form.elements].forEach(el => {
+    if (!(el.name in d)) return;
+    if (el.type === 'checkbox' || el.type === 'radio') el.checked = [].concat(d[el.name]).includes(el.value);
+    else el.value = d[el.name];
+  });
+  restore(store.get());
+  let t;
+  form.addEventListener('input', () => {
+    progress();
+    clearTimeout(t);
+    t = setTimeout(() => { if (store.set(snapshot())) saved.textContent = 'הטיוטה נשמרה במכשיר הזה.'; }, 600);
+  });
+  form.addEventListener('change', () => form.dispatchEvent(new Event('input')));
+  progress();
+
+  // ---- send ----
+  const note = document.getElementById('note'), btn = form.querySelector('button[type=submit]'), name = form.elements.name;
+  let sending = false;
+  name.addEventListener('input', () => { if (name.getAttribute('aria-invalid') === 'true' && val('name').length >= 2) { name.removeAttribute('aria-invalid'); document.getElementById('c-name-err').textContent = ''; } });
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (sending) return;
+    note.textContent = '';
+    if (val('name').length < 2) {
+      name.setAttribute('aria-invalid', 'true');
+      document.getElementById('c-name-err').textContent = 'נא למלא שם, כדי שאדע שהשאלון ממך.';
+      name.focus(); return;
+    }
+    if (form.website.value) { done(); return; } // honeypot
+    if (!WEBHOOK) { note.textContent = 'השליחה עדיין לא מחוברת. אפשר לשלוח לי את התשובות במייל: office@tomizs.com'; note.focus(); return; }
+    sending = true; btn.disabled = true; const label = btn.textContent; btn.textContent = 'שולחת...';
+    const body = new URLSearchParams({
+      source: form.dataset.source, name: val('name'), phone: val('phone'), email: val('email'),
+      answersHtml: toHtml(), page: location.pathname, sentAt: new Date().toISOString()
+    });
+    const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), 20000);
+    try {
+      // form-encoded + no-cors keeps this a simple request (no CORS preflight), same as the site's other forms
+      await fetch(WEBHOOK, { method: 'POST', mode: 'no-cors', body, signal: ctrl.signal });
+      clearTimeout(timer);
+      store.clear();
+      done();
+    } catch (err) {
+      clearTimeout(timer);
+      sending = false; btn.disabled = false; btn.textContent = label;
+      note.textContent = 'אופס, השאלון לא נשלח. התשובות שמורות, אז אפשר לבדוק את החיבור לאינטרנט ולנסות שוב. אם זה ממשיך, כתבי לי: office@tomizs.com';
+      note.focus();
+    }
+  });
+  function done() {
+    form.hidden = true;
+    document.querySelector('.iq-progress').hidden = true;
+    const d = document.getElementById('done');
+    d.hidden = false; d.focus(); d.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+})();
+</script>
+</body>
+</html>
