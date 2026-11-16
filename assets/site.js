@@ -207,7 +207,8 @@ document.querySelectorAll('.rail a[href^="/"]').forEach(a => {
   const items = [...paths.querySelectorAll('.path')];
   const custom = document.querySelector('.custom');
   const opts = EN ? ["I'm from an organization", 'I have knowledge to turn into a product', "I'm not sure yet"]
-                  : ['אני מארגון', 'יש לי ידע להפוך למוצר', 'עוד לא בטוח/ה'];
+                  : ['יש לי עסק או ידע להפוך למוצר', 'אני מארגון', 'עוד לא בטוח/ה'];
+  // options follow the order of the paths on the page (Hebrew: business/experts first; English: orgs first)
   const targets = [items[0], items[1], custom];
   const bar = document.createElement('div');
   bar.className = 'chooser reveal'; bar.setAttribute('role', 'group'); bar.setAttribute('aria-label', EN ? 'Where to start?' : 'איפה מתחילים?');
