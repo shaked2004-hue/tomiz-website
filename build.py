@@ -38,9 +38,9 @@ ARTICLES_EN = json.loads(read('en/articles.json'))
 PAGES = {
     'home': ('/', 'TomiZ · AI שעובד בשבילך, לא להפך', 'ליווי אישי וכלי AI מעשיים לבעלי עסקים, עצמאים ומומחים: סוכנים, דשבורדים ואוטומציות שחוסכים עבודה שחורה, והפיכת הידע שלך לסדנה, קורס או הרצאה. ולארגונים: הטמעת AI והעברת ידע.', ''),
     'orgs': ('/orgs/', 'לארגונים · TomiZ', 'Unboxing, Train-the-Trainer, מיפוי פערי מיומנויות והטמעת AI לצוותי L&D ומשאבי אנוש.', 'orgs'),
-    'experts': ('/experts/', 'למומחים · TomiZ', 'הידע שלך יכול להפוך למוצר: סדנה, קורס, מוצר דיגיטלי או כל פורמט אחר.', 'experts'),
+    'experts': ('/experts/', 'לבעלי עסקים ומומחים · TomiZ', 'סוכני AI, דשבורדים ואוטומציות לעסק, וליווי שהופך את הידע שלך לסדנה, קורס או הרצאה.', 'experts'),
     'talks': ('/talks/', 'הרצאות · TomiZ', 'למידה שמחזיקה מים: הרצאה לכנסים, ימי עיון, צוותי הדרכה ומשאבי אנוש.', 'talks'),
-    'about': ('/about/', 'אודות · TomiZ', 'שקד וולוז\'ינסקי לנס, מעצבת חוויות למידה, מנחת סדנאות ומרצה, מייסדת TomiZ.', 'about'),
+    'about': ('/about/', 'אודות · TomiZ', 'שקד וולוז\'ינסקי לנס, מומחית LXD ו-AI, מנחת סדנאות ומרצה, מייסדת TomiZ.', 'about'),
     'blog': ('/blog/', 'משתמשים בבינה בתבונה · TomiZ', 'טיפים קצרים על AI, העברת ידע והדרכה, שאפשר ליישם כבר מחר בבוקר.', 'blog'),
     'ai-dictionary': ('/ai-dictionary/', 'מילון AI למומחים · TomiZ', '8 מונחים שכל מומחה ואיש מקצוע צריך להכיר, ואיך משתמשים בכל אחד כבר מחר בבוקר. מדריך חינמי.', ''),
     'privacy': ('/privacy/', 'מדיניות פרטיות · TomiZ', 'מדיניות הפרטיות של האתר tomizs.com.', ''),
@@ -48,11 +48,11 @@ PAGES = {
 }
 
 EN_PAGES = {
-    'home': ('/en/', 'TomiZ · Learning design & knowledge transfer', 'Practical workshops, training programs and talks on AI, learning and knowledge transfer, for organizations, communities and professionals.', ''),
+    'home': ('/en/', 'TomiZ · AI that works for you, not the other way around', 'Practical AI adoption, workshops and training programs that turn expert knowledge into learning people actually apply. For organizations, L&D teams and experts.', ''),
     'orgs': ('/en/orgs/', 'For organizations · TomiZ', 'Unboxing, Train-the-Trainer, skills-gap analysis and AI adoption for L&D, HR and Customer Education teams.', 'orgs'),
     'experts': ('/en/experts/', 'For experts · TomiZ', 'Your knowledge can become a product: a workshop, course, digital product or any other format.', 'experts'),
     'talks': ('/en/talks/', 'Talks & workshops · TomiZ', 'Talks and workshops on learning, knowledge transfer and AI at work, for conferences, seminars and teams.', 'talks'),
-    'about': ('/en/about/', 'About · TomiZ', 'Shaked Volozinski Lanes, learning experience designer, workshop facilitator and speaker, founder of TomiZ.', 'about'),
+    'about': ('/en/about/', 'About · TomiZ', 'Shaked Volozinski Lanes, LXD and AI specialist, workshop facilitator and speaker, founder of TomiZ.', 'about'),
     'blog': ('/en/blog/', 'Using AI wisely · TomiZ', 'Short tips on AI, knowledge transfer and training that you can apply tomorrow morning.', 'blog'),
     'privacy': ('/en/privacy/', 'Privacy policy · TomiZ', 'The privacy policy of tomizs.com.', ''),
     'accessibility': ('/en/accessibility/', 'Accessibility statement · TomiZ', 'The accessibility statement of tomizs.com.', ''),

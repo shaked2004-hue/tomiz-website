@@ -446,3 +446,7 @@ footer .social svg{width:16px;height:16px}
 }
 @keyframes floaty{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(-3deg)}}
 @media (prefers-reduced-motion:reduce){.reveal:not(.pre) .ico,.hero .unbox svg{animation:none}}
+/* webinar pill in the home hero (remove after 1.12.2026) */
+.webinar-pill{display:inline-block;margin-top:22px;padding:9px 18px;border-radius:999px;background:rgba(249,247,242,.12);border:1px solid rgba(249,247,242,.35);color:var(--cream,#F9F7F2);font-size:15px;text-decoration:none;transition:background .2s}
+.webinar-pill b{color:#F7A3BA;font-weight:700}
+.webinar-pill:hover{background:rgba(249,247,242,.22)}
