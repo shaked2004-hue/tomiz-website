@@ -11,7 +11,7 @@ DTEND:20261209T091500Z
 SUMMARY:מפגש 1: Claude כעוזר אישי לעסק · TomiZ Club
 DESCRIPTION:בונים יחד כלי אחד למשימה שחוזרת אצ
  לכם כל שבוע.
-LOCATION:Zoom
+LOCATION:Microsoft Teams
 URL:https://tomizs.com/club/members/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -26,7 +26,7 @@ DTSTART:20261223T080000Z
 DTEND:20261223T091500Z
 SUMMARY:מפגש 2: תוכן לרשתות עם AI · TomiZ Club
 DESCRIPTION:מרעיון לפוסט מוכן\, בסגנון שלכם.
-LOCATION:Zoom
+LOCATION:Microsoft Teams
 URL:https://tomizs.com/club/members/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -42,7 +42,7 @@ DTEND:20270106T091500Z
 SUMMARY:מפגש 3: הסוכן הראשון שלכם · TomiZ Club
 DESCRIPTION:משימה שחוזרת על עצמה עוברת ל-AI\, צעד
   אחרי צעד.
-LOCATION:Zoom
+LOCATION:Microsoft Teams
 URL:https://tomizs.com/club/members/
 BEGIN:VALARM
 ACTION:DISPLAY

@@ -268,13 +268,13 @@ def ev_gcal(e):
     _, s, t = ev_times(e)
     return 'https://calendar.google.com/calendar/render?' + urllib.parse.urlencode({
         'action': 'TEMPLATE', 'text': f'{e["title"]} · TomiZ Club', 'dates': f'{s:%Y%m%dT%H%M%SZ}/{t:%Y%m%dT%H%M%SZ}',
-        'details': e['desc'] + ' הקישור לזום נמצא באתר החברים.', 'location': 'Zoom', 'ctz': 'Asia/Jerusalem'})
+        'details': e['desc'] + ' הקישור ל-Teams נמצא באתר החברים.', 'location': 'Microsoft Teams', 'ctz': 'Asia/Jerusalem'})
 
 def ev_card(e, nxt=False, add=True):
     d, *_ = ev_times(e)
     link = f'<a class="cl-ev-add" href="{ev_gcal(e)}" target="_blank" rel="noopener">+ ליומן</a>' if add else ''
     return (f'<div class="cl-ev{" next" if nxt else ""}"><div class="cl-ev-date"><b>{d.day}.{d.month}</b><small>יום {HEB_DAYS[d.weekday()]}</small></div>'
-            f'<div><h3>{e["title"]}</h3><p>{e["start"]} · {e["minutes"]} דקות · זום</p></div>{link}</div>')
+            f'<div><h3>{e["title"]}</h3><p>{e["start"]} · {e["minutes"]} דקות · Teams</p></div>{link}</div>')
 
 def club_ics():
     esc = lambda t: t.replace('\\', '\\\\').replace(';', '\\;').replace(',', '\\,')
@@ -282,7 +282,7 @@ def club_ics():
     for e in CLUB['events']:
         _, s, t = ev_times(e)
         lines += ['BEGIN:VEVENT', f'UID:{e["id"]}@club.tomizs.com', 'DTSTAMP:20261120T000000Z', f'DTSTART:{s:%Y%m%dT%H%M%SZ}', f'DTEND:{t:%Y%m%dT%H%M%SZ}',
-                  f'SUMMARY:{esc(e["title"] + " · TomiZ Club")}', f'DESCRIPTION:{esc(e["desc"])}', 'LOCATION:Zoom', f'URL:{SITE}{M}',
+                  f'SUMMARY:{esc(e["title"] + " · TomiZ Club")}', f'DESCRIPTION:{esc(e["desc"])}', 'LOCATION:Microsoft Teams', f'URL:{SITE}{M}',
                   'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:מפגש TomiZ Club בעוד 30 דקות', 'TRIGGER:-PT30M', 'END:VALARM', 'END:VEVENT']
     lines.append('END:VCALENDAR')
     def fold(line):  # RFC 5545: lines of at most 75 octets
@@ -343,7 +343,7 @@ def club_page(body, title, desc, path, members=None):
     }
     if '{{NEXT}}' in body:
         e = events[0]; d, *_ = ev_times(e)
-        zoom = f'<a class="cl-btn" href="{CLUB["zoom_url"]}" target="_blank" rel="noopener">כניסה לזום</a>' if CLUB['zoom_url'] else '<span class="cl-btn" style="opacity:.6;cursor:default">קישור הזום יופיע כאן</span>'
+        zoom = f'<a class="cl-btn" href="{CLUB["teams_url"]}" target="_blank" rel="noopener">כניסה ל-Teams</a>' if CLUB['teams_url'] else '<span class="cl-btn" style="opacity:.6;cursor:default">קישור ה-Teams יופיע כאן</span>'
         rep['{{NEXT}}'] = (f'<div class="clm-box clm-next"><p class="cl-eye">המפגש הבא</p><h2>{e["title"]}</h2>'
                            f'<p class="when">יום {HEB_DAYS[d.weekday()]}, {d.day}.{d.month}.{d.year} · {e["start"]}</p><p>{e["desc"]}</p>'
                            f'<div class="row">{zoom}<a class="cl-btn line" style="color:#fff;border-color:rgba(255,255,255,.6)" href="{ev_gcal(e)}" target="_blank" rel="noopener">+ ליומן</a></div></div>')

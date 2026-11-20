@@ -6,7 +6,7 @@
   "wa_number": "972525012413",
   "book_url": "https://calendar.app.google/UVXFJewFrjE2LVNKA",
   "launch": "2026-12-01",
-  "zoom_url": "",
+  "teams_url": "",
   "events": [
     {"id": "live-1", "date": "2026-12-09", "start": "10:00", "minutes": 75, "title": "מפגש 1: Claude כעוזר אישי לעסק", "desc": "בונים יחד כלי אחד למשימה שחוזרת אצלכם כל שבוע."},
     {"id": "live-2", "date": "2026-12-23", "start": "10:00", "minutes": 75, "title": "מפגש 2: תוכן לרשתות עם AI", "desc": "מרעיון לפוסט מוכן, בסגנון שלכם."},
