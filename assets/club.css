@@ -221,3 +221,80 @@ a.clm-card:hover{border-color:var(--p)}
 }
 @media (min-width:1000px){.clm-cards{grid-template-columns:repeat(3,1fr)}.cl-perks{grid-template-columns:repeat(4,1fr)}}
 .clm-form label{color:var(--ink)}
+
+/* ---- motion & icons (v2) ---- */
+.cl-float{position:absolute;z-index:3;display:inline-flex;align-items:center;gap:8px;background:var(--paper);color:var(--ink);font-size:13px;font-weight:600;
+  padding:7px 12px 7px 14px;border-radius:999px;box-shadow:0 10px 24px -10px rgba(30,62,56,.45);white-space:nowrap;animation:bob 5s ease-in-out infinite}
+.cl-float i{width:24px;height:24px;border-radius:50%;background:var(--p);display:grid;place-items:center;flex:none}
+.cl-float i.g{background:var(--g)}
+.cl-float svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.cl-float.f1{inset-inline-start:-14px;bottom:-18px;animation-delay:-1s}
+.cl-float.f2{inset-inline-end:-10px;bottom:34%;animation-delay:-2.6s}
+.cl-float.f3{inset-inline-start:10%;top:-30px;animation-delay:-4s}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-9px) rotate(1deg)}}
+.cl-card{animation:cardIn .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes cardIn{from{transform:rotate(-14deg) translateY(30px);opacity:0}to{transform:rotate(-5deg);opacity:1}}
+.cl-card-wrap{padding-block:30px 26px}
+
+.has-deco{position:relative;overflow:hidden}
+.has-deco>.wrap{position:relative;z-index:1}
+.cl-deco{position:absolute;pointer-events:none;z-index:0}
+.cl-deco.star{width:44px;height:44px;animation:twirl 9s linear infinite}
+.cl-deco.star svg{width:100%;height:100%;fill:var(--p);stroke:var(--p);stroke-width:1;stroke-linejoin:round}
+.cl-deco.s1{inset-inline-start:6%;top:46px;opacity:.85}
+.cl-deco.s2{inset-inline-start:8%;bottom:40px;width:56px;height:56px}
+.cl-deco.s3{inset-inline-end:7%;top:70px;width:38px;height:38px}
+.cl-deco.ring{width:150px;height:150px;border-radius:50%;border:16px solid var(--blush);animation:drift 12s ease-in-out infinite}
+.cl-deco.r1{inset-inline-start:-50px;bottom:-40px}
+.cl-deco.r2{inset-inline-start:-40px;bottom:12%;border-color:rgba(233,78,119,.18)}
+.cl-deco.dot{width:14px;height:14px;border-radius:50%;background:var(--p);animation:drift 7s ease-in-out infinite}
+.cl-deco.d1{inset-inline-end:12%;top:56px}
+.cl-deco.d2{inset-inline-end:30%;bottom:36px;width:9px;height:9px;background:#F7A3BA;animation-delay:-3s}
+.cl-deco.heart{width:34px;height:34px;inset-inline-start:12%;top:110px;animation:bob 4s ease-in-out infinite}
+.cl-deco.heart svg{width:100%;height:100%;fill:#F7A3BA;stroke:none}
+@keyframes twirl{to{transform:rotate(360deg)}}
+@keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(10px,-14px)}}
+
+.cl-fit li{padding-inline-start:74px}
+.cl-fit li::before{content:none}
+.cl-fit .ic{position:absolute;inset-inline-start:16px;top:16px;width:42px;height:42px;border-radius:13px;background:var(--blush);display:grid;place-items:center;transition:transform .25s}
+.cl-fit .ic svg{width:22px;height:22px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cl-fit li:hover .ic{transform:rotate(-8deg) scale(1.08)}
+.cl-perk .ico{transition:transform .3s}
+.cl-perk:hover .ico{transform:translateY(-4px) rotate(-6deg)}
+.cl-perk{transition:background .3s,transform .3s}
+.cl-perk:hover{background:rgba(249,247,242,.13);transform:translateY(-3px)}
+.cl-price{animation:none}
+.cl-price .lbl{animation:wiggle 3.5s ease-in-out infinite}
+@keyframes wiggle{0%,86%,100%{transform:rotate(-3deg)}90%{transform:rotate(3deg)}94%{transform:rotate(-5deg)}}
+.cl-btn{position:relative;overflow:hidden}
+.cl-btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-120%);animation:shine 4.5s ease-in-out infinite}
+.cl-btn.line::after{display:none}
+@keyframes shine{0%,70%{transform:translateX(120%)}100%{transform:translateX(-120%)}}
+
+/* scroll reveal: only armed by JS (html.js-reveal), so the page is complete without it */
+.js-reveal .reveal.pre{opacity:0;transform:translateY(26px)}
+.js-reveal .reveal{transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+
+/* members area icons */
+.clm-hi{position:relative}
+.clm-hi .cl-deco.star{inset-inline-end:2%;top:30px;width:40px;height:40px}
+.clm-link .ico{transition:transform .25s}
+.clm-link:hover .ico{transform:rotate(-8deg) scale(1.08)}
+.clm-cal td.ev span{animation:pulseEv 2.4s ease-in-out infinite}
+@keyframes pulseEv{50%{box-shadow:0 0 0 5px rgba(233,78,119,.18)}}
+.clm-card .thumb .play{animation:bob 3.5s ease-in-out infinite}
+
+@media (max-width:759px){
+  .cl-float{font-size:12px;padding:6px 10px 6px 12px}
+  .cl-float i{width:20px;height:20px}
+  .cl-float.f2{display:none}
+  .cl-float.f1{inset-inline-start:0}
+  .cl-float.f3{inset-inline-start:4%;top:-8px}
+  .cl-deco.ring{width:110px;height:110px;border-width:12px}
+  .cl-deco.s1{top:24px;width:32px;height:32px}
+}
+@media (prefers-reduced-motion:reduce){
+  .cl-float,.cl-card,.cl-deco,.cl-price .lbl,.cl-btn::after,.clm-cal td.ev span,.clm-card .thumb .play{animation:none!important}
+  .js-reveal .reveal.pre{opacity:1;transform:none}
+}

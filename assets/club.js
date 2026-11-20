@@ -56,3 +56,20 @@
     sending = false; btn.disabled = false; btn.textContent = label;
   });
 })();
+
+// scroll reveal: cards rise in as they enter the screen. Armed only below the first screen, so nothing visible starts hidden.
+(function reveal() {
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const els = [...document.querySelectorAll('.reveal, .cl-ev, .clm-card, .clm-off, .cl-steps li, .cl-faq details')];
+  const below = els.filter(el => el.getBoundingClientRect().top > innerHeight);
+  if (!below.length) return;
+  document.documentElement.classList.add('js-reveal');
+  below.forEach(el => { el.classList.add('reveal', 'pre'); });
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    const sibs = [...e.target.parentElement.children].filter(c => c.classList.contains('pre'));
+    e.target.style.transitionDelay = Math.min(sibs.indexOf(e.target), 4) * 90 + 'ms';
+    e.target.classList.remove('pre'); io.unobserve(e.target);
+  }), { rootMargin: '0px 0px -8% 0px' });
+  below.forEach(el => io.observe(el));
+})();
