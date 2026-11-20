@@ -268,7 +268,7 @@ def ev_gcal(e):
     _, s, t = ev_times(e)
     return 'https://calendar.google.com/calendar/render?' + urllib.parse.urlencode({
         'action': 'TEMPLATE', 'text': f'{e["title"]} · TomiZ Club', 'dates': f'{s:%Y%m%dT%H%M%SZ}/{t:%Y%m%dT%H%M%SZ}',
-        'details': e['desc'] + ' הקישור לזום נמצא באתר החברות.', 'location': 'Zoom', 'ctz': 'Asia/Jerusalem'})
+        'details': e['desc'] + ' הקישור לזום נמצא באתר החברים.', 'location': 'Zoom', 'ctz': 'Asia/Jerusalem'})
 
 def ev_card(e, nxt=False, add=True):
     d, *_ = ev_times(e)
@@ -328,8 +328,8 @@ def club_page(body, title, desc, path, members=None):
         tabs = [('', 'בית'), ('recordings/', 'הדרכות מוקלטות'), ('guides/', 'מדריכים'), ('perks/', 'הטבות וקביעת פגישה')]
         nav = ''.join(f'<a href="{M}{p}"{" aria-current=\"page\"" if p == members else ""}>{t}</a>' for p, t in tabs)
         body = (f'<header class="clm-head" style="position:static;box-shadow:none"><div class="wrap"><div class="cl-top"><a class="cl-lock" href="{M}" aria-label="TomiZ Club">'
-                f'<img src="/assets/logo_light.png" width="88" height="26" alt="TomiZ"><b>Club</b></a><span style="font-size:14px;opacity:.8">אזור החברות</span></div>'
-                f'<nav class="clm-nav" aria-label="אזור החברות">{nav}</nav></div></header>\n<main id="main" tabindex="-1">{body}</main>\n{FOOT}')
+                f'<img src="/assets/logo_light.png" width="88" height="26" alt="TomiZ"><b>Club</b></a><span style="font-size:14px;opacity:.8">אזור החברים</span></div>'
+                f'<nav class="clm-nav" aria-label="אזור החברים">{nav}</nav></div></header>\n<main id="main" tabindex="-1">{body}</main>\n{FOOT}')
     else:
         body = f'<main id="main" tabindex="-1">\n{body}\n</main>'
     events = CLUB['events']
@@ -339,7 +339,7 @@ def club_page(body, title, desc, path, members=None):
         '{{EVENTS_SHORT}}': ', '.join(f'{ev_times(e)[0].day}.{ev_times(e)[0].month}' for e in events[:-1]) + f' ו-{ev_times(events[-1])[0].day}.{ev_times(events[-1])[0].month}, בשעה {events[0]["start"]}',
         '{{ICS_ALL}}': '/files/tomiz-club-events.ics', '{{BOOK}}': CLUB['book_url'],
         '{{WA_GROUP}}': CLUB['wa_group'] or '#', '{{WA_ASK}}': WA('היי שקד, יש לי שאלה על TomiZ Club'),
-        '{{WA_BOOK}}': WA('היי שקד, אני חברה ב-TomiZ Club ורוצה לקבוע פגישה'),
+        '{{WA_BOOK}}': WA('היי שקד, אני מ-TomiZ Club ורוצה לקבוע פגישה'),
     }
     if '{{NEXT}}' in body:
         e = events[0]; d, *_ = ev_times(e)
@@ -392,11 +392,11 @@ def club_page(body, title, desc, path, members=None):
 '''
     return strip_draft(html)
 
-CLUB_DESC = 'קהילה לבעלות עסקים: מפגש לייב כל שבועיים, אתר חברות עם כלים מוכנים וקבוצת וואטסאפ לליווי. מחיר מייסדות 69 ₪ לחודש.'
-write('/club/', club_page(read('club/landing.html'), 'TomiZ Club · המקום שבו ה-AI מתחיל לעבוד בשבילך', CLUB_DESC, '/club/'))
-write('/club/thanks/', club_page(read('club/thanks.html'), 'ברוכה הבאה · TomiZ Club', 'ההצטרפות ל-TomiZ Club התקבלה.', '/club/thanks/'))
-for key, (sub, title) in {'home': ('', 'אזור החברות'), 'recordings': ('recordings/', 'הדרכות מוקלטות'), 'guides': ('guides/', 'מדריכים'), 'perks': ('perks/', 'הטבות וקביעת פגישה')}.items():
-    write(M + sub, club_page(read(f'club/members/{key}.html'), f'{title} · TomiZ Club', 'אזור החברות של TomiZ Club.', M + sub, members=sub))
+CLUB_DESC = 'קהילה לבעלי עסקים: מפגש לייב כל שבועיים, אתר חברים עם כלים מוכנים וקבוצת וואטסאפ לליווי. מחיר מייסדים 69 ₪ לחודש.'
+write('/club/', club_page(read('club/landing.html'), 'TomiZ Club · המקום שבו ה-AI מתחיל לעבוד בשבילכם', CLUB_DESC, '/club/'))
+write('/club/thanks/', club_page(read('club/thanks.html'), 'ברוכים הבאים · TomiZ Club', 'ההצטרפות ל-TomiZ Club התקבלה.', '/club/thanks/'))
+for key, (sub, title) in {'home': ('', 'אזור החברים'), 'recordings': ('recordings/', 'הדרכות מוקלטות'), 'guides': ('guides/', 'מדריכים'), 'perks': ('perks/', 'הטבות וקביעת פגישה')}.items():
+    write(M + sub, club_page(read(f'club/members/{key}.html'), f'{title} · TomiZ Club', 'אזור החברים של TomiZ Club.', M + sub, members=sub))
 os.makedirs(os.path.join(ROOT, 'files'), exist_ok=True)
 open(os.path.join(ROOT, 'files/tomiz-club-events.ics'), 'w', encoding='utf-8', newline='').write(club_ics())
 

@@ -19,9 +19,9 @@
     name: 'נא למלא שם.',
     phone: 'נא למלא מספר טלפון תקין, למשל ⁦050-1234567⁩.',
     email: 'נא למלא כתובת אימייל תקינה.',
-    ok: 'קיבלתי! אחזור אלייך בהקדם 💚',
+    ok: 'קיבלתי! אחזור אליכם בהקדם 💚',
     off: 'הטופס עוד לא מחובר. אפשר לכתוב לי בוואטסאפ או במייל ⁦office@tomizs.com⁩',
-    fail: 'אופס, ההודעה לא נשלחה. נסי שוב, או כתבי לי בוואטסאפ.'
+    fail: 'אופס, ההודעה לא נשלחה. נסו שוב, או כתבו לי בוואטסאפ.'
   };
   const checks = {
     name: v => v.trim().length >= 2,
@@ -43,7 +43,7 @@
     if (bad.length) { form.elements[bad[0]].focus(); return; }
     if (form.website.value) { say(T.ok, 'ok'); form.reset(); return; }
     if (!HOOK) { say(T.off, 'bad'); return; }
-    sending = true; btn.disabled = true; btn.textContent = 'שולחת...';
+    sending = true; btn.disabled = true; btn.textContent = 'שולח...';
     const body = new URLSearchParams({
       name: form.name.value.trim(), phone: form.phone.value.trim(), email: form.email.value.trim(),
       kind: form.kind.value, message: form.message.value.trim(), source: form.dataset.source,
