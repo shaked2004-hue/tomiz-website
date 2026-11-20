@@ -316,7 +316,7 @@ def month_table(y, m):
 STAMP = ('<svg class="cl-stamp" viewBox="0 0 120 120"><defs><path id="clr" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs>'
          '<circle cx="60" cy="60" r="58" fill="#E94E77"/><circle cx="60" cy="60" r="34" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="2 4"/>'
          '<text direction="ltr" fill="#fff" font-family="Rubik,sans-serif" font-size="11" font-weight="700" letter-spacing="1.5"><textPath href="#clr">TOMIZ CLUB • FOUNDING MEMBER • 2026 •</textPath></text>'
-         '<text direction="ltr" unicode-bidi="bidi-override" x="60" y="68" text-anchor="middle" fill="#fff" font-family="Secular One,Rubik,sans-serif" font-size="24">60₪</text></svg>')
+         '<text direction="ltr" unicode-bidi="bidi-override" x="60" y="68" text-anchor="middle" fill="#fff" font-family="Secular One,Rubik,sans-serif" font-size="24">69₪</text></svg>')
 TOP = '<div class="cl-top"><a class="cl-lock" href="/club/" aria-label="TomiZ Club"><img src="/assets/logo_dark.png" width="88" height="26" alt="TomiZ"><b>Club</b></a><a class="cl-ask" href="{{WA_ASK}}" target="_blank" rel="noopener">שאלה? וואטסאפ</a></div>'
 FOOT = '<footer class="cl-foot"><div class="wrap"><img src="/assets/logo_light.png" width="82" height="24" alt="TomiZ" loading="lazy"><span>TomiZ Club הוא קהילה של TomiZ · <a href="/">tomizs.com</a> · <a href="/privacy/">מדיניות פרטיות</a></span></div></footer>'
 
@@ -392,7 +392,7 @@ def club_page(body, title, desc, path, members=None):
 '''
     return strip_draft(html)
 
-CLUB_DESC = 'קהילה לבעלות עסקים: מפגש לייב כל שבועיים, אתר חברות עם כלים מוכנים וקבוצת וואטסאפ לליווי. מחיר מייסדות 60 ₪ לחודש.'
+CLUB_DESC = 'קהילה לבעלות עסקים: מפגש לייב כל שבועיים, אתר חברות עם כלים מוכנים וקבוצת וואטסאפ לליווי. מחיר מייסדות 69 ₪ לחודש.'
 write('/club/', club_page(read('club/landing.html'), 'TomiZ Club · המקום שבו ה-AI מתחיל לעבוד בשבילך', CLUB_DESC, '/club/'))
 write('/club/thanks/', club_page(read('club/thanks.html'), 'ברוכה הבאה · TomiZ Club', 'ההצטרפות ל-TomiZ Club התקבלה.', '/club/thanks/'))
 for key, (sub, title) in {'home': ('', 'אזור החברות'), 'recordings': ('recordings/', 'הדרכות מוקלטות'), 'guides': ('guides/', 'מדריכים'), 'perks': ('perks/', 'הטבות וקביעת פגישה')}.items():
