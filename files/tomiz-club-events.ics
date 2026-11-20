@@ -1,0 +1,53 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//TomiZ//Club//HE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:live-1@club.tomizs.com
+DTSTAMP:20261120T000000Z
+DTSTART:20261215T080000Z
+DTEND:20261215T091500Z
+SUMMARY:מפגש 1: Claude כעוזרת אישית לעסק · TomiZ Club
+DESCRIPTION:בונות יחד כלי אחד למשימה שחוזרת אצ
+ לך כל שבוע.
+LOCATION:Zoom
+URL:https://tomizs.com/club/members/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:מפגש TomiZ Club בעוד 30 דקות
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:live-2@club.tomizs.com
+DTSTAMP:20261120T000000Z
+DTSTART:20261229T080000Z
+DTEND:20261229T091500Z
+SUMMARY:מפגש 2: תוכן לרשתות עם AI · TomiZ Club
+DESCRIPTION:מרעיון לפוסט מוכן\, בסגנון שלך.
+LOCATION:Zoom
+URL:https://tomizs.com/club/members/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:מפגש TomiZ Club בעוד 30 דקות
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:live-3@club.tomizs.com
+DTSTAMP:20261120T000000Z
+DTSTART:20270112T080000Z
+DTEND:20270112T091500Z
+SUMMARY:מפגש 3: הסוכן הראשון שלך · TomiZ Club
+DESCRIPTION:משימה שחוזרת על עצמה עוברת ל-AI\, צעד
+  אחרי צעד.
+LOCATION:Zoom
+URL:https://tomizs.com/club/members/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:מפגש TomiZ Club בעוד 30 דקות
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,34 @@
+<div class="wrap">
+  <section class="clm-hi">
+    <h1>הטבות <mark>וקביעת פגישה</mark></h1>
+    <p>רוצה שנעבוד יחד על העסק שלך? לחברות המועדון יש מחיר מיוחד.</p>
+  </section>
+  <div class="clm-offer">
+    <article class="clm-off"><span class="badge">מחיר לחברות</span><h3>ליווי אישי</h3><p>עבודה אחד על אחד על התהליכים בעסק שלך, עד שהכלים עובדים בשבילך.</p></article>
+    <article class="clm-off"><span class="badge">מחיר לחברות</span><h3>סדנה</h3><p>סדנה לך ולצוות שלך, מותאמת לעסק.</p></article>
+    <article class="clm-off"><span class="badge">מחיר לחברות</span><h3>פגישת עבודה</h3><p>פגישה ממוקדת על משימה אחת, בונות אותה יחד.</p></article>
+  </div>
+  <p class="cl-note draft-only">טיוטה: כמה הנחה לחברות? להשלים לפני ההשקה.</p>
+
+  <div class="clm-grid" style="margin-top:28px;margin-bottom:56px">
+    <div class="clm-box">
+      <h2>השאירי פרטים ואחזור אלייך</h2>
+      <form class="clm-form" id="book" novalidate data-source="TomiZ Club: בקשת פגישה">
+        <div><label for="b-name">שם</label><input id="b-name" name="name" autocomplete="name" required aria-describedby="b-name-err"><p class="clm-err" id="b-name-err"></p></div>
+        <div><label for="b-phone">טלפון</label><input id="b-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required aria-describedby="b-phone-err"><p class="clm-err" id="b-phone-err"></p></div>
+        <div><label for="b-mail">אימייל</label><input id="b-mail" name="email" type="email" autocomplete="email" dir="ltr" required aria-describedby="b-mail-err"><p class="clm-err" id="b-mail-err"></p></div>
+        <div><label for="b-kind">מה מעניין אותך?</label><select id="b-kind" name="kind"><option>ליווי אישי</option><option>סדנה</option><option>פגישת עבודה</option><option>משהו אחר</option></select></div>
+        <div><label for="b-msg">ספרי לי בכמה מילים</label><textarea id="b-msg" name="message"></textarea></div>
+        <div class="hp" aria-hidden="true"><label for="b-web">אתר<input id="b-web" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <button class="cl-btn" type="submit">שליחה</button>
+        <p class="cl-fine">נשתמש בפרטים רק כדי לחזור אלייך. <a href="/privacy/" target="_blank" rel="noopener">מדיניות הפרטיות</a></p>
+        <p class="clm-msg" id="book-msg" role="status" tabindex="-1"></p>
+      </form>
+    </div>
+    <div style="display:grid;gap:12px;align-content:start">
+      <a class="clm-link" href="{{BOOK}}" target="_blank" rel="noopener"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><span><b>לקבוע שיחת היכרות ביומן</b><small>בוחרות זמן פנוי, בלי לחכות לתשובה</small></span><span class="go">←</span></a>
+      <a class="clm-link" href="{{WA_BOOK}}" target="_blank" rel="noopener"><span class="ico"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.8A8 8 0 1 1 21 12z"/></svg></span><span><b>לכתוב לי בוואטסאפ</b><small>052-5012413</small></span><span class="go">←</span></a>
+      <a class="clm-link" href="mailto:office@tomizs.com?subject=TomiZ%20Club"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><span><b>לשלוח מייל</b><small>office@tomizs.com</small></span><span class="go">←</span></a>
+    </div>
+  </div>
+</div>

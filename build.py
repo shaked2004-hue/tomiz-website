@@ -250,6 +250,156 @@ for name, (path, title, desc) in WEBINAR_PAGES.items():
     write(path, landing(read(f'webinar/{name}.html'), title, desc, path))
 open(os.path.join(ROOT, WEBINAR['ics'].strip('/')), 'w', encoding='utf-8', newline='').write(ics())
 
+# ---- TomiZ Club: sales page, thanks page and the members area (own sub-brand, always noindex, not in the sitemap) ----
+CLUB = json.loads(read('club/club.json'))
+import datetime as _dt
+HEB_DAYS = ['שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת', 'ראשון']
+HEB_MONTHS = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר']
+M = CLUB['members_path']
+WA = lambda text: 'https://wa.me/' + CLUB['wa_number'] + '?' + urllib.parse.urlencode({'text': text})
+PAY = CLUB['pay_url'] or '#join'
+
+def ev_times(e):
+    d = _dt.date.fromisoformat(e['date']); h, m = map(int, e['start'].split(':'))
+    start = _dt.datetime(d.year, d.month, d.day, h, m) - _dt.timedelta(hours=2)  # Israel winter time (UTC+2)
+    return d, start, start + _dt.timedelta(minutes=e['minutes'])
+
+def ev_gcal(e):
+    _, s, t = ev_times(e)
+    return 'https://calendar.google.com/calendar/render?' + urllib.parse.urlencode({
+        'action': 'TEMPLATE', 'text': f'{e["title"]} · TomiZ Club', 'dates': f'{s:%Y%m%dT%H%M%SZ}/{t:%Y%m%dT%H%M%SZ}',
+        'details': e['desc'] + ' הקישור לזום נמצא באתר החברות.', 'location': 'Zoom', 'ctz': 'Asia/Jerusalem'})
+
+def ev_card(e, nxt=False, add=True):
+    d, *_ = ev_times(e)
+    link = f'<a class="cl-ev-add" href="{ev_gcal(e)}" target="_blank" rel="noopener">+ ליומן</a>' if add else ''
+    return (f'<div class="cl-ev{" next" if nxt else ""}"><div class="cl-ev-date"><b>{d.day}.{d.month}</b><small>יום {HEB_DAYS[d.weekday()]}</small></div>'
+            f'<div><h3>{e["title"]}</h3><p>{e["start"]} · {e["minutes"]} דקות · זום</p></div>{link}</div>')
+
+def club_ics():
+    esc = lambda t: t.replace('\\', '\\\\').replace(';', '\\;').replace(',', '\\,')
+    lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//TomiZ//Club//HE', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH']
+    for e in CLUB['events']:
+        _, s, t = ev_times(e)
+        lines += ['BEGIN:VEVENT', f'UID:{e["id"]}@club.tomizs.com', 'DTSTAMP:20261120T000000Z', f'DTSTART:{s:%Y%m%dT%H%M%SZ}', f'DTEND:{t:%Y%m%dT%H%M%SZ}',
+                  f'SUMMARY:{esc(e["title"] + " · TomiZ Club")}', f'DESCRIPTION:{esc(e["desc"])}', 'LOCATION:Zoom', f'URL:{SITE}{M}',
+                  'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:מפגש TomiZ Club בעוד 30 דקות', 'TRIGGER:-PT30M', 'END:VALARM', 'END:VEVENT']
+    lines.append('END:VCALENDAR')
+    def fold(line):  # RFC 5545: lines of at most 75 octets
+        out, cur = [], b''
+        for ch in line:
+            c = ch.encode('utf-8')
+            if len(cur) + len(c) > (75 if not out else 74):
+                out.append(cur); cur = b''
+            cur += c
+        return b'\r\n '.join(out + [cur]).decode('utf-8')
+    return '\r\n'.join(fold(l) for l in lines) + '\r\n'
+
+def month_table(y, m):
+    evs = {e['date'] for e in CLUB['events']}
+    first = _dt.date(y, m, 1); lead = (first.weekday() + 1) % 7  # weeks start on Sunday
+    days = (_dt.date(y + (m == 12), m % 12 + 1, 1) - first).days
+    cells = [''] * lead + list(range(1, days + 1)); cells += [''] * (-len(cells) % 7)
+    rows = ''
+    for i in range(0, len(cells), 7):
+        tds = ''
+        for c in cells[i:i + 7]:
+            if c == '':
+                tds += '<td></td>'; continue
+            iso = f'{y}-{m:02d}-{c:02d}'
+            cls = ' class="ev"' if iso in evs else (' class="launch"' if iso == CLUB['launch'] else '')
+            tds += f'<td{cls}><span>{c}</span></td>'
+        rows += f'<tr>{tds}</tr>'
+    head = ''.join(f'<th>{d}</th>' for d in 'אבגדהוש')
+    return f'<table class="clm-cal"><caption>{HEB_MONTHS[m - 1]} {y}</caption><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table>'
+
+STAMP = ('<svg class="cl-stamp" viewBox="0 0 120 120"><defs><path id="clr" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs>'
+         '<circle cx="60" cy="60" r="58" fill="#E94E77"/><circle cx="60" cy="60" r="34" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="2 4"/>'
+         '<text direction="ltr" fill="#fff" font-family="Rubik,sans-serif" font-size="11" font-weight="700" letter-spacing="1.5"><textPath href="#clr">TOMIZ CLUB • FOUNDING MEMBER • 2026 •</textPath></text>'
+         '<text direction="ltr" unicode-bidi="bidi-override" x="60" y="68" text-anchor="middle" fill="#fff" font-family="Secular One,Rubik,sans-serif" font-size="24">60₪</text></svg>')
+TOP = '<div class="cl-top"><a class="cl-lock" href="/club/" aria-label="TomiZ Club"><img src="/assets/logo_dark.png" width="88" height="26" alt="TomiZ"><b>Club</b></a><a class="cl-ask" href="{{WA_ASK}}" target="_blank" rel="noopener">שאלה? וואטסאפ</a></div>'
+FOOT = '<footer class="cl-foot"><div class="wrap"><img src="/assets/logo_light.png" width="82" height="24" alt="TomiZ" loading="lazy"><span>TomiZ Club הוא קהילה של TomiZ · <a href="/">tomizs.com</a> · <a href="/privacy/">מדיניות פרטיות</a></span></div></footer>'
+
+def club_page(body, title, desc, path, members=None):
+    banner = '' if LIVE else '<div class="draft">טיוטה לעיון · לא באוויר</div>\n'
+    hook = f'<script>window.TOMIZ_WEBHOOK={json.dumps(WEBHOOK)}</script>\n' if WEBHOOK else ''
+    pixel = META_PIXEL if (LIVE and members is None) else ''
+    if members is not None:
+        tabs = [('', 'בית'), ('recordings/', 'הדרכות מוקלטות'), ('guides/', 'מדריכים'), ('perks/', 'הטבות וקביעת פגישה')]
+        nav = ''.join(f'<a href="{M}{p}"{" aria-current=\"page\"" if p == members else ""}>{t}</a>' for p, t in tabs)
+        body = (f'<header class="clm-head" style="position:static;box-shadow:none"><div class="wrap"><div class="cl-top"><a class="cl-lock" href="{M}" aria-label="TomiZ Club">'
+                f'<img src="/assets/logo_light.png" width="88" height="26" alt="TomiZ"><b>Club</b></a><span style="font-size:14px;opacity:.8">אזור החברות</span></div>'
+                f'<nav class="clm-nav" aria-label="אזור החברות">{nav}</nav></div></header>\n<main id="main" tabindex="-1">{body}</main>\n{FOOT}')
+    else:
+        body = f'<main id="main" tabindex="-1">\n{body}\n</main>'
+    events = CLUB['events']
+    rep = {
+        '{{TOP}}': TOP, '{{FOOT}}': FOOT, '{{STAMP}}': STAMP, '{{PAY}}': PAY, '{{M}}': M, '{{MEMBERS}}': M,
+        '{{EVENTS}}': ''.join(ev_card(e, i == 0) for i, e in enumerate(events)),
+        '{{EVENTS_SHORT}}': ', '.join(f'{ev_times(e)[0].day}.{ev_times(e)[0].month}' for e in events[:-1]) + f' ו-{ev_times(events[-1])[0].day}.{ev_times(events[-1])[0].month}, בשעה {events[0]["start"]}',
+        '{{ICS_ALL}}': '/files/tomiz-club-events.ics', '{{BOOK}}': CLUB['book_url'],
+        '{{WA_GROUP}}': CLUB['wa_group'] or '#', '{{WA_ASK}}': WA('היי שקד, יש לי שאלה על TomiZ Club'),
+        '{{WA_BOOK}}': WA('היי שקד, אני חברה ב-TomiZ Club ורוצה לקבוע פגישה'),
+    }
+    if '{{NEXT}}' in body:
+        e = events[0]; d, *_ = ev_times(e)
+        zoom = f'<a class="cl-btn" href="{CLUB["zoom_url"]}" target="_blank" rel="noopener">כניסה לזום</a>' if CLUB['zoom_url'] else '<span class="cl-btn" style="opacity:.6;cursor:default">קישור הזום יופיע כאן</span>'
+        rep['{{NEXT}}'] = (f'<div class="clm-box clm-next"><p class="cl-eye">המפגש הבא</p><h2>{e["title"]}</h2>'
+                           f'<p class="when">יום {HEB_DAYS[d.weekday()]}, {d.day}.{d.month}.{d.year} · {e["start"]}</p><p>{e["desc"]}</p>'
+                           f'<div class="row">{zoom}<a class="cl-btn line" style="color:#fff;border-color:rgba(255,255,255,.6)" href="{ev_gcal(e)}" target="_blank" rel="noopener">+ ליומן</a></div></div>')
+    if '{{CALS}}' in body:
+        months = sorted({(int(x[:4]), int(x[5:7])) for x in [CLUB['launch']] + [e['date'] for e in events]})
+        rep['{{CALS}}'] = ''.join(month_table(y, m) for y, m in months)
+    if '{{RECS}}' in body:
+        done = ''.join(f'<a class="clm-card" href="{r["url"]}" target="_blank" rel="noopener"><div class="thumb"><span class="play"></span></div><div class="body"><span class="kind">הקלטה · {r["date"]}</span><h3>{r["title"]}</h3><p>{r.get("desc", "")}</p></div></a>' for r in CLUB['recordings'])
+        recorded = {r.get('event') for r in CLUB['recordings']}
+        soon = ''.join(f'<div class="clm-card"><div class="thumb soon">בקרוב</div><div class="body"><span class="kind">יעלה אחרי {ev_times(e)[0].day}.{ev_times(e)[0].month}</span><h3>{e["title"]}</h3><p>{e["desc"]}</p></div></div>' for e in events if e['id'] not in recorded)
+        rep['{{RECS}}'] = done + soon
+    if '{{GUIDES}}' in body:
+        rep['{{GUIDES}}'] = ''.join(f'<a class="clm-card" href="{g["url"]}" target="_blank" rel="noopener"><div class="thumb">{g["title"]}</div><div class="body"><span class="kind">{g["kind"]}</span><h3>{g["title"]}</h3><p>{g["desc"]}</p><span class="open">לפתיחה ←</span></div></a>' for g in CLUB['guides'])
+    for k, v in rep.items():
+        body = body.replace(k, v)
+    for k, v in rep.items():  # TOP/FOOT carry placeholders of their own
+        body = body.replace(k, v)
+    html = f'''<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<meta name="robots" content="noindex,nofollow">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="{'#2D5A52' if members is not None else '#FCE6EC'}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{SITE}{path}">
+<meta property="og:image" content="{SITE}/assets/og.png">
+<meta property="og:locale" content="he_IL">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&family=Secular+One&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/club.css">
+{pixel}</head>
+<body class="cl">
+<a class="skip" href="#main">דילוג לתוכן</a>
+{banner}{body}
+{hook}<script src="/assets/club.js" defer></script>
+</body>
+</html>
+'''
+    return strip_draft(html)
+
+CLUB_DESC = 'קהילה לבעלות עסקים: מפגש לייב כל שבועיים, אתר חברות עם כלים מוכנים וקבוצת וואטסאפ לליווי. מחיר מייסדות 60 ₪ לחודש.'
+write('/club/', club_page(read('club/landing.html'), 'TomiZ Club · המקום שבו ה-AI מתחיל לעבוד בשבילך', CLUB_DESC, '/club/'))
+write('/club/thanks/', club_page(read('club/thanks.html'), 'ברוכה הבאה · TomiZ Club', 'ההצטרפות ל-TomiZ Club התקבלה.', '/club/thanks/'))
+for key, (sub, title) in {'home': ('', 'אזור החברות'), 'recordings': ('recordings/', 'הדרכות מוקלטות'), 'guides': ('guides/', 'מדריכים'), 'perks': ('perks/', 'הטבות וקביעת פגישה')}.items():
+    write(M + sub, club_page(read(f'club/members/{key}.html'), f'{title} · TomiZ Club', 'אזור החברות של TomiZ Club.', M + sub, members=sub))
+os.makedirs(os.path.join(ROOT, 'files'), exist_ok=True)
+open(os.path.join(ROOT, 'files/tomiz-club-events.ics'), 'w', encoding='utf-8', newline='').write(club_ics())
+
 urls = ([p for p, *_ in PAGES.values()] + [p for p, *_ in EN_PAGES.values()]
         + [f'/blog/{a["id"]}/' for a in ARTICLES] + [f'/en/blog/{a["id"]}/' for a in ARTICLES_EN])
 open(os.path.join(ROOT, 'sitemap.xml'), 'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'  <url><loc>{SITE}{u}</loc></url>\n' for u in urls) + '</urlset>\n')

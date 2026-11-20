@@ -1,0 +1,58 @@
+// TomiZ Club pages: sticky join button on phones, and the members' booking form (posts to the site's Make webhook, like the other forms).
+(function stick() {
+  const bar = document.querySelector('.cl-stick'), hero = document.getElementById('hero-cta'), join = document.getElementById('join');
+  if (!bar || !hero || !join || !('IntersectionObserver' in window)) return;
+  const seen = new Map();
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => seen.set(e.target, e.isIntersecting));
+    bar.classList.toggle('on', !seen.get(hero) && hero.getBoundingClientRect().bottom < 0 && !seen.get(join));
+  });
+  io.observe(hero); io.observe(join);
+})();
+
+(function book() {
+  const form = document.getElementById('book');
+  if (!form) return;
+  const HOOK = window.TOMIZ_WEBHOOK || '';
+  const msg = document.getElementById('book-msg'), btn = form.querySelector('button[type=submit]'), label = btn.textContent;
+  const T = {
+    name: 'נא למלא שם.',
+    phone: 'נא למלא מספר טלפון תקין, למשל ⁦050-1234567⁩.',
+    email: 'נא למלא כתובת אימייל תקינה.',
+    ok: 'קיבלתי! אחזור אלייך בהקדם 💚',
+    off: 'הטופס עוד לא מחובר. אפשר לכתוב לי בוואטסאפ או במייל ⁦office@tomizs.com⁩',
+    fail: 'אופס, ההודעה לא נשלחה. נסי שוב, או כתבי לי בוואטסאפ.'
+  };
+  const checks = {
+    name: v => v.trim().length >= 2,
+    phone: v => /^(?:\+?972|0)(?:5\d|7\d|[23489])\d{7}$/.test(v.replace(/[\s\-().]/g, '')),
+    email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim())
+  };
+  const check = n => {
+    const el = form.elements[n], ok = checks[n](el.value);
+    el.setAttribute('aria-invalid', !ok);
+    document.getElementById(el.getAttribute('aria-describedby')).textContent = ok ? '' : T[n];
+    return ok;
+  };
+  let sending = false;
+  const say = (t, cls) => { msg.textContent = t; msg.className = 'clm-msg ' + cls; msg.focus(); };
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (sending) return;
+    const bad = Object.keys(checks).filter(n => !check(n));
+    if (bad.length) { form.elements[bad[0]].focus(); return; }
+    if (form.website.value) { say(T.ok, 'ok'); form.reset(); return; }
+    if (!HOOK) { say(T.off, 'bad'); return; }
+    sending = true; btn.disabled = true; btn.textContent = 'שולחת...';
+    const body = new URLSearchParams({
+      name: form.name.value.trim(), phone: form.phone.value.trim(), email: form.email.value.trim(),
+      kind: form.kind.value, message: form.message.value.trim(), source: form.dataset.source,
+      page: location.pathname, sentAt: new Date().toISOString()
+    });
+    try {
+      await fetch(HOOK, { method: 'POST', mode: 'no-cors', body });
+      form.reset(); say(T.ok, 'ok');
+    } catch (err) { say(T.fail, 'bad'); }
+    sending = false; btn.disabled = false; btn.textContent = label;
+  });
+})();
