@@ -250,6 +250,47 @@ for name, (path, title, desc) in WEBINAR_PAGES.items():
     write(path, landing(read(f'webinar/{name}.html'), title, desc, path))
 open(os.path.join(ROOT, WEBINAR['ics'].strip('/')), 'w', encoding='utf-8', newline='').write(ics())
 
+# ---- club members area: /club/login/ and /club/account/ (no site nav, always noindex, not in the sitemap) ----
+# Draft until approved: a draft banner shows even in a --live build. The auth endpoint (src/club-members/endpoint.txt or
+# TOMIZ_CLUB_AUTH) is a server that checks members and sends login codes; with none set the pages run in demo mode.
+CLUB_DRAFT = True
+CLUB_AUTH = os.environ.get('TOMIZ_CLUB_AUTH', '') or (read('club-members/endpoint.txt').strip() if os.path.exists(os.path.join(SRC, 'club-members/endpoint.txt')) else '')
+CLUB_PAGES = {
+    'login': ('/club/login/', 'כניסה לאזור החברות · TomiZ Club', 'כניסה לאזור החברות של TomiZ Club.'),
+    'account': ('/club/account/', 'האזור שלי · TomiZ Club', 'האזור האישי של חברות TomiZ Club.'),
+}
+def club_page(body, title, desc):
+    banner = '<div class="draft">טיוטה לעיון · לא באוויר</div>\n' if CLUB_DRAFT or not LIVE else ''
+    return f'''<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1E3E38">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/webinar.css">
+<link rel="stylesheet" href="/assets/club-members.css">
+</head>
+<body class="wb cm">
+<a class="skip" href="#main">דילוג לתוכן</a>
+{banner}<main id="main" tabindex="-1">
+{body}
+</main>
+<script>window.TOMIZ_CLUB_AUTH={json.dumps(CLUB_AUTH)}</script>
+<script src="/assets/club-members.js" defer></script>
+</body>
+</html>
+'''
+for name, (path, title, desc) in CLUB_PAGES.items():
+    write(path, club_page(read(f'club-members/{name}.html'), title, desc))
+
 urls = ([p for p, *_ in PAGES.values()] + [p for p, *_ in EN_PAGES.values()]
         + [f'/blog/{a["id"]}/' for a in ARTICLES] + [f'/en/blog/{a["id"]}/' for a in ARTICLES_EN])
 open(os.path.join(ROOT, 'sitemap.xml'), 'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'  <url><loc>{SITE}{u}</loc></url>\n' for u in urls) + '</urlset>\n')

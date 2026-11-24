@@ -1,0 +1,95 @@
+<div class="cm-top">
+  <div class="wrap">
+    <img src="/assets/logo_light.png" width="102" height="30" alt="TomiZ">
+    <button class="cm-link light" type="button" id="cm-logout">יציאה</button>
+  </div>
+</div>
+
+<div class="cm-loading" id="cm-loading" role="status">טוענים את האזור שלך...</div>
+
+<div id="cm-app" hidden>
+  <section class="wb-sec cm-hello">
+    <div class="wrap">
+      <div>
+        <p class="wb-eyebrow">האזור שלי</p>
+        <h1 class="cm-h1">היי <span data-f="firstName"></span>, <mark>טוב שבאת</mark></h1>
+        <p class="cm-lead">כל מה שצריך למועדון, במקום אחד.</p>
+      </div>
+      <div class="cm-card" aria-label="כרטיס חברות">
+        <div class="cm-card-top"><img src="/assets/logo_light.png" width="82" height="24" alt=""><span data-f="tierLabel"></span></div>
+        <div class="cm-card-name" data-f="name"></div>
+        <div class="cm-card-meta"><span>חברה מאז <b data-f="joinedLabel"></b></span><span dir="ltr" data-f="memberNo"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wb-sec cm-next">
+    <div class="wrap">
+      <div class="cm-next-box">
+        <p class="wb-eyebrow">המפגש הבא</p>
+        <h2 data-f="sessionTitle"></h2>
+        <ul class="wb-when"><li><b data-f="sessionDay"></b></li><li><b data-f="sessionTime"></b> שעון ישראל</li><li class="free"><b>בזום</b></li></ul>
+        <div class="cm-actions">
+          <a class="wb-btn" data-href="zoomUrl" target="_blank" rel="noopener">כניסה לזום</a>
+          <a class="wb-btn ghost" data-href="calendarUrl" target="_blank" rel="noopener">הוספה ליומן</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wb-sec cm-links">
+    <div class="wrap">
+      <div class="wb-cards">
+        <a class="wb-card cm-tile" data-href="whatsappUrl" target="_blank" rel="noopener"><span class="wb-num">01</span><h3>קבוצת הווטסאפ</h3><p>שאלות, שיתופים ועדכונים בין המפגשים. מענה <span data-f="whatsappHours"></span>.</p></a>
+        <a class="wb-card cm-tile" data-href="contentUrl"><span class="wb-num">02</span><h3>הקלטות וכלים</h3><p>כל המפגשים, התבניות והפרומפטים, מהחדש לישן.</p></a>
+        <a class="wb-card cm-tile" data-href="guidesUrl"><span class="wb-num">03</span><h3>המדריכים</h3><p>סוכן, כסף, מילון AI והמדריכים האינטראקטיביים.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wb-sec cm-details">
+    <div class="wrap narrow">
+      <p class="wb-eyebrow">הפרטים שלי</p>
+      <h2>מה שמור אצלנו</h2>
+      <form id="cm-profile" class="wb-form cm-profile" novalidate>
+        <dl class="cm-dl">
+          <div><dt>אימייל לכניסה</dt><dd dir="ltr" data-f="email"></dd></div>
+          <div><dt>מסלול</dt><dd data-f="planLabel"></dd></div>
+          <div><dt>סטטוס</dt><dd><span class="cm-pill" data-f="statusLabel"></span></dd></div>
+          <div><dt>החיוב הבא</dt><dd data-f="nextChargeLabel"></dd></div>
+        </dl>
+        <div class="wb-field">
+          <label for="p-name">שם מלא</label>
+          <input id="p-name" name="name" autocomplete="name" required aria-describedby="p-name-err">
+          <p class="wb-err" id="p-name-err"></p>
+        </div>
+        <div class="wb-field">
+          <label for="p-phone">טלפון (לקבוצת הווטסאפ)</label>
+          <input id="p-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required aria-describedby="p-phone-err">
+          <p class="wb-err" id="p-phone-err"></p>
+        </div>
+        <div class="wb-field">
+          <label for="p-biz">העסק שלי, במשפט אחד (לא חובה)</label>
+          <input id="p-biz" name="business" maxlength="120">
+        </div>
+        <button class="wb-btn" type="submit">שמירת הפרטים</button>
+        <div class="cm-ok" id="cm-profile-ok" role="status"></div>
+        <div class="wb-note" id="cm-profile-note" role="alert" tabindex="-1"></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="wb-sec cm-manage">
+    <div class="wrap narrow">
+      <details>
+        <summary>ניהול המנוי וביטול</summary>
+        <p><span class="ph">[מדיניות הביטול עוד לא הוחלטה: מתי ואיך חברה עוזבת, ומה קורה עם המחיר הנעול אם היא חוזרת]</span></p>
+        <p>שינוי כרטיס אשראי או ביטול: <a data-href="supportUrl" target="_blank" rel="noopener">כתבי לי בווטסאפ</a>.</p>
+      </details>
+    </div>
+  </section>
+</div>
+
+<footer class="wb-foot">
+  <div class="wrap"><img src="/assets/logo_light.png" width="102" height="30" alt="TomiZ" loading="lazy"><span>© TomiZ · <a href="/privacy/" target="_blank" rel="noopener">מדיניות פרטיות</a></span></div>
+</footer>
