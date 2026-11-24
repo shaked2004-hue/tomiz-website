@@ -57,7 +57,10 @@ async function call(action, data) {
     // form-encoded keeps it a simple CORS request (no preflight); the endpoint must reply with Access-Control-Allow-Origin
     const res = await fetch(API, { method: 'POST', body: new URLSearchParams({ action, ...data }), signal: ctrl.signal });
     if (!res.ok) throw new Error(res.status);
-    return await res.json();
+    const text = await res.text();
+    try { return JSON.parse(text); }
+    // the endpoint answers with no JSON when it found no matching member: same as "not ok" (request-code stays ok, so emails can't be probed)
+    catch (e) { return action === 'request-code' || action === 'logout' ? { ok: true } : { ok: false, error: action === 'verify' ? 'bad-code' : 'auth' }; }
   } finally { clearTimeout(timer); }
 }
 
