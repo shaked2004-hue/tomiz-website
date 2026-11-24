@@ -12,7 +12,7 @@
 const API = window.TOMIZ_CLUB_AUTH || '';
 const DEMO = !API;
 const KEY = 'tomiz-club-session';
-const LOGIN = '/club/login/', ACCOUNT = '/club/account/';
+const LOGIN = '/club/login/', HOME = '/club/home/';
 const T = {
   email: 'נא למלא כתובת אימייל תקינה, למשל ⁦name@gmail.com⁩.',
   code: 'הקוד הוא 6 ספרות. אפשר להדביק אותו מהמייל.',
@@ -24,7 +24,9 @@ const T = {
   resent: 'שלחנו קוד חדש.',
   name: 'נא למלא שם מלא.',
   phone: 'נא למלא מספר טלפון תקין, למשל ⁦050-1234567⁩.',
-  saved: 'הפרטים נשמרו.'
+  saved: 'הפרטים נשמרו.',
+  copied: 'הועתק ✓',
+  copyFail: 'לא הצלחתי להעתיק. אפשר לסמן את הטקסט ולהעתיק ידנית.'
 };
 const store = {
   get() { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } },
@@ -90,7 +92,7 @@ function fieldError(el, msg) {
   if (!f1) return;
   demoBanner();
   const s = store.get();
-  if (s && s.token) { location.replace(ACCOUNT); return; }
+  if (s && s.token) { location.replace(HOME); return; }
   const mail = f1.email, otp = f2.code, n1 = document.getElementById('cm-email-note'), n2 = document.getElementById('cm-code-note');
   let email = '';
 
@@ -134,7 +136,7 @@ function fieldError(el, msg) {
       return;
     }
     store.set({ token: r.token, email });
-    location.replace(ACCOUNT);
+    location.replace(HOME);
   });
 
   document.getElementById('cm-resend').addEventListener('click', async e => {
@@ -146,15 +148,16 @@ function fieldError(el, msg) {
   document.getElementById('cm-back').addEventListener('click', () => { f2.hidden = true; f1.hidden = false; mail.focus(); });
 })();
 
-// ---- my account page ----
-(function account() {
+// ---- every member page (home, content, my account): shown only after the endpoint confirms an active member ----
+(function members() {
   const app = document.getElementById('cm-app');
   if (!app) return;
   demoBanner();
   const s = store.get();
   if (!s || !s.token) { location.replace(LOGIN); return; }
   const out = () => { store.clear(); location.replace(LOGIN); };
-  document.getElementById('cm-logout').addEventListener('click', () => { call('logout', { token: s.token }).catch(() => {}); out(); });
+  const logout = document.getElementById('cm-logout');
+  if (logout) logout.addEventListener('click', () => { call('logout', { token: s.token }).catch(() => {}); out(); });
 
   const day = d => new Intl.DateTimeFormat('he-IL', { weekday: 'long', day: 'numeric', month: 'numeric', year: 'numeric', timeZone: 'Asia/Jerusalem' }).format(d);
   const time = d => new Intl.DateTimeFormat('he-IL', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Jerusalem' }).format(d);
@@ -163,7 +166,7 @@ function fieldError(el, msg) {
   function render(m, c) {
     const start = c.session && c.session.start ? new Date(c.session.start) : null;
     const v = {
-      ...m, firstName: (m.name || '').split(' ')[0],
+      ...m, firstName: (m.name || '').split(' ')[0], initial: (m.name || '').trim().charAt(0),
       tierLabel: m.tier === 'founder' ? 'חברת מייסדת' : 'חברה',
       joinedLabel: date(m.joinedAt), memberNo: m.memberNo ? '#' + m.memberNo : '',
       planLabel: (m.tier === 'founder' ? 'מייסדת' : 'חודשי') + (m.price ? ` · ${m.price} ₪ לחודש` : '') + (m.tier === 'founder' ? ' (מחיר נעול)' : ''),
@@ -173,14 +176,20 @@ function fieldError(el, msg) {
       sessionDay: start ? day(start) : 'בקרוב', sessionTime: start ? time(start) : '—',
       whatsappHours: c.whatsappHours || ''
     };
-    app.querySelectorAll('[data-f]').forEach(el => { el.textContent = v[el.dataset.f] || ''; });
-    app.querySelectorAll('[data-href]').forEach(el => {
+    document.querySelectorAll('[data-f]').forEach(el => { el.textContent = v[el.dataset.f] || ''; });
+    // private links (Zoom, WhatsApp, recordings) come from the endpoint; without one the button shows as "soon"
+    document.querySelectorAll('[data-href]').forEach(el => {
       const url = c[el.dataset.href];
-      if (url) { el.href = url; el.removeAttribute('aria-disabled'); } else { el.removeAttribute('href'); el.setAttribute('aria-disabled', 'true'); }
+      if (url) { el.href = url; el.removeAttribute('aria-disabled'); }
+      else {
+        el.removeAttribute('href'); el.setAttribute('aria-disabled', 'true');
+        if (el.dataset.soon) el.textContent = el.dataset.soon;
+      }
     });
-    app.querySelector('.cm-pill').classList.toggle('off', m.status !== 'active');
+    const pill = app.querySelector('.cm-pill');
+    if (pill) pill.classList.toggle('off', m.status !== 'active');
     const f = document.getElementById('cm-profile');
-    f.name.value = m.name || ''; f.phone.value = m.phone || ''; f.business.value = m.business || '';
+    if (f) { f.name.value = m.name || ''; f.phone.value = m.phone || ''; f.business.value = m.business || ''; }
   }
 
   call('me', { token: s.token }).then(r => {
@@ -194,7 +203,19 @@ function fieldError(el, msg) {
     app.hidden = false;
   }).catch(() => { document.getElementById('cm-loading').textContent = T.fail; });
 
-  const f = document.getElementById('cm-profile'), ok = document.getElementById('cm-profile-ok'), note = document.getElementById('cm-profile-note');
+  // prompts: copy button under each prompt
+  app.querySelectorAll('.cm-copy').forEach(btn => btn.addEventListener('click', async () => {
+    const text = btn.previousElementSibling.textContent.trim(), label = btn.dataset.label || btn.textContent;
+    btn.dataset.label = label;
+    try { await navigator.clipboard.writeText(text); btn.textContent = T.copied; }
+    catch (e) { btn.textContent = T.copyFail; }
+    setTimeout(() => { btn.textContent = label; }, 2200);
+  }));
+
+  // my account: profile form
+  const f = document.getElementById('cm-profile');
+  if (!f) return;
+  const ok = document.getElementById('cm-profile-ok'), note = document.getElementById('cm-profile-note');
   f.addEventListener('submit', async e => {
     e.preventDefault();
     ok.textContent = ''; note.textContent = '';
@@ -208,8 +229,10 @@ function fieldError(el, msg) {
       const r = await call('update', { token: s.token, name: f.name.value.trim(), phone: f.phone.value.trim(), business: f.business.value.trim() });
       if (!r.ok) { out(); return; }
       ok.textContent = T.saved;
-      app.querySelectorAll('[data-f="name"]').forEach(el => { el.textContent = f.name.value.trim(); });
-      app.querySelectorAll('[data-f="firstName"]').forEach(el => { el.textContent = f.name.value.trim().split(' ')[0]; });
+      const name = f.name.value.trim();
+      document.querySelectorAll('[data-f="name"]').forEach(el => { el.textContent = name; });
+      document.querySelectorAll('[data-f="firstName"]').forEach(el => { el.textContent = name.split(' ')[0]; });
+      document.querySelectorAll('[data-f="initial"]').forEach(el => { el.textContent = name.charAt(0); });
     } catch (err) { note.textContent = T.fail; note.focus(); }
     finally { busy(btn, false); }
   });

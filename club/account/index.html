@@ -15,55 +15,25 @@
 <link rel="stylesheet" href="/assets/webinar.css">
 <link rel="stylesheet" href="/assets/club-members.css">
 </head>
-<body class="wb cm">
+<body class="wb cm cm-account">
 <a class="skip" href="#main">דילוג לתוכן</a>
 <div class="draft">טיוטה לעיון · לא באוויר</div>
 <main id="main" tabindex="-1">
-<div class="cm-top">
-  <div class="wrap">
-    <img src="/assets/logo_light.png" width="102" height="30" alt="TomiZ">
-    <button class="cm-link light" type="button" id="cm-logout">יציאה</button>
-  </div>
-</div>
-
-<div class="cm-loading" id="cm-loading" role="status">טוענים את האזור שלך...</div>
-
+<header class="cm-bar"><div class="wrap"><a class="cm-brand" href="/club/home/"><img src="/assets/logo_light.png" width="102" height="30" alt="TomiZ"><span>Club</span></a><a class="cm-me" href="/club/account/" aria-current="page"><span class="cm-avatar" data-f="initial" aria-hidden="true"></span>האזור שלי</a></div><nav class="cm-nav" aria-label="ניווט במועדון"><div class="wrap"><a href="/club/home/">בית</a><a href="/club/recordings/">הקלטות</a><a href="/club/guides/">מדריכים</a><a href="/club/prompts/">פרומפטים</a><a href="/club/tips/">טיפים</a></div></nav></header>
+<div class="cm-loading" id="cm-loading" role="status">טוענים את המועדון...</div>
 <div id="cm-app" hidden>
   <section class="wb-sec cm-hello">
     <div class="wrap">
       <div>
-        <p class="wb-eyebrow">האזור שלי</p>
-        <h1 class="cm-h1">היי <span data-f="firstName"></span>, <mark>טוב שבאת</mark></h1>
-        <p class="cm-lead">כל מה שצריך למועדון, במקום אחד.</p>
+        <p class="wb-eyebrow">היי <span data-f="firstName"></span></p>
+        <h1 class="cm-h1">האזור <mark>שלי</mark></h1>
+        <p class="cm-lead">הכרטיס, הפרטים והמנוי שלך.</p>
+        <button class="cm-link light cm-out" type="button" id="cm-logout">יציאה מהמועדון</button>
       </div>
       <div class="cm-card" aria-label="כרטיס חברות">
         <div class="cm-card-top"><img src="/assets/logo_light.png" width="82" height="24" alt=""><span data-f="tierLabel"></span></div>
         <div class="cm-card-name" data-f="name"></div>
         <div class="cm-card-meta"><span>חברה מאז <b data-f="joinedLabel"></b></span><span dir="ltr" data-f="memberNo"></span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="wb-sec cm-next">
-    <div class="wrap">
-      <div class="cm-next-box">
-        <p class="wb-eyebrow">המפגש הבא</p>
-        <h2 data-f="sessionTitle"></h2>
-        <ul class="wb-when"><li><b data-f="sessionDay"></b></li><li><b data-f="sessionTime"></b> שעון ישראל</li><li class="free"><b>בזום</b></li></ul>
-        <div class="cm-actions">
-          <a class="wb-btn" data-href="zoomUrl" target="_blank" rel="noopener">כניסה לזום</a>
-          <a class="wb-btn ghost" data-href="calendarUrl" target="_blank" rel="noopener">הוספה ליומן</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="wb-sec cm-links">
-    <div class="wrap">
-      <div class="wb-cards">
-        <a class="wb-card cm-tile" data-href="whatsappUrl" target="_blank" rel="noopener"><span class="wb-num">01</span><h3>קבוצת הווטסאפ</h3><p>שאלות, שיתופים ועדכונים בין המפגשים. מענה <span data-f="whatsappHours"></span>.</p></a>
-        <a class="wb-card cm-tile" data-href="contentUrl"><span class="wb-num">02</span><h3>הקלטות וכלים</h3><p>כל המפגשים, התבניות והפרומפטים, מהחדש לישן.</p></a>
-        <a class="wb-card cm-tile" data-href="guidesUrl"><span class="wb-num">03</span><h3>המדריכים</h3><p>סוכן, כסף, מילון AI והמדריכים האינטראקטיביים.</p></a>
       </div>
     </div>
   </section>
@@ -109,12 +79,9 @@
       </details>
     </div>
   </section>
+
 </div>
-
-<footer class="wb-foot">
-  <div class="wrap"><img src="/assets/logo_light.png" width="102" height="30" alt="TomiZ" loading="lazy"><span>© TomiZ · <a href="/privacy/" target="_blank" rel="noopener">מדיניות פרטיות</a></span></div>
-</footer>
-
+<footer class="wb-foot"><div class="wrap"><img src="/assets/logo_light.png" width="102" height="30" alt="TomiZ" loading="lazy"><span>© TomiZ · <a href="/privacy/" target="_blank" rel="noopener">מדיניות פרטיות</a></span></div></footer>
 </main>
 <script>window.TOMIZ_CLUB_AUTH="https://hook.eu1.make.com/rwxqp3hz46qoclmnoi92rvtyxm9pt4h0"</script>
 <script src="/assets/club-members.js" defer></script>
