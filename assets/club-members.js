@@ -31,6 +31,8 @@ const store = {
   set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {} },
   clear() { try { localStorage.removeItem(KEY); } catch (e) {} }
 };
+// the endpoint HTML-escapes free-text fields (so a quote can't break its JSON); textContent needs them decoded
+const dec = v => typeof v === 'string' && v.includes('&') ? new DOMParser().parseFromString(v, 'text/html').documentElement.textContent : v;
 const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
 const isPhone = v => /^(?:\+?972|0)(?:5\d|7\d|[23489])\d{7}$/.test(v.replace(/[\s\-().]/g, ''));
 
@@ -183,7 +185,11 @@ function fieldError(el, msg) {
 
   call('me', { token: s.token }).then(r => {
     if (!r.ok) { out(); return; }
-    render(r.member, r.club || {});
+    const m = {}, c = { ...(r.club || {}) };
+    Object.keys(r.member || {}).forEach(k => { m[k] = dec(r.member[k]); });
+    if (c.session) c.session = { ...c.session, title: dec(c.session.title) };
+    c.whatsappHours = dec(c.whatsappHours);
+    render(m, c);
     document.getElementById('cm-loading').hidden = true;
     app.hidden = false;
   }).catch(() => { document.getElementById('cm-loading').textContent = T.fail; });
