@@ -1,0 +1,57 @@
+  <section class="wb-sec cm-hello">
+    <div class="wrap">
+      <div>
+        <p class="wb-eyebrow">היי <span data-f="firstName"></span></p>
+        <h1 class="cm-h1">האזור <mark>שלי</mark></h1>
+        <p class="cm-lead">הכרטיס, הפרטים והמנוי שלך.</p>
+        <button class="cm-link light cm-out" type="button" id="cm-logout">יציאה מהמועדון</button>
+      </div>
+      <div class="cm-card" aria-label="כרטיס חברות">
+        <div class="cm-card-top"><img src="/assets/logo_light.png" width="82" height="24" alt=""><span data-f="tierLabel"></span></div>
+        <div class="cm-card-name" data-f="name"></div>
+        <div class="cm-card-meta"><span>חברה מאז <b data-f="joinedLabel"></b></span><span dir="ltr" data-f="memberNo"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wb-sec cm-details">
+    <div class="wrap narrow">
+      <p class="wb-eyebrow">הפרטים שלי</p>
+      <h2>מה שמור אצלנו</h2>
+      <form id="cm-profile" class="wb-form cm-profile" novalidate>
+        <dl class="cm-dl">
+          <div><dt>אימייל לכניסה</dt><dd dir="ltr" data-f="email"></dd></div>
+          <div><dt>מסלול</dt><dd data-f="planLabel"></dd></div>
+          <div><dt>סטטוס</dt><dd><span class="cm-pill" data-f="statusLabel"></span></dd></div>
+          <div><dt>החיוב הבא</dt><dd data-f="nextChargeLabel"></dd></div>
+        </dl>
+        <div class="wb-field">
+          <label for="p-name">שם מלא</label>
+          <input id="p-name" name="name" autocomplete="name" required aria-describedby="p-name-err">
+          <p class="wb-err" id="p-name-err"></p>
+        </div>
+        <div class="wb-field">
+          <label for="p-phone">טלפון (לקבוצת הווטסאפ)</label>
+          <input id="p-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required aria-describedby="p-phone-err">
+          <p class="wb-err" id="p-phone-err"></p>
+        </div>
+        <div class="wb-field">
+          <label for="p-biz">העסק שלי, במשפט אחד (לא חובה)</label>
+          <input id="p-biz" name="business" maxlength="120">
+        </div>
+        <button class="wb-btn" type="submit">שמירת הפרטים</button>
+        <div class="cm-ok" id="cm-profile-ok" role="status"></div>
+        <div class="wb-note" id="cm-profile-note" role="alert" tabindex="-1"></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="wb-sec cm-manage">
+    <div class="wrap narrow">
+      <details>
+        <summary>ניהול המנוי וביטול</summary>
+        <p><span class="ph">[מדיניות הביטול עוד לא הוחלטה: מתי ואיך חברה עוזבת, ומה קורה עם המחיר הנעול אם היא חוזרת]</span></p>
+        <p>שינוי כרטיס אשראי או ביטול: <a data-href="supportUrl" target="_blank" rel="noopener">כתבי לי בווטסאפ</a>.</p>
+      </details>
+    </div>
+  </section>

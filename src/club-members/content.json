@@ -1,0 +1,23 @@
+{
+  "_readme": "Members-area content. Newest first in every list. Text in [square brackets] shows as a yellow placeholder on the page. Recording video links never go here: each recording has a key, and its URL comes from the members system after login (club.<key>), like the Zoom link.",
+  "recordings": [
+    {"title": "[שם המפגש הראשון]", "date": "[תאריך]", "topic": "[נושא]", "length": "[משך]", "desc": "[משפט אחד: מה לומדים ומה יוצאים איתו]", "key": "rec1"},
+    {"title": "[שם ההקלטה]", "date": "[תאריך]", "topic": "[נושא]", "length": "[משך]", "desc": "[משפט אחד: מה לומדים ומה יוצאים איתו]", "key": "rec2"},
+    {"title": "[שם ההקלטה]", "date": "[תאריך]", "topic": "[נושא]", "length": "[משך]", "desc": "[משפט אחד: מה לומדים ומה יוצאים איתו]", "key": "rec3"}
+  ],
+  "guides": [
+    {"title": "מילון AI למומחים", "type": "מדריך", "desc": "8 מונחים שכל מומחה ואיש מקצוע צריך להכיר, ואיך משתמשים בכל אחד כבר מחר בבוקר.", "url": "/ai-dictionary/"},
+    {"title": "[שם המדריך]", "type": "[מדריך / תבנית / צ'קליסט]", "desc": "[למי זה ומה זה חוסך]", "url": ""},
+    {"title": "[שם המדריך]", "type": "[מדריך / תבנית / צ'קליסט]", "desc": "[למי זה ומה זה חוסך]", "url": ""}
+  ],
+  "prompts": [
+    {"title": "[שם הפרומפט]", "use": "[מתי משתמשים בו]", "tool": "[ChatGPT / Claude / Gemini]", "text": "[הטקסט המלא של הפרומפט. החלקים שהחברה ממלאת מסומנים בסוגריים]"},
+    {"title": "[שם הפרומפט]", "use": "[מתי משתמשים בו]", "tool": "[כלי]", "text": "[הטקסט המלא של הפרומפט]"},
+    {"title": "[שם הפרומפט]", "use": "[מתי משתמשים בו]", "tool": "[כלי]", "text": "[הטקסט המלא של הפרומפט]"}
+  ],
+  "tips": [
+    {"title": "[כותרת הטיפ]", "date": "[תאריך]", "text": "[2 עד 3 משפטים: מה עושים, ואיך זה נראה בפועל]"},
+    {"title": "[כותרת הטיפ]", "date": "[תאריך]", "text": "[2 עד 3 משפטים]"},
+    {"title": "[כותרת הטיפ]", "date": "[תאריך]", "text": "[2 עד 3 משפטים]"}
+  ]
+}

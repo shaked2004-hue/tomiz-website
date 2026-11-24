@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>האזור שלי · TomiZ Club</title>
+<meta name="description" content="האזור האישי של חברות TomiZ Club.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1E3E38">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/webinar.css">
+<link rel="stylesheet" href="/assets/club-members.css">
+</head>
+<body class="wb cm cm-account">
+<a class="skip" href="#main">דילוג לתוכן</a>
+<div class="draft">טיוטה לעיון · לא באוויר</div>
+<main id="main" tabindex="-1">
+<header class="cm-bar"><div class="wrap"><a class="cm-brand" href="/club/home/"><img src="/assets/logo_light.png" width="102" height="30" alt="TomiZ"><span>Club</span></a><a class="cm-me" href="/club/account/" aria-current="page"><span class="cm-avatar" data-f="initial" aria-hidden="true"></span>האזור שלי</a></div><nav class="cm-nav" aria-label="ניווט במועדון"><div class="wrap"><a href="/club/home/">בית</a><a href="/club/recordings/">הקלטות</a><a href="/club/guides/">מדריכים</a><a href="/club/prompts/">פרומפטים</a><a href="/club/tips/">טיפים</a></div></nav></header>
+<div class="cm-loading" id="cm-loading" role="status">טוענים את המועדון...</div>
+<div id="cm-app" hidden>
+  <section class="wb-sec cm-hello">
+    <div class="wrap">
+      <div>
+        <p class="wb-eyebrow">היי <span data-f="firstName"></span></p>
+        <h1 class="cm-h1">האזור <mark>שלי</mark></h1>
+        <p class="cm-lead">הכרטיס, הפרטים והמנוי שלך.</p>
+        <button class="cm-link light cm-out" type="button" id="cm-logout">יציאה מהמועדון</button>
+      </div>
+      <div class="cm-card" aria-label="כרטיס חברות">
+        <div class="cm-card-top"><img src="/assets/logo_light.png" width="82" height="24" alt=""><span data-f="tierLabel"></span></div>
+        <div class="cm-card-name" data-f="name"></div>
+        <div class="cm-card-meta"><span>חברה מאז <b data-f="joinedLabel"></b></span><span dir="ltr" data-f="memberNo"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wb-sec cm-details">
+    <div class="wrap narrow">
+      <p class="wb-eyebrow">הפרטים שלי</p>
+      <h2>מה שמור אצלנו</h2>
+      <form id="cm-profile" class="wb-form cm-profile" novalidate>
+        <dl class="cm-dl">
+          <div><dt>אימייל לכניסה</dt><dd dir="ltr" data-f="email"></dd></div>
+          <div><dt>מסלול</dt><dd data-f="planLabel"></dd></div>
+          <div><dt>סטטוס</dt><dd><span class="cm-pill" data-f="statusLabel"></span></dd></div>
+          <div><dt>החיוב הבא</dt><dd data-f="nextChargeLabel"></dd></div>
+        </dl>
+        <div class="wb-field">
+          <label for="p-name">שם מלא</label>
+          <input id="p-name" name="name" autocomplete="name" required aria-describedby="p-name-err">
+          <p class="wb-err" id="p-name-err"></p>
+        </div>
+        <div class="wb-field">
+          <label for="p-phone">טלפון (לקבוצת הווטסאפ)</label>
+          <input id="p-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required aria-describedby="p-phone-err">
+          <p class="wb-err" id="p-phone-err"></p>
+        </div>
+        <div class="wb-field">
+          <label for="p-biz">העסק שלי, במשפט אחד (לא חובה)</label>
+          <input id="p-biz" name="business" maxlength="120">
+        </div>
+        <button class="wb-btn" type="submit">שמירת הפרטים</button>
+        <div class="cm-ok" id="cm-profile-ok" role="status"></div>
+        <div class="wb-note" id="cm-profile-note" role="alert" tabindex="-1"></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="wb-sec cm-manage">
+    <div class="wrap narrow">
+      <details>
+        <summary>ניהול המנוי וביטול</summary>
+        <p><span class="ph">[מדיניות הביטול עוד לא הוחלטה: מתי ואיך חברה עוזבת, ומה קורה עם המחיר הנעול אם היא חוזרת]</span></p>
+        <p>שינוי כרטיס אשראי או ביטול: <a data-href="supportUrl" target="_blank" rel="noopener">כתבי לי בווטסאפ</a>.</p>
+      </details>
+    </div>
+  </section>
+
+</div>
+<footer class="wb-foot"><div class="wrap"><img src="/assets/logo_light.png" width="102" height="30" alt="TomiZ" loading="lazy"><span>© TomiZ · <a href="/privacy/" target="_blank" rel="noopener">מדיניות פרטיות</a></span></div></footer>
+</main>
+<script>window.TOMIZ_CLUB_AUTH="https://hook.eu1.make.com/rwxqp3hz46qoclmnoi92rvtyxm9pt4h0"</script>
+<script src="/assets/club-members.js" defer></script>
+</body>
+</html>
