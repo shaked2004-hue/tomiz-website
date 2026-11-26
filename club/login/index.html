@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>כניסה לאזור החברות · TomiZ Club</title>
+<meta name="description" content="כניסה לאזור החברות של TomiZ Club.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1E3E38">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/webinar.css">
+<link rel="stylesheet" href="/assets/club-members.css">
+</head>
+<body class="wb cm cm-login">
+<a class="skip" href="#main">דילוג לתוכן</a>
+<div class="draft">טיוטה לעיון · לא באוויר</div>
+<main id="main" tabindex="-1">
+<section class="wb-hero cm-hero">
+  <div class="wrap">
+    <div class="wb-hero-text">
+      <img class="wb-logo" src="/assets/logo_light.png" width="122" height="36" alt="TomiZ">
+      <span class="wb-badge">אזור החברות</span>
+      <h1>ברוכה הבאה <mark>הביתה</mark></h1>
+      <p class="wb-sub">נכנסים עם האימייל שאיתו נרשמת למועדון. בלי סיסמה לזכור: נשלח לך קוד חד-פעמי למייל.</p>
+    </div>
+
+    <div class="wb-form cm-box">
+      <form id="cm-email" novalidate>
+        <h2 class="cm-title">כניסה למועדון</h2>
+        <div class="wb-field">
+          <label for="cm-mail">אימייל</label>
+          <input id="cm-mail" name="email" type="email" autocomplete="email" dir="ltr" required aria-describedby="cm-mail-err">
+          <p class="wb-err" id="cm-mail-err"></p>
+        </div>
+        <button class="wb-btn" type="submit">שלחי לי קוד כניסה</button>
+        <div class="wb-note" id="cm-email-note" role="alert" tabindex="-1"></div>
+      </form>
+
+      <form id="cm-code" novalidate hidden>
+        <h2 class="cm-title">בדקי את המייל</h2>
+        <p class="cm-hint">שלחנו קוד בן 6 ספרות אל <b id="cm-sent-to" dir="ltr"></b>. הקוד תקף ל-<span class="ph">[15]</span> דקות.</p>
+        <div class="wb-field">
+          <label for="cm-otp">קוד כניסה</label>
+          <input id="cm-otp" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]*" maxlength="6" dir="ltr" class="cm-otp" required aria-describedby="cm-otp-err">
+          <p class="wb-err" id="cm-otp-err"></p>
+        </div>
+        <button class="wb-btn" type="submit">כניסה</button>
+        <div class="cm-row">
+          <button class="cm-link" type="button" id="cm-resend">לא הגיע? שליחה מחדש</button>
+          <button class="cm-link" type="button" id="cm-back">אימייל אחר</button>
+        </div>
+        <p class="cm-ok" id="cm-resent" role="status"></p>
+        <p class="cm-hint small">לא מוצאת? בדקי בספאם או בקידומי מכירות.</p>
+        <div class="wb-note" id="cm-code-note" role="alert" tabindex="-1"></div>
+      </form>
+
+      <p class="cm-foot">עוד לא חברה? <a href="/club/">להצטרפות למועדון</a><br>משהו לא עובד? <a href="https://wa.me/972000000000" class="ph-link">כתבי לי בווטסאפ <span class="ph">[מספר]</span></a></p>
+    </div>
+  </div>
+</section>
+
+<footer class="wb-foot">
+  <div class="wrap"><img src="/assets/logo_light.png" width="102" height="30" alt="TomiZ" loading="lazy"><span>© TomiZ · <a href="/privacy/" target="_blank" rel="noopener">מדיניות פרטיות</a></span></div>
+</footer>
+
+</main>
+<script>window.TOMIZ_CLUB_AUTH="https://hook.eu1.make.com/rwxqp3hz46qoclmnoi92rvtyxm9pt4h0"</script>
+<script src="/assets/club-members.js" defer></script>
+</body>
+</html>

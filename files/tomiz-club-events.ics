@@ -12,7 +12,7 @@ SUMMARY:מפגש 1: Claude כעוזר אישי לעסק · TomiZ Club
 DESCRIPTION:בונים יחד כלי אחד למשימה שחוזרת אצ
  לכם כל שבוע.
 LOCATION:Microsoft Teams
-URL:https://tomizs.com/club/members/
+URL:https://tomizs.com/club/login/
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:מפגש TomiZ Club בעוד 30 דקות
@@ -27,7 +27,7 @@ DTEND:20261223T091500Z
 SUMMARY:מפגש 2: תוכן לרשתות עם AI · TomiZ Club
 DESCRIPTION:מרעיון לפוסט מוכן\, בסגנון שלכם.
 LOCATION:Microsoft Teams
-URL:https://tomizs.com/club/members/
+URL:https://tomizs.com/club/login/
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:מפגש TomiZ Club בעוד 30 דקות
@@ -43,7 +43,7 @@ SUMMARY:מפגש 3: הסוכן הראשון שלכם · TomiZ Club
 DESCRIPTION:משימה שחוזרת על עצמה עוברת ל-AI\, צעד
   אחרי צעד.
 LOCATION:Microsoft Teams
-URL:https://tomizs.com/club/members/
+URL:https://tomizs.com/club/login/
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:מפגש TomiZ Club בעוד 30 דקות

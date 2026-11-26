@@ -73,3 +73,39 @@
   }), { rootMargin: '0px 0px -8% 0px' });
   below.forEach(el => io.observe(el));
 })();
+
+// Campaign tracking: keep src / utm_* from the landing address, report checkout starts and purchases to the Meta pixel.
+(function track() {
+  const KEYS = ['src', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  const CFG = window.TOMIZ_CLUB || {};
+  const store = {
+    get() { try { return JSON.parse(localStorage.getItem('tomiz_club_src') || '{}'); } catch (e) { return {}; } },
+    set(v) { try { localStorage.setItem('tomiz_club_src', JSON.stringify(v)); } catch (e) {} }
+  };
+  const q = new URLSearchParams(location.search), found = {};
+  KEYS.forEach(k => { if (q.get(k)) found[k] = q.get(k).slice(0, 80); });
+  if (Object.keys(found).length) store.set(Object.assign(found, { at: Date.now() }));
+  const src = store.get();
+  const fb = (...a) => { if (typeof window.fbq === 'function') window.fbq(...a); };
+  const extra = { content_name: 'tomiz-club', source: src.src || src.utm_source || 'direct', campaign: src.utm_campaign || '' };
+
+  document.querySelectorAll('a.cl-btn[href]').forEach(a => {
+    const href = a.getAttribute('href');
+    if (!/^https?:/.test(href) || /wa\.me|calendar|\/club\//.test(href)) return; // only the payment link
+    if (CFG.pass_params) {
+      const u = new URL(href);
+      KEYS.forEach(k => { if (src[k] && !u.searchParams.has(k)) u.searchParams.set(k, src[k]); });
+      a.href = u.toString();
+    }
+    a.addEventListener('click', () => fb('track', 'InitiateCheckout', Object.assign({ value: CFG.price || 69, currency: 'ILS' }, extra)));
+  });
+
+  if (document.querySelector('[data-page="thanks"]')) {
+    let sent = 0;
+    try { sent = +localStorage.getItem('tomiz_club_purchase') || 0; } catch (e) {}
+    if (Date.now() - sent > 25 * 864e5) { // one Purchase per browser per month, so refreshes don't double count
+      fb('track', 'Purchase', Object.assign({ value: CFG.price || 69, currency: 'ILS' }, extra));
+      try { localStorage.setItem('tomiz_club_purchase', String(Date.now())); } catch (e) {}
+    }
+  }
+})();
