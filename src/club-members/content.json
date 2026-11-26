@@ -1,0 +1,104 @@
+{
+  "_readme": "Members-area content. Newest first in every list. Text in [square brackets] shows as a yellow placeholder on the page. Recording video links never go here: each recording has a key, and its URL comes from the members system after login (club.<key>), like the Zoom link.",
+  "recordings": [
+    {
+      "title": "[שם המפגש הראשון]",
+      "date": "[תאריך]",
+      "topic": "[נושא]",
+      "length": "[משך]",
+      "desc": "[משפט אחד: מה לומדים ומה יוצאים איתו]",
+      "key": "rec1"
+    },
+    {
+      "title": "[שם ההקלטה]",
+      "date": "[תאריך]",
+      "topic": "[נושא]",
+      "length": "[משך]",
+      "desc": "[משפט אחד: מה לומדים ומה יוצאים איתו]",
+      "key": "rec2"
+    },
+    {
+      "title": "[שם ההקלטה]",
+      "date": "[תאריך]",
+      "topic": "[נושא]",
+      "length": "[משך]",
+      "desc": "[משפט אחד: מה לומדים ומה יוצאים איתו]",
+      "key": "rec3"
+    }
+  ],
+  "guides": [
+    {
+      "title": "מילון AI למומחים",
+      "type": "מדריך",
+      "desc": "8 מונחים שכל מומחה ואיש מקצוע צריך להכיר, ואיך משתמשים בכל אחד כבר מחר בבוקר.",
+      "url": "/ai-dictionary/"
+    },
+    {
+      "title": "העבודה השחורה לסוכן AI",
+      "type": "מדריך אינטראקטיבי",
+      "desc": "איך מעבירים משימה שחוזרת על עצמה לסוכן.",
+      "url": "https://claude.ai/artifact/H8UQhsRPeLkZuGcoDE4MNq"
+    },
+    {
+      "title": "הכסף על הרצפה",
+      "type": "מדריך אינטראקטיבי",
+      "desc": "דשבורד שמוצא הזדמנויות שנופלות בין הכיסאות.",
+      "url": "https://claude.ai/artifact/QdPag3gVhKX5BQpKc1hfQz"
+    },
+    {
+      "title": "מה זה Skill ואיך בונים אחד",
+      "type": "מדריך אינטראקטיבי",
+      "desc": "מדריך צעד אחרי צעד לבנייה ולהתקנה.",
+      "url": "https://claude.ai/artifact/1chkEmXtrHPaagSRQtG2C5"
+    },
+    {
+      "title": "מה זה Connector ואיך משתמשים בו",
+      "type": "מדריך אינטראקטיבי",
+      "desc": "מחברים את Claude לכלים שכבר יש לכם.",
+      "url": "https://claude.ai/artifact/NPshKjzmS14GAz4cUH5hXM"
+    },
+    {
+      "title": "30 טיפים לעבודה יעילה עם AI",
+      "type": "מדריך אינטראקטיבי",
+      "desc": "טיפים קצרים שאפשר ליישם כבר היום.",
+      "url": "https://claude.ai/artifact/4ydGtbgJ6xHwSxuG9qfK5v"
+    }
+  ],
+  "prompts": [
+    {
+      "title": "[שם הפרומפט]",
+      "use": "[מתי משתמשים בו]",
+      "tool": "[ChatGPT / Claude / Gemini]",
+      "text": "[הטקסט המלא של הפרומפט. החלקים שהחברה ממלאת מסומנים בסוגריים]"
+    },
+    {
+      "title": "[שם הפרומפט]",
+      "use": "[מתי משתמשים בו]",
+      "tool": "[כלי]",
+      "text": "[הטקסט המלא של הפרומפט]"
+    },
+    {
+      "title": "[שם הפרומפט]",
+      "use": "[מתי משתמשים בו]",
+      "tool": "[כלי]",
+      "text": "[הטקסט המלא של הפרומפט]"
+    }
+  ],
+  "tips": [
+    {
+      "title": "[כותרת הטיפ]",
+      "date": "[תאריך]",
+      "text": "[2 עד 3 משפטים: מה עושים, ואיך זה נראה בפועל]"
+    },
+    {
+      "title": "[כותרת הטיפ]",
+      "date": "[תאריך]",
+      "text": "[2 עד 3 משפטים]"
+    },
+    {
+      "title": "[כותרת הטיפ]",
+      "date": "[תאריך]",
+      "text": "[2 עד 3 משפטים]"
+    }
+  ]
+}
