@@ -1,0 +1,24 @@
+{
+  "_note": "TomiZ Club data. Edit here, then run build.py. pay_url / wa_group empty = not connected yet. Dates and topics are proposals awaiting shaked's approval.",
+  "members_path": "/club/members/",
+  "pay_url": "",
+  "wa_group": "",
+  "wa_number": "972525012413",
+  "book_url": "https://calendar.app.google/UVXFJewFrjE2LVNKA",
+  "launch": "2026-12-01",
+  "teams_url": "",
+  "events": [
+    {"id": "live-1", "date": "2026-12-09", "start": "10:00", "minutes": 75, "title": "מפגש 1: Claude כעוזר אישי לעסק", "desc": "בונים יחד כלי אחד למשימה שחוזרת אצלכם כל שבוע."},
+    {"id": "live-2", "date": "2026-12-23", "start": "10:00", "minutes": 75, "title": "מפגש 2: תוכן לרשתות עם AI", "desc": "מרעיון לפוסט מוכן, בסגנון שלכם."},
+    {"id": "live-3", "date": "2027-01-06", "start": "10:00", "minutes": 75, "title": "מפגש 3: הסוכן הראשון שלכם", "desc": "משימה שחוזרת על עצמה עוברת ל-AI, צעד אחרי צעד."}
+  ],
+  "recordings": [],
+  "guides": [
+    {"title": "מילון AI למומחים", "desc": "8 מונחים שכל מומחה צריך להכיר, ואיך משתמשים בכל אחד.", "kind": "PDF", "url": "/files/ai-dictionary.pdf"},
+    {"title": "העבודה השחורה לסוכן AI", "desc": "איך מעבירים משימה שחוזרת על עצמה לסוכן.", "kind": "מדריך אינטראקטיבי", "url": "https://claude.ai/artifact/H8UQhsRPeLkZuGcoDE4MNq"},
+    {"title": "הכסף על הרצפה", "desc": "דשבורד שמוצא הזדמנויות שנופלות בין הכיסאות.", "kind": "מדריך אינטראקטיבי", "url": "https://claude.ai/artifact/QdPag3gVhKX5BQpKc1hfQz"},
+    {"title": "מה זה Skill ואיך בונים אחד", "desc": "מדריך צעד אחרי צעד לבנייה ולהתקנה.", "kind": "מדריך אינטראקטיבי", "url": "https://claude.ai/artifact/1chkEmXtrHPaagSRQtG2C5"},
+    {"title": "מה זה Connector ואיך משתמשים בו", "desc": "מחברים את Claude לכלים שכבר יש לכם.", "kind": "מדריך אינטראקטיבי", "url": "https://claude.ai/artifact/NPshKjzmS14GAz4cUH5hXM"},
+    {"title": "30 טיפים לעבודה יעילה עם AI", "desc": "טיפים קצרים שאפשר ליישם כבר היום.", "kind": "מדריך אינטראקטיבי", "url": "https://claude.ai/artifact/4ydGtbgJ6xHwSxuG9qfK5v"}
+  ]
+}
